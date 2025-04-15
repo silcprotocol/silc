@@ -8,11 +8,11 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/precompiles/bank"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
-	integrationutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	integrationutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	inflationtypes "github.com/silcprotocol/silc/x/inflation/v1/types"
 	"github.com/stretchr/testify/suite"
 )

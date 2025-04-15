@@ -20,7 +20,7 @@ from .utils import (
 @pytest.fixture(scope="module")
 def pruned(tmp_path_factory):
     """
-    setup silc with 'pruning = everything'
+    setup evmos with 'pruning = everything'
     """
     yield from setup_custom_evmos(
         tmp_path_factory.mktemp("pruned"),
@@ -32,28 +32,28 @@ def pruned(tmp_path_factory):
 @pytest.fixture(scope="module")
 def pruned_rocksdb(tmp_path_factory):
     """
-    setup silc with memIAVL + versionDB
+    setup evmos with memIAVL + versionDB
     and 'pruning = everything'
     """
     yield from setup_custom_evmos(
         tmp_path_factory.mktemp("pruned-rocksdb"),
         26700,
         Path(__file__).parent / "configs/memiavl-pruned_node.jsonnet",
-        chain_binary="evmosd-rocksdb",
+        chain_binary="silcd-rocksdb",
         post_init=create_snapshots_dir,
     )
 
 
-@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
+@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
 def pruned_cluster(request, pruned, pruned_rocksdb):
     """
-    run on silc and
-    silc built with rocksdb (memIAVL + versionDB)
+    run on evmos and
+    evmos built with rocksdb (memIAVL + versionDB)
     """
     provider = request.param
-    if provider == "silc":
+    if provider == "evmos":
         yield pruned
-    elif provider == "silc-rocksdb":
+    elif provider == "evmos-rocksdb":
         yield pruned_rocksdb
     else:
         raise NotImplementedError

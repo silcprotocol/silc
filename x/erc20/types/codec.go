@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package types
 
@@ -27,11 +27,11 @@ var (
 
 const (
 	// Amino names
-	convertERC20Name = "silc/MsgConvertERC20"
-	convertCoinName  = "silc/MsgConvertCoin" // keep it for backwards compatibility when querying txs
-	updateParams     = "silc/erc20/MsgUpdateParams"
-	registerERC20    = "silc/erc20/MsgRegisterERC20"
-	toggleConversion = "silc/erc20/MsgToggleConversion"
+	convertERC20Name = "evmos/MsgConvertERC20"
+	convertCoinName  = "evmos/MsgConvertCoin" // keep it for backwards compatibility when querying txs
+	updateParams     = "evmos/erc20/MsgUpdateParams"
+	registerERC20    = "evmos/erc20/MsgRegisterERC20"
+	toggleConversion = "evmos/erc20/MsgToggleConversion"
 )
 
 // NOTE: This is required for the GetSignBytes function

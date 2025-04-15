@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package testutil
 
 import (
@@ -53,7 +53,7 @@ type ContractCallArgs struct {
 // compiled contract data and constructor arguments
 func DeployContract(
 	ctx sdk.Context,
-	evmosApp *app.Evmos,
+	evmosApp *app.Silc,
 	priv cryptotypes.PrivKey,
 	queryClientEvm evm.QueryClient,
 	contract evm.CompiledContract,
@@ -101,7 +101,7 @@ func DeployContract(
 // with the provided factoryAddress
 func DeployContractWithFactory(
 	ctx sdk.Context,
-	evmosApp *app.Evmos,
+	evmosApp *app.Silc,
 	priv cryptotypes.PrivKey,
 	factoryAddress common.Address,
 ) (common.Address, abci.ExecTxResult, error) {

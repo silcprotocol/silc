@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package upgrade
 
@@ -7,7 +7,7 @@ import "github.com/ory/dockertest/v3"
 
 const jrpcPort = "8545"
 
-// Node represents an Evmos node in the context of the upgrade tests. It contains
+// Node represents an Silc node in the context of the upgrade tests. It contains
 // fields to store the used repository, version as well as custom run options for
 // dockertest.
 type Node struct {

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package client
 
 import (
@@ -28,7 +28,7 @@ func InitConfig(cmd *cobra.Command) error {
 	_, err = os.Stat(configFile)
 	if err != nil && !os.IsNotExist(err) {
 		// Immediately return if the error isn't related to the file not existing.
-		// See issue https://github.com/silc/ethermint/issues/539
+		// See issue https://github.com/evmos/ethermint/issues/539
 		return err
 	}
 	if err == nil {

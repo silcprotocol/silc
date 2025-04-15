@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	"github.com/silcprotocol/silc/x/feemarket/types"
 	"github.com/stretchr/testify/require"
 )

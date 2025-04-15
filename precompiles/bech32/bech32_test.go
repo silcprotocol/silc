@@ -105,7 +105,7 @@ func (s *PrecompileTestSuite) TestRun() {
 			"invalid bech32 human readable prefix (HRP)",
 		},
 		{
-			"pass - hex to bech32 account (silc)",
+			"pass - hex to bech32 account (evmos)",
 			func() *vm.Contract {
 				input, err := s.precompile.Pack(
 					bech32.HexToBech32Method,

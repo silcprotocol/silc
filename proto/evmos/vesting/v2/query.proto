@@ -1,7 +1,7 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 syntax = "proto3";
-package silc.vesting.v2;
+package evmos.vesting.v2;
 
 import "amino/amino.proto";
 import "cosmos/base/v1beta1/coin.proto";
@@ -14,7 +14,7 @@ option go_package = "github.com/silcprotocol/silc/x/vesting/types";
 service Query {
   // Balances retrieves the unvested, vested and locked tokens for a vesting account
   rpc Balances(QueryBalancesRequest) returns (QueryBalancesResponse) {
-    option (google.api.http).get = "/silc/vesting/v2/balances/{address}";
+    option (google.api.http).get = "/evmos/vesting/v2/balances/{address}";
   }
 }
 

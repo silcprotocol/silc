@@ -19,15 +19,15 @@ def custom_evmos_rocksdb(tmp_path_factory):
     yield from setup_evmos_rocksdb(path, 26510)
 
 
-@pytest.fixture(scope="module", params=["silc", "silc-rocksdb", "geth"])
+@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb", "geth"])
 def cluster(request, custom_evmos, custom_evmos_rocksdb, geth):
     """
-    run on silc, silc built with rocksdb and geth
+    run on evmos, evmos built with rocksdb and geth
     """
     provider = request.param
-    if provider == "silc":
+    if provider == "evmos":
         yield custom_evmos
-    elif provider == "silc-rocksdb":
+    elif provider == "evmos-rocksdb":
         yield custom_evmos_rocksdb
     elif provider == "geth":
         yield geth

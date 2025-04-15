@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package utils
 
@@ -7,8 +7,8 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/ethereum/go-ethereum/common"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	erc20types "github.com/silcprotocol/silc/x/erc20/types"
@@ -16,7 +16,7 @@ import (
 )
 
 // CreateGenesisWithTokenPairs creates a genesis that includes
-// the WEVMOS and the provided denoms.
+// the WSILC and the provided denoms.
 // If no denoms provided, creates only one dynamic precompile with the 'xmpl' denom.
 func CreateGenesisWithTokenPairs(keyring testkeyring.Keyring, denoms ...string) network.CustomGenesisState {
 	// Add all keys from the keyring to the genesis accounts as well.
@@ -45,12 +45,12 @@ func CreateGenesisWithTokenPairs(keyring testkeyring.Keyring, denoms ...string) 
 	accGenesisState := authtypes.DefaultGenesisState()
 	for _, genesisAccount := range genesisAccounts {
 		// NOTE: This type requires to be packed into a *types.Any as seen on SDK tests,
-		// e.g. https://github.com/silc/cosmos-sdk/blob/v0.47.5-silc.2/x/auth/keeper/keeper_test.go#L193-L223
+		// e.g. https://github.com/evmos/cosmos-sdk/blob/v0.47.5-evmos.2/x/auth/keeper/keeper_test.go#L193-L223
 		accGenesisState.Accounts = append(accGenesisState.Accounts, codectypes.UnsafePackAny(genesisAccount))
 	}
 
 	// get the common.Address to store the hex string addresses using EIP-55
-	wevmosAddr := common.HexToAddress(erc20types.WEVMOSContractTestnet).Hex()
+	wevmosAddr := common.HexToAddress(erc20types.WSILCContractTestnet).Hex()
 
 	// Add token pairs to genesis
 	tokenPairs := make([]erc20types.TokenPair, 0, len(denoms)+1)
@@ -79,7 +79,7 @@ func CreateGenesisWithTokenPairs(keyring testkeyring.Keyring, denoms ...string) 
 	erc20GenesisState.TokenPairs = tokenPairs
 
 	// STR v2: update the NativePrecompiles and DynamicPrecompiles
-	// with the WEVMOS (default is mainnet) and 'xmpl' tokens in the erc20 params
+	// with the WSILC (default is mainnet) and 'xmpl' tokens in the erc20 params
 	erc20GenesisState.Params.NativePrecompiles = []string{wevmosAddr}
 	erc20GenesisState.Params.DynamicPrecompiles = dynPrecAddr
 

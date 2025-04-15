@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package contracts
 
@@ -12,19 +12,19 @@ import (
 
 var (
 	//go:embed compiled_contracts/WEVMOS.json
-	WEVMOSJSON []byte
+	WSILCJSON []byte
 
-	// WEVMOSContract is the compiled contract of WEVMOS
-	WEVMOSContract evmtypes.CompiledContract
+	// WSILCContract is the compiled contract of WSILC
+	WSILCContract evmtypes.CompiledContract
 )
 
 func init() {
-	err := json.Unmarshal(WEVMOSJSON, &WEVMOSContract)
+	err := json.Unmarshal(WSILCJSON, &WSILCContract)
 	if err != nil {
 		panic(err)
 	}
 
-	if len(WEVMOSContract.Bin) == 0 {
-		panic("failed to load WEVMOS smart contract")
+	if len(WSILCContract.Bin) == 0 {
+		panic("failed to load WSILC smart contract")
 	}
 }

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package evm_test
 
 import (
@@ -10,10 +10,10 @@ import (
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	gethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/silcprotocol/silc/app/ante/evm"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 

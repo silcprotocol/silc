@@ -32,24 +32,24 @@ def evmos_indexer(tmp_path_factory):
 
 @pytest.fixture(
     scope="module",
-    params=["silc", "geth", "silc-ws", "silc-rocksdb", "enable-indexer"],
+    params=["evmos", "geth", "evmos-ws", "evmos-rocksdb", "enable-indexer"],
 )
 def cluster(request, custom_evmos, evmos_rocksdb, evmos_indexer, geth):
     """
-    run on both silc and geth
+    run on both evmos and geth
     """
     provider = request.param
-    if provider == "silc":
+    if provider == "evmos":
         yield custom_evmos
     elif provider == "geth":
         yield geth
-    elif provider == "silc-ws":
+    elif provider == "evmos-ws":
         evmos_ws = custom_evmos.copy()
         evmos_ws.use_websocket()
         yield evmos_ws
     elif provider == "enable-indexer":
         yield evmos_indexer
-    elif provider == "silc-rocksdb":
+    elif provider == "evmos-rocksdb":
         yield evmos_rocksdb
     else:
         raise NotImplementedError

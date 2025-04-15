@@ -27,13 +27,13 @@ func (suite *KeeperTestSuite) TestWithChainID() {
 			true,
 		},
 		{
-			"success - Evmos mainnet chain ID",
+			"success - Silc mainnet chain ID",
 			"evmos_9001-2",
 			9001,
 			false,
 		},
 		{
-			"success - Evmos testnet chain ID",
+			"success - Silc testnet chain ID",
 			"evmos_9000-4",
 			9000,
 			false,

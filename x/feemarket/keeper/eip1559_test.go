@@ -7,7 +7,7 @@ import (
 	"cosmossdk.io/math"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	"github.com/stretchr/testify/require"
 )
 

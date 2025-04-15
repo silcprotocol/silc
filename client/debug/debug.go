@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package debug
 
 import (
@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/silcprotocol/silc/ethereum/eip712"
-	silc "github.com/silcprotocol/silc/types"
+	evmos "github.com/silcprotocol/silc/types"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -82,7 +82,7 @@ func AddrCmd() *cobra.Command {
 		Long:  "Convert an address between hex encoding and bech32.",
 		Example: fmt.Sprintf(
 			`$ %s debug addr evmos1qqqqhe5pnaq5qq39wqkn957aydnrm45sdn8583
-$ %s debug addr 0x00000Be6819f41400225702D32d3dd23663Dd690 --prefix silc`, version.AppName, version.AppName),
+$ %s debug addr 0x00000Be6819f41400225702D32d3dd23663Dd690 --prefix evmos`, version.AppName, version.AppName),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			addrString := args[0]
@@ -126,7 +126,7 @@ $ %s debug addr 0x00000Be6819f41400225702D32d3dd23663Dd690 --prefix silc`, versi
 		},
 	}
 
-	cmd.Flags().String(flagPrefix, "", "Bech32 encoded account prefix, for example silc, evmosvaloper")
+	cmd.Flags().String(flagPrefix, "", "Bech32 encoded account prefix, for example evmos, evmosvaloper")
 	return cmd
 }
 
@@ -161,7 +161,7 @@ func LegacyEIP712Cmd() *cobra.Command {
 	return &cobra.Command{
 		Use:     "legacy-eip712 [file]",
 		Short:   "Output types of legacy eip712 typed data according to the given transaction",
-		Example: fmt.Sprintf(`$ %s debug legacy-eip712 tx.json --chain-id evmosd_9000-1`, version.AppName),
+		Example: fmt.Sprintf(`$ %s debug legacy-eip712 tx.json --chain-id silcd_9000-1`, version.AppName),
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -179,7 +179,7 @@ func LegacyEIP712Cmd() *cobra.Command {
 				return errors.Wrap(err, "encode tx")
 			}
 
-			chainID, err := silc.ParseChainID(clientCtx.ChainID)
+			chainID, err := evmos.ParseChainID(clientCtx.ChainID)
 			if err != nil {
 				return errors.Wrap(err, "invalid chain ID passed as argument")
 			}

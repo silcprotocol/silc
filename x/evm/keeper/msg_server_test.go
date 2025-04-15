@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package keeper_test
 
 import (
@@ -9,7 +9,7 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	"github.com/silcprotocol/silc/x/evm/types"
 )
 

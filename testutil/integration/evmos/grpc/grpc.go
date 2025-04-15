@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package grpc
 
@@ -8,7 +8,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	commongrpc "github.com/silcprotocol/silc/testutil/integration/common/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	feemarkettypes "github.com/silcprotocol/silc/x/feemarket/types"
 	infltypes "github.com/silcprotocol/silc/x/inflation/v1/types"

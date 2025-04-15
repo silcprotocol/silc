@@ -3,11 +3,11 @@ from .utils import get_current_height, supervisorctl, wait_for_block
 
 def test_block_cmd(evmos_cluster):
     """
-    - start 2 silc nodes
+    - start 2 evmos nodes
     - wait for a certain height
     - stop the node1
     - use the 'block' cli cmd
-    - restart silc node1
+    - restart evmos node1
     """
 
     # wait for specific height

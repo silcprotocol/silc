@@ -1,16 +1,16 @@
 import pytest
 
 from .ibc_utils import assert_ready, get_balance, prepare_network
-from .network import CosmosChain, Evmos
+from .network import CosmosChain, Silc
 from .utils import ADDRS, eth_to_bech32, wait_for_ack, wait_for_cosmos_tx_receipt
 
-# The token factory IBC denom on Evmos
+# The token factory IBC denom on Silc
 TOKEN_FACTORY_IBC_DENOM = (
     "ibc/19616F5020D74FD2314577BF0B0CB99615C4C959665E308646291AF3B35FA4F2"
 )
 
 
-@pytest.fixture(scope="module", params=["silc"])
+@pytest.fixture(scope="module", params=["evmos"])
 def ibc(request, tmp_path_factory):
     """Prepare the network"""
     name = "str-v2-token-factory"
@@ -28,10 +28,10 @@ def test_str_v2_token_factory(ibc):
     """
     assert_ready(ibc)
 
-    silc: Evmos = ibc.chains["silc"]
+    evmos: Silc = ibc.chains["evmos"]
     osmosis: CosmosChain = ibc.chains["osmosis"]
 
-    evmos_cli = silc.cosmos_cli()
+    evmos_cli = evmos.cosmos_cli()
     evmos_addr = ADDRS["signer2"]
     bech_dst = eth_to_bech32(evmos_addr)
 
@@ -50,7 +50,7 @@ def test_str_v2_token_factory(ibc):
     )
     assert rsp["code"] == 0
 
-    wait_for_ack(evmos_cli, "Evmos")
+    wait_for_ack(evmos_cli, "Silc")
 
     token_pairs = evmos_cli.get_token_pairs()
     assert len(token_pairs) == 1
@@ -60,7 +60,7 @@ def test_str_v2_token_factory(ibc):
     ]
     assert len(active_dynamic_precompiles) == 0
 
-    balance = get_balance(silc, bech_dst, TOKEN_FACTORY_IBC_DENOM)
+    balance = get_balance(evmos, bech_dst, TOKEN_FACTORY_IBC_DENOM)
     assert balance == 100
 
 

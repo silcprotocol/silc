@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package staking_test
 
 import (
@@ -31,9 +31,9 @@ import (
 	"github.com/silcprotocol/silc/precompiles/testutil"
 	"github.com/silcprotocol/silc/precompiles/testutil/contracts"
 	evmosutil "github.com/silcprotocol/silc/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
@@ -229,7 +229,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 			s.ExpectAuthorization(staking.DelegateAuthz, grantee.Addr, granter.Addr, nil)
 		})
 
-		It("should approve the undelegate method with 1 silc", func() {
+		It("should approve the undelegate method with 1 evmos", func() {
 			granter := s.keyring.GetKey(0)
 			grantee := s.keyring.GetKey(1)
 
@@ -240,7 +240,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 			s.ExpectAuthorization(staking.UndelegateAuthz, grantee.Addr, granter.Addr, &oneE18Coin)
 		})
 
-		It("should approve the redelegate method with 2 silc", func() {
+		It("should approve the redelegate method with 2 evmos", func() {
 			granter := s.keyring.GetKey(0)
 			grantee := s.keyring.GetKey(1)
 
@@ -251,7 +251,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 			s.ExpectAuthorization(staking.RedelegateAuthz, grantee.Addr, granter.Addr, &twoE18Coin)
 		})
 
-		It("should approve the cancel unbonding delegation method with 1 silc", func() {
+		It("should approve the cancel unbonding delegation method with 1 evmos", func() {
 			granter := s.keyring.GetKey(0)
 			grantee := s.keyring.GetKey(1)
 
@@ -286,7 +286,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 		//	Expect(err).To(BeNil(), "error while calling the contract and checking logs")
 		// })
 
-		It("Should increase the allowance of the delegate method with 1 silc", func() {
+		It("Should increase the allowance of the delegate method with 1 evmos", func() {
 			granter := s.keyring.GetKey(0)
 			grantee := s.keyring.GetKey(1)
 
@@ -363,7 +363,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 		//	Expect(err).To(BeNil(), "error while calling the contract and checking logs")
 		// })
 
-		It("Should decrease the allowance of the delegate method with 1 silc", func() {
+		It("Should decrease the allowance of the delegate method with 1 evmos", func() {
 			granteeAddr := s.precompile.Address()
 			granter := s.keyring.GetKey(0)
 
@@ -1933,7 +1933,7 @@ var _ = Describe("Calling staking precompile directly", func() {
 
 		It("should return an empty array if no redelegation is found for the given source validator", func() {
 			// NOTE: the way that the functionality is implemented in the Cosmos SDK, the following combinations are
-			// possible (see https://github.com/silc/cosmos-sdk/blob/e773cf768844c87245d0c737cda1893a2819dd89/x/staking/keeper/querier.go#L361-L373):
+			// possible (see https://github.com/evmos/cosmos-sdk/blob/e773cf768844c87245d0c737cda1893a2819dd89/x/staking/keeper/querier.go#L361-L373):
 			//
 			// - delegator is NOT empty, source validator is empty, destination validator is empty
 			//   --> filtering for all redelegations of the given delegator

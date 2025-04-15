@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package personal
 
 import (
@@ -98,7 +98,7 @@ func (api *PrivateAccountAPI) NewAccount(password string) (common.Address, error
 	}
 	addr := common.BytesToAddress(pubKey.Address().Bytes())
 	api.logger.Info("Your new key was generated", "address", addr.String())
-	api.logger.Info("Please backup your key file!", "path", os.Getenv("HOME")+"/.silc/"+name) // TODO: pass the correct binary
+	api.logger.Info("Please backup your key file!", "path", os.Getenv("HOME")+"/.evmos/"+name) // TODO: pass the correct binary
 	api.logger.Info("Please remember your password!")
 	return addr, nil
 }

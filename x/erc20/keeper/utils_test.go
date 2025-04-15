@@ -7,7 +7,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/contracts"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
 	"github.com/silcprotocol/silc/x/erc20/keeper/testdata"
 	"github.com/silcprotocol/silc/x/erc20/types"
 	evm "github.com/silcprotocol/silc/x/evm/types"

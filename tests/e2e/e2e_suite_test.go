@@ -11,14 +11,14 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	"github.com/silcprotocol/silc/tests/e2e/upgrade"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/stretchr/testify/suite"
 )
 
 const (
 	// defaultManagerNetwork defines the network used by the upgrade manager
-	defaultManagerNetwork = "silc-local"
+	defaultManagerNetwork = "evmos-local"
 
 	// blocksAfterUpgrade defines how many blocks must be produced after an upgrade is
 	// considered successful
@@ -60,7 +60,7 @@ func (s *IntegrationTestSuite) SetupSuite() {
 	}
 }
 
-// runInitialNode builds a docker image capable of running an Evmos node with the given version.
+// runInitialNode builds a docker image capable of running an Silc node with the given version.
 // After a successful build, it runs the container and checks if the node can produce blocks.
 func (s *IntegrationTestSuite) runInitialNode(version upgrade.VersionConfig) {
 	err := s.upgradeManager.BuildImage(
@@ -70,13 +70,13 @@ func (s *IntegrationTestSuite) runInitialNode(version upgrade.VersionConfig) {
 		".",
 		map[string]string{"INITIAL_VERSION": version.ImageTag},
 	)
-	s.Require().NoError(err, "can't build container with Evmos version: %s", version.ImageTag)
+	s.Require().NoError(err, "can't build container with Silc version: %s", version.ImageTag)
 
 	node := upgrade.NewNode(version.ImageName, version.ImageTag)
 	node.SetEnvVars([]string{fmt.Sprintf("CHAIN_ID=%s", s.upgradeParams.ChainID)})
 
 	err = s.upgradeManager.RunNode(node)
-	s.Require().NoError(err, "can't run node with Evmos version: %s", version)
+	s.Require().NoError(err, "can't run node with Silc version: %s", version)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -99,9 +99,9 @@ func (s *IntegrationTestSuite) proposeUpgrade(name, target string) {
 	s.Require().NoError(err, "can't get upgrade height")
 	s.upgradeManager.UpgradeHeight = upgradeHeight
 
-	// if Evmos is lower than v10.x.x no need to use the legacy proposal
+	// if Silc is lower than v10.x.x no need to use the legacy proposal
 	currentVersion, err := s.upgradeManager.GetNodeVersion(ctx)
-	s.Require().NoError(err, "can't get current Evmos version")
+	s.Require().NoError(err, "can't get current Silc version")
 	proposalVersion := upgrade.CheckUpgradeProposalVersion(currentVersion)
 
 	// create the proposal
@@ -115,14 +115,14 @@ func (s *IntegrationTestSuite) proposeUpgrade(name, target string) {
 	)
 	s.Require().NoErrorf(
 		err,
-		"can't create the proposal to upgrade Evmos to %s at height %d with name %s",
+		"can't create the proposal to upgrade Silc to %s at height %d with name %s",
 		target, s.upgradeManager.UpgradeHeight, name,
 	)
 
 	outBuf, errBuf, err := s.upgradeManager.RunExec(ctx, exec)
 	s.Require().NoErrorf(
 		err,
-		"failed to submit proposal to upgrade Evmos to %s at height %d\nstdout: %s,\nstderr: %s",
+		"failed to submit proposal to upgrade Silc to %s at height %d\nstdout: %s,\nstderr: %s",
 		target, s.upgradeManager.UpgradeHeight, outBuf.String(), errBuf.String(),
 	)
 
@@ -176,7 +176,7 @@ func (s *IntegrationTestSuite) upgrade(targetVersion upgrade.VersionConfig) {
 	s.checkProposalPassed(ctx)
 
 	s.T().Log("exporting state to local...")
-	// export node .evmosd to local build/
+	// export node .silcd to local build/
 	err = s.upgradeManager.ExportState(buildDir)
 	s.Require().NoError(err, "can't export node container state to local")
 
@@ -199,7 +199,7 @@ func (s *IntegrationTestSuite) upgrade(targetVersion upgrade.VersionConfig) {
 
 	node := upgrade.NewNode(targetVersion.ImageName, targetVersion.ImageTag)
 	node.Mount(s.upgradeParams.MountPath)
-	node.SetCmd([]string{"evmosd", "start", fmt.Sprintf("--chain-id=%s", s.upgradeParams.ChainID), fmt.Sprintf("--home=%s.evmosd", rootDir)})
+	node.SetCmd([]string{"silcd", "start", fmt.Sprintf("--chain-id=%s", s.upgradeParams.ChainID), fmt.Sprintf("--home=%s.silcd", rootDir)})
 	err = s.upgradeManager.RunNode(node)
 	s.Require().NoError(err, "can't mount and run upgraded node container")
 

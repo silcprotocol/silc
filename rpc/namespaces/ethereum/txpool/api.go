@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package txpool
 
 import (
@@ -11,7 +11,7 @@ import (
 )
 
 // PublicAPI offers and API for the transaction pool. It only operates on data that is non-confidential.
-// NOTE: For more info about the current status of this endpoints see https://github.com/silc/ethermint/issues/124
+// NOTE: For more info about the current status of this endpoints see https://github.com/evmos/ethermint/issues/124
 type PublicAPI struct {
 	logger log.Logger
 }

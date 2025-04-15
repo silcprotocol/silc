@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package app
 
@@ -172,9 +172,9 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".evmosd")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".silcd")
 
-	// manually update the power reduction by replacing micro (u) -> atto (a) silc
+	// manually update the power reduction by replacing micro (u) -> atto (a) evmos
 	sdk.DefaultPowerReduction = evmostypes.PowerReduction
 	// modify fee market parameter defaults through global
 	feemarkettypes.DefaultMinGasPrice = MainnetMinGasPrices
@@ -184,7 +184,7 @@ func init() {
 }
 
 // Name defines the application binary name
-const Name = "evmosd"
+const Name = "silcd"
 
 var (
 	// DefaultNodeHome default home directories for the application daemon
@@ -207,15 +207,15 @@ var (
 )
 
 var (
-	_ servertypes.Application = (*Evmos)(nil)
-	_ ibctesting.TestingApp   = (*Evmos)(nil)
-	_ runtime.AppI            = (*Evmos)(nil)
+	_ servertypes.Application = (*Silc)(nil)
+	_ ibctesting.TestingApp   = (*Silc)(nil)
+	_ runtime.AppI            = (*Silc)(nil)
 )
 
-// Evmos implements an extended ABCI application. It is an application
+// Silc implements an extended ABCI application. It is an application
 // that may process transactions through Ethereum's EVM running atop of
 // Tendermint consensus.
-type Evmos struct {
+type Silc struct {
 	*baseapp.BaseApp
 
 	// encoding
@@ -258,7 +258,7 @@ type Evmos struct {
 	EvmKeeper       *evmkeeper.Keeper
 	FeeMarketKeeper feemarketkeeper.Keeper
 
-	// Evmos keepers
+	// Silc keepers
 	InflationKeeper inflationkeeper.Keeper
 	Erc20Keeper     erc20keeper.Keeper
 	EpochsKeeper    epochskeeper.Keeper
@@ -281,12 +281,12 @@ type Evmos struct {
 }
 
 // SimulationManager implements runtime.AppI
-func (*Evmos) SimulationManager() *module.SimulationManager {
+func (*Silc) SimulationManager() *module.SimulationManager {
 	panic("unimplemented")
 }
 
-// NewEvmos returns a reference to a new initialized Ethermint application.
-func NewEvmos(
+// NewSilc returns a reference to a new initialized Ethermint application.
+func NewSilc(
 	logger log.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
@@ -296,7 +296,7 @@ func NewEvmos(
 	invCheckPeriod uint,
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) *Evmos {
+) *Silc {
 	encodingConfig := encoding.MakeConfig()
 	appCodec := encodingConfig.Codec
 	cdc := encodingConfig.Amino
@@ -328,7 +328,7 @@ func NewEvmos(
 
 	keys, memKeys, tkeys := StoreKeys()
 
-	app := &Evmos{
+	app := &Silc{
 		BaseApp:           bApp,
 		cdc:               cdc,
 		appCodec:          appCodec,
@@ -460,7 +460,7 @@ func NewEvmos(
 		stakingKeeper, app.DistrKeeper, app.MsgServiceRouter(), govConfig, authAddr,
 	)
 
-	// Evmos Keeper
+	// Silc Keeper
 	app.InflationKeeper = inflationkeeper.NewKeeper(
 		keys[inflationtypes.StoreKey], appCodec, authtypes.NewModuleAddress(govtypes.ModuleName),
 		app.AccountKeeper, app.BankKeeper, app.DistrKeeper, stakingKeeper,
@@ -634,7 +634,7 @@ func NewEvmos(
 		// Ethermint app modules
 		evm.NewAppModule(app.EvmKeeper, app.AccountKeeper, app.GetSubspace(evmtypes.ModuleName)),
 		feemarket.NewAppModule(app.FeeMarketKeeper, app.GetSubspace(feemarkettypes.ModuleName)),
-		// Evmos app modules
+		// Silc app modules
 		inflation.NewAppModule(app.InflationKeeper, app.AccountKeeper, *app.StakingKeeper.Keeper,
 			app.GetSubspace(inflationtypes.ModuleName)),
 		erc20.NewAppModule(app.Erc20Keeper, app.AccountKeeper,
@@ -724,7 +724,7 @@ func NewEvmos(
 		authz.ModuleName,
 		feegrant.ModuleName,
 		upgradetypes.ModuleName,
-		// Evmos modules
+		// Silc modules
 		inflationtypes.ModuleName,
 		erc20types.ModuleName,
 		epochstypes.ModuleName,
@@ -845,9 +845,9 @@ func NewEvmos(
 }
 
 // Name returns the name of the App
-func (app *Evmos) Name() string { return app.BaseApp.Name() }
+func (app *Silc) Name() string { return app.BaseApp.Name() }
 
-func (app *Evmos) setAnteHandler(txConfig client.TxConfig, maxGasWanted uint64) {
+func (app *Silc) setAnteHandler(txConfig client.TxConfig, maxGasWanted uint64) {
 	options := ante.HandlerOptions{
 		Cdc:                    app.appCodec,
 		AccountKeeper:          app.AccountKeeper,
@@ -872,7 +872,7 @@ func (app *Evmos) setAnteHandler(txConfig client.TxConfig, maxGasWanted uint64) 
 	app.SetAnteHandler(ante.NewAnteHandler(options))
 }
 
-func (app *Evmos) setPostHandler() {
+func (app *Silc) setPostHandler() {
 	options := post.HandlerOptions{
 		FeeCollectorName: authtypes.FeeCollectorName,
 		BankKeeper:       app.BankKeeper,
@@ -888,17 +888,17 @@ func (app *Evmos) setPostHandler() {
 // BeginBlocker runs the Tendermint ABCI BeginBlock logic. It executes state changes at the beginning
 // of the new block for every registered module. If there is a registered fork at the current height,
 // BeginBlocker will schedule the upgrade plan and perform the state migration (if any).
-func (app *Evmos) BeginBlocker(ctx sdk.Context) (sdk.BeginBlock, error) {
+func (app *Silc) BeginBlocker(ctx sdk.Context) (sdk.BeginBlock, error) {
 	return app.mm.BeginBlock(ctx)
 }
 
 // EndBlocker updates every end block
-func (app *Evmos) EndBlocker(ctx sdk.Context) (sdk.EndBlock, error) {
+func (app *Silc) EndBlocker(ctx sdk.Context) (sdk.EndBlock, error) {
 	return app.mm.EndBlock(ctx)
 }
 
 // The DeliverTx method is intentionally decomposed to calculate the transactions per second.
-func (app *Evmos) FinalizeBlock(req *abci.RequestFinalizeBlock) (res *abci.ResponseFinalizeBlock, err error) {
+func (app *Silc) FinalizeBlock(req *abci.RequestFinalizeBlock) (res *abci.ResponseFinalizeBlock, err error) {
 	defer func() {
 		// TODO: Record the count along with the code and or reason so as to display
 		// in the transactions per second live dashboards.
@@ -915,7 +915,7 @@ func (app *Evmos) FinalizeBlock(req *abci.RequestFinalizeBlock) (res *abci.Respo
 }
 
 // InitChainer updates at chain initialization
-func (app *Evmos) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.ResponseInitChain, error) {
+func (app *Silc) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.ResponseInitChain, error) {
 	var genesisState evmostypes.GenesisState
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
@@ -928,17 +928,17 @@ func (app *Evmos) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abc
 	return app.mm.InitGenesis(ctx, app.appCodec, genesisState)
 }
 
-func (app *Evmos) PreBlocker(ctx sdk.Context, _ *abci.RequestFinalizeBlock) (*sdk.ResponsePreBlock, error) {
+func (app *Silc) PreBlocker(ctx sdk.Context, _ *abci.RequestFinalizeBlock) (*sdk.ResponsePreBlock, error) {
 	return app.mm.PreBlock(ctx)
 }
 
 // LoadHeight loads state at a particular height
-func (app *Evmos) LoadHeight(height int64) error {
+func (app *Silc) LoadHeight(height int64) error {
 	return app.LoadVersion(height)
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *Evmos) ModuleAccountAddrs() map[string]bool {
+func (app *Silc) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 
 	accs := make([]string, 0, len(maccPerms))
@@ -961,7 +961,7 @@ func (app *Evmos) ModuleAccountAddrs() map[string]bool {
 //   - module accounts
 //   - Ethereum's native precompiles
 //   - the static precompiled contracts available through evmOS
-func (app *Evmos) BlockedAddrs() map[string]bool {
+func (app *Silc) BlockedAddrs() map[string]bool {
 	blockedAddrs := make(map[string]bool)
 
 	accs := make([]string, 0, len(maccPerms))
@@ -986,64 +986,64 @@ func (app *Evmos) BlockedAddrs() map[string]bool {
 	return blockedAddrs
 }
 
-// LegacyAmino returns Evmos's amino codec.
+// LegacyAmino returns Silc's amino codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *Evmos) LegacyAmino() *codec.LegacyAmino {
+func (app *Silc) LegacyAmino() *codec.LegacyAmino {
 	return app.cdc
 }
 
-// AppCodec returns Evmos's app codec.
+// AppCodec returns Silc's app codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *Evmos) AppCodec() codec.Codec {
+func (app *Silc) AppCodec() codec.Codec {
 	return app.appCodec
 }
 
 // DefaultGenesis returns a default genesis from the registered AppModuleBasic's.
-func (app *Evmos) DefaultGenesis() evmostypes.GenesisState {
+func (app *Silc) DefaultGenesis() evmostypes.GenesisState {
 	return app.BasicModuleManager.DefaultGenesis(app.appCodec)
 }
 
-// InterfaceRegistry returns Evmos's InterfaceRegistry
-func (app *Evmos) InterfaceRegistry() types.InterfaceRegistry {
+// InterfaceRegistry returns Silc's InterfaceRegistry
+func (app *Silc) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
 }
 
 // GetKey returns the KVStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *Evmos) GetKey(storeKey string) *storetypes.KVStoreKey {
+func (app *Silc) GetKey(storeKey string) *storetypes.KVStoreKey {
 	return app.keys[storeKey]
 }
 
 // GetTKey returns the TransientStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *Evmos) GetTKey(storeKey string) *storetypes.TransientStoreKey {
+func (app *Silc) GetTKey(storeKey string) *storetypes.TransientStoreKey {
 	return app.tkeys[storeKey]
 }
 
 // GetMemKey returns the MemStoreKey for the provided mem key.
 //
 // NOTE: This is solely used for testing purposes.
-func (app *Evmos) GetMemKey(storeKey string) *storetypes.MemoryStoreKey {
+func (app *Silc) GetMemKey(storeKey string) *storetypes.MemoryStoreKey {
 	return app.memKeys[storeKey]
 }
 
 // GetSubspace returns a param subspace for a given module name.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *Evmos) GetSubspace(moduleName string) paramstypes.Subspace {
+func (app *Silc) GetSubspace(moduleName string) paramstypes.Subspace {
 	subspace, _ := app.ParamsKeeper.GetSubspace(moduleName)
 	return subspace
 }
 
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
-func (app *Evmos) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *Silc) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	clientCtx := apiSvr.ClientCtx
 
 	// Register new tx routes from grpc-gateway.
@@ -1062,12 +1062,12 @@ func (app *Evmos) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConf
 	}
 }
 
-func (app *Evmos) RegisterTxService(clientCtx client.Context) {
+func (app *Silc) RegisterTxService(clientCtx client.Context) {
 	authtx.RegisterTxService(app.GRPCQueryRouter(), clientCtx, app.BaseApp.Simulate, app.interfaceRegistry)
 }
 
 // RegisterTendermintService implements the Application.RegisterTendermintService method.
-func (app *Evmos) RegisterTendermintService(clientCtx client.Context) {
+func (app *Silc) RegisterTendermintService(clientCtx client.Context) {
 	cmtservice.RegisterTendermintService(
 		clientCtx,
 		app.BaseApp.GRPCQueryRouter(),
@@ -1078,44 +1078,44 @@ func (app *Evmos) RegisterTendermintService(clientCtx client.Context) {
 
 // RegisterNodeService registers the node gRPC service on the provided
 // application gRPC query router.
-func (app *Evmos) RegisterNodeService(clientCtx client.Context, cfg config.Config) {
+func (app *Silc) RegisterNodeService(clientCtx client.Context, cfg config.Config) {
 	node.RegisterNodeService(clientCtx, app.GRPCQueryRouter(), cfg)
 }
 
 // IBC Go TestingApp functions
 
 // GetBaseApp implements the TestingApp interface.
-func (app *Evmos) GetBaseApp() *baseapp.BaseApp {
+func (app *Silc) GetBaseApp() *baseapp.BaseApp {
 	return app.BaseApp
 }
 
 // GetStakingKeeper implements the TestingApp interface.
-func (app *Evmos) GetStakingKeeper() ibctestingtypes.StakingKeeper {
+func (app *Silc) GetStakingKeeper() ibctestingtypes.StakingKeeper {
 	return app.StakingKeeper
 }
 
 // GetStakingKeeperSDK implements the TestingApp interface.
-func (app *Evmos) GetStakingKeeperSDK() stakingkeeper.Keeper {
+func (app *Silc) GetStakingKeeperSDK() stakingkeeper.Keeper {
 	return app.StakingKeeper
 }
 
 // GetIBCKeeper implements the TestingApp interface.
-func (app *Evmos) GetIBCKeeper() *ibckeeper.Keeper {
+func (app *Silc) GetIBCKeeper() *ibckeeper.Keeper {
 	return app.IBCKeeper
 }
 
 // GetScopedIBCKeeper implements the TestingApp interface.
-func (app *Evmos) GetScopedIBCKeeper() capabilitykeeper.ScopedKeeper {
+func (app *Silc) GetScopedIBCKeeper() capabilitykeeper.ScopedKeeper {
 	return app.ScopedIBCKeeper
 }
 
 // GetTxConfig implements the TestingApp interface.
-func (app *Evmos) GetTxConfig() client.TxConfig {
+func (app *Silc) GetTxConfig() client.TxConfig {
 	return app.txConfig
 }
 
 // AutoCliOpts returns the autocli options for the app.
-func (app *Evmos) AutoCliOpts() autocli.AppOptions {
+func (app *Silc) AutoCliOpts() autocli.AppOptions {
 	modules := make(map[string]appmodule.AppModule, 0)
 	for _, m := range app.mm.Modules {
 		if moduleWithName, ok := m.(module.HasName); ok {
@@ -1180,13 +1180,13 @@ func initParamsKeeper(
 	// ethermint subspaces
 	paramsKeeper.Subspace(evmtypes.ModuleName).WithKeyTable(evmtypes.ParamKeyTable()) //nolint: staticcheck
 	paramsKeeper.Subspace(feemarkettypes.ModuleName).WithKeyTable(feemarkettypes.ParamKeyTable())
-	// silc subspaces
+	// evmos subspaces
 	paramsKeeper.Subspace(inflationtypes.ModuleName)
 	paramsKeeper.Subspace(erc20types.ModuleName)
 	return paramsKeeper
 }
 
-func (app *Evmos) setupUpgradeHandlers() {
+func (app *Silc) setupUpgradeHandlers() {
 	// v20 upgrade handler
 	app.UpgradeKeeper.SetUpgradeHandler(
 		v20.UpgradeName,

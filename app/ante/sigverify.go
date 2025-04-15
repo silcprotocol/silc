@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package ante
 
@@ -24,7 +24,7 @@ const (
 	Secp256k1VerifyCost uint64 = 21000
 )
 
-// SigVerificationGasConsumer is the Evmos implementation of SignatureVerificationGasConsumer. It consumes gas
+// SigVerificationGasConsumer is the Silc implementation of SignatureVerificationGasConsumer. It consumes gas
 // for signature verification based upon the public key type. The cost is fetched from the given params and is matched
 // by the concrete type.
 // The types of keys supported are:

@@ -1,14 +1,14 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package evm_test
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/silcprotocol/silc/app/ante/evm"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 )
 
 func (suite *EvmAnteTestSuite) TestIncrementSequence() {

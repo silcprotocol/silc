@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 syntax = "proto3";
 package ethermint.feemarket.v1;
 
@@ -14,17 +14,17 @@ option go_package = "github.com/silcprotocol/silc/x/feemarket/types";
 service Query {
   // Params queries the parameters of x/feemarket module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/silc/feemarket/v1/params";
+    option (google.api.http).get = "/evmos/feemarket/v1/params";
   }
 
   // BaseFee queries the base fee of the parent block of the current block.
   rpc BaseFee(QueryBaseFeeRequest) returns (QueryBaseFeeResponse) {
-    option (google.api.http).get = "/silc/feemarket/v1/base_fee";
+    option (google.api.http).get = "/evmos/feemarket/v1/base_fee";
   }
 
   // BlockGas queries the gas used at a given block height
   rpc BlockGas(QueryBlockGasRequest) returns (QueryBlockGasResponse) {
-    option (google.api.http).get = "/silc/feemarket/v1/block_gas";
+    option (google.api.http).get = "/evmos/feemarket/v1/block_gas";
   }
 }
 

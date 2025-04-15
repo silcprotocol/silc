@@ -1,7 +1,7 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 syntax = "proto3";
-package silc.vesting.v1;
+package evmos.vesting.v1;
 
 import "amino/amino.proto";
 import "cosmos/vesting/v1beta1/vesting.proto";
@@ -15,7 +15,7 @@ option go_package = "github.com/silcprotocol/silc/x/vesting/migrations/types";
 // PeriodicVestingAccount), or vesting which is subject to clawback
 // of unvested tokens, or a combination (tokens vest, but are still locked).
 message ClawbackVestingAccount {
-  option (amino.name) = "silc/x/vesting/v1/ClawbackVestingAccount";
+  option (amino.name) = "evmos/x/vesting/v1/ClawbackVestingAccount";
   option (gogoproto.goproto_getters) = false;
   option (gogoproto.goproto_stringer) = false;
 

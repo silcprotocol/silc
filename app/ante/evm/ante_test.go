@@ -604,7 +604,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),
@@ -634,7 +634,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),
@@ -664,7 +664,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),
@@ -719,7 +719,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),
@@ -749,7 +749,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),
@@ -779,7 +779,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),
@@ -809,7 +809,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),
@@ -843,7 +843,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),
@@ -873,7 +873,7 @@ func (suite *AnteTestSuite) TestAnteHandler() {
 					addr[:],
 					sdk.NewCoins(
 						sdk.NewCoin(
-							"silc",
+							"evmos",
 							sdkmath.NewInt(1),
 						),
 					),

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package backend
 
 import (
@@ -117,7 +117,7 @@ func (b *Backend) GetProof(address common.Address, storageKeys []string, blockNr
 		Balance:      (*hexutil.Big)(balance.BigInt()),
 		CodeHash:     common.HexToHash(res.CodeHash),
 		Nonce:        hexutil.Uint64(res.Nonce),
-		StorageHash:  common.Hash{}, // NOTE: Evmos doesn't have a storage hash. TODO: implement?
+		StorageHash:  common.Hash{}, // NOTE: Silc doesn't have a storage hash. TODO: implement?
 		StorageProof: storageProofs,
 	}, nil
 }

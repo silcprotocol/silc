@@ -15,7 +15,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	cmn "github.com/silcprotocol/silc/precompiles/common"
 	"github.com/silcprotocol/silc/precompiles/distribution"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 )
@@ -528,7 +528,7 @@ func (s *PrecompileTestSuite) TestFundCommunityPool() {
 			"invalid hex address address",
 		},
 		{
-			"success - fund the community pool 1 EVMOS",
+			"success - fund the community pool 1 SILC",
 			func() []interface{} {
 				return []interface{}{
 					s.keyring.GetAddr(0),
@@ -558,7 +558,7 @@ func (s *PrecompileTestSuite) TestFundCommunityPool() {
 			var contract *vm.Contract
 			contract, ctx = testutil.NewPrecompileContract(s.T(), ctx, s.keyring.GetAddr(0), s.precompile, tc.gas)
 
-			// Sanity check to make sure the starting balance is always 100k EVMOS
+			// Sanity check to make sure the starting balance is always 100k SILC
 			balance := s.network.App.BankKeeper.GetBalance(ctx, s.keyring.GetAddr(0).Bytes(), utils.BaseDenom)
 			s.Require().Equal(balance.Amount, network.PrefundedAccountInitialBalance)
 

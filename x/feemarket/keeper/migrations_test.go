@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	feemarketkeeper "github.com/silcprotocol/silc/x/feemarket/keeper"
 	"github.com/silcprotocol/silc/x/feemarket/types"
 	"github.com/stretchr/testify/require"

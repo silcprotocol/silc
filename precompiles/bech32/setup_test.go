@@ -5,8 +5,8 @@ import (
 
 	"github.com/silcprotocol/silc/precompiles/bech32"
 
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	"github.com/stretchr/testify/suite"
 )
 

@@ -23,7 +23,7 @@ import (
 	"github.com/silcprotocol/silc/indexer"
 	"github.com/silcprotocol/silc/rpc/backend/mocks"
 	rpctypes "github.com/silcprotocol/silc/rpc/types"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"

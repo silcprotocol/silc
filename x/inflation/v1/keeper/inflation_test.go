@@ -8,8 +8,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	evmostypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/inflation/v1/types"
@@ -99,7 +99,7 @@ func TestGetCirculatingSupplyAndInflationRate(t *testing.T) {
 	// the total bonded tokens for the 4 accounts initialized on the setup (3 validators, 1 EOA)
 	bondedAmount := network.DefaultBondedAmount.MulRaw(nVals)                             // Add the allocation for the validators
 	bondedAmount = bondedAmount.Add(network.PrefundedAccountInitialBalance.MulRaw(nAccs)) // Add the allocation for the EOA
-	bondedCoins := sdk.NewDecCoin(evmostypes.AttoEvmos, bondedAmount)
+	bondedCoins := sdk.NewDecCoin(evmostypes.AttoSilc, bondedAmount)
 
 	testCases := []struct {
 		name             string

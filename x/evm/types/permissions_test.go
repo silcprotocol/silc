@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package types_test
 
@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
 	"github.com/silcprotocol/silc/x/evm/types"
 	"github.com/stretchr/testify/suite"
 )

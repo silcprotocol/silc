@@ -34,9 +34,9 @@ ACCOUNTS = {
 }
 KEYS = {name: account.key for name, account in ACCOUNTS.items()}
 ADDRS = {name: account.address for name, account in ACCOUNTS.items()}
-EVMOS_ADDRESS_PREFIX = "silc"
+SILC_ADDRESS_PREFIX = "evmos"
 DEFAULT_DENOM = "aevmos"
-WEVMOS_ADDRESS = Web3.toChecksumAddress("0xD4949664cD82660AaE99bEdc034a0deA8A0bd517")
+WSILC_ADDRESS = Web3.toChecksumAddress("0xD4949664cD82660AaE99bEdc034a0deA8A0bd517")
 TEST_CONTRACTS = {
     "TestERC20A": "TestERC20A.sol",
     "TestRevert": "TestRevert.sol",
@@ -46,20 +46,20 @@ TEST_CONTRACTS = {
     "Mars": "Mars.sol",
     "StateContract": "StateContract.sol",
     "ICS20FromContract": "ICS20FromContract.sol",
-    "InterchainSender": "silc/testutil/contracts/InterchainSender.sol",
-    "InterchainSenderCaller": "silc/testutil/contracts/InterchainSenderCaller.sol",
-    "ICS20I": "silc/ics20/ICS20I.sol",
-    "DistributionI": "silc/distribution/DistributionI.sol",
-    "DistributionCaller": "silc/testutil/contracts/DistributionCaller.sol",
-    "StakingI": "silc/staking/StakingI.sol",
-    "StakingCaller": "silc/staking/testdata/StakingCaller.sol",
-    "IStrideOutpost": "silc/outposts/stride/IStrideOutpost.sol",
-    "IOsmosisOutpost": "silc/outposts/osmosis/IOsmosisOutpost.sol",
-    "IERC20": "silc/erc20/IERC20.sol",
+    "InterchainSender": "evmos/testutil/contracts/InterchainSender.sol",
+    "InterchainSenderCaller": "evmos/testutil/contracts/InterchainSenderCaller.sol",
+    "ICS20I": "evmos/ics20/ICS20I.sol",
+    "DistributionI": "evmos/distribution/DistributionI.sol",
+    "DistributionCaller": "evmos/testutil/contracts/DistributionCaller.sol",
+    "StakingI": "evmos/staking/StakingI.sol",
+    "StakingCaller": "evmos/staking/testdata/StakingCaller.sol",
+    "IStrideOutpost": "evmos/outposts/stride/IStrideOutpost.sol",
+    "IOsmosisOutpost": "evmos/outposts/osmosis/IOsmosisOutpost.sol",
+    "IERC20": "evmos/erc20/IERC20.sol",
 }
 
 OSMOSIS_POOLS = {
-    "Evmos_Osmo": Path(__file__).parent / "osmosis/evmosOsmosisPool.json",
+    "Silc_Osmo": Path(__file__).parent / "osmosis/evmosOsmosisPool.json",
 }
 
 # If need to update these binaries
@@ -73,7 +73,7 @@ WASM_BINARIES = {
 REGISTER_ERC20_PROP = {
     "messages": [
         {
-            "@type": "/silc.erc20.v1.MsgRegisterERC20",
+            "@type": "/evmos.erc20.v1.MsgRegisterERC20",
             "authority": "evmos10d07y265gmmuvt4z0w9aw880jnsr700jcrztvm",
             "erc20addresses": ["ADDRESS_HERE"],
         }
@@ -408,7 +408,7 @@ def send_successful_transaction(w3, i=0):
     return txhash
 
 
-def eth_to_bech32(addr, prefix=EVMOS_ADDRESS_PREFIX):
+def eth_to_bech32(addr, prefix=SILC_ADDRESS_PREFIX):
     bz = bech32.convertbits(HexBytes(addr), 8, 5)
     return bech32.bech32_encode(prefix, bz)
 
@@ -490,7 +490,7 @@ local default = import '{tests_dir}/configs/{file_name}.jsonnet';
 default {{
   dotenv: '{root_dir}/scripts/.env',
   'evmos_9000-1'+: {{
-    cmd: 'evmosd-rocksdb',
+    cmd: 'silcd-rocksdb',
     'app-config'+: {{
       'app-db-backend': 'rocksdb',
       memiavl: {{
@@ -545,7 +545,7 @@ def update_node_cmd(path, cmd, i):
         ini.write(fp)
 
 
-def update_evmosd_and_setup_stride(modified_bin):
+def update_silcd_and_setup_stride(modified_bin):
     def inner(path, base_port, config):  # pylint: disable=unused-argument
         update_evmos_bin(modified_bin)(path, base_port, config)
         setup_stride()(path, base_port, config)
@@ -557,7 +557,7 @@ def update_evmos_bin(
     modified_bin, nodes=[0, 1]
 ):  # pylint: disable=dangerous-default-value
     """
-    updates the silc binary with a patched binary.
+    updates the evmos binary with a patched binary.
     Input parameters are the modified binary (modified_bin)
     and the nodes in which
     to apply the modified binary (nodes).
@@ -592,8 +592,8 @@ def erc20_balance(w3, erc20_contract_addr, addr):
     return contract.functions.balanceOf(addr).call()
 
 
-def debug_trace_tx(silc, tx_hash: str):
-    url = f"http://127.0.0.1:{ports.evmrpc_port(silc.base_port(0))}"
+def debug_trace_tx(evmos, tx_hash: str):
+    url = f"http://127.0.0.1:{ports.evmrpc_port(evmos.base_port(0))}"
     params = {
         "method": "debug_traceTransaction",
         "params": [tx_hash, {"tracer": "callTracer"}],

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package app
 
@@ -20,7 +20,7 @@ func init() {
 	}
 }
 
-// EvmosActivators defines a map of opcode modifiers associated
+// SilcActivators defines a map of opcode modifiers associated
 // with a key defining the corresponding EIP.
 var evmosActivators = map[string]func(*vm.JumpTable){
 	"evmos_0": eips.Enable0000,

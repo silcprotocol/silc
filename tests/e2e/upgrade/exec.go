@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package upgrade
 
@@ -16,10 +16,10 @@ type E2ETxArgs struct {
 	From       string
 }
 
-// CreateModuleTxExec creates the execution command for an Evmos transaction.
+// CreateModuleTxExec creates the execution command for an Silc transaction.
 func (m *Manager) CreateModuleTxExec(txArgs E2ETxArgs) (string, error) {
 	cmd := []string{
-		"evmosd",
+		"silcd",
 		"tx",
 		txArgs.ModuleName,
 		txArgs.SubCommand,

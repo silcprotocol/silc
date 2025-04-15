@@ -11,7 +11,7 @@ TRACE=""
 PRUNING="default"
 #PRUNING="custom"
 
-CHAINDIR="$HOME/.evmosd"
+CHAINDIR="$HOME/.silcd"
 GENESIS="$CHAINDIR/config/genesis.json"
 TMP_GENESIS="$CHAINDIR/config/tmp_genesis.json"
 APP_TOML="$CHAINDIR/config/app.toml"
@@ -49,27 +49,27 @@ command -v jq >/dev/null 2>&1 || {
 # used to exit on first error (any non-zero exit code)
 set -e
 
-# Check evmosd version to decide how to set the client configuration
-# the older versions of evmosd accept less arguments
-sdk_version=$(evmosd version --long | grep 'cosmos_sdk_version' | awk '{print $2}')
+# Check silcd version to decide how to set the client configuration
+# the older versions of silcd accept less arguments
+sdk_version=$(silcd version --long | grep 'cosmos_sdk_version' | awk '{print $2}')
 if [[ $sdk_version == *v0.4* ]]; then
-	evmosd config chain-id "$CHAINID"
-	evmosd config keyring-backend "$KEYRING"
+	silcd config chain-id "$CHAINID"
+	silcd config keyring-backend "$KEYRING"
 else
-	evmosd config set client chain-id "$CHAINID"
-	evmosd config set client keyring-backend "$KEYRING"
+	silcd config set client chain-id "$CHAINID"
+	silcd config set client keyring-backend "$KEYRING"
 fi
 
 # Import keys from mnemonics
-echo "$VAL_MNEMONIC" | evmosd keys add "$VAL_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$VAL_MNEMONIC" | silcd keys add "$VAL_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
 
-echo "$USER1_MNEMONIC" | evmosd keys add "$USER1_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
-echo "$USER2_MNEMONIC" | evmosd keys add "$USER2_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
-echo "$USER3_MNEMONIC" | evmosd keys add "$USER3_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
-echo "$USER4_MNEMONIC" | evmosd keys add "$USER4_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$USER1_MNEMONIC" | silcd keys add "$USER1_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$USER2_MNEMONIC" | silcd keys add "$USER2_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$USER3_MNEMONIC" | silcd keys add "$USER3_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
+echo "$USER4_MNEMONIC" | silcd keys add "$USER4_KEY" --recover --keyring-backend "$KEYRING" --algo "$KEYALGO"
 
-# Set moniker and chain-id for Evmos (Moniker can be anything, chain-id must be an integer)
-evmosd init "$MONIKER" --chain-id "$CHAINID"
+# Set moniker and chain-id for Silc (Moniker can be anything, chain-id must be an integer)
+silcd init "$MONIKER" --chain-id "$CHAINID"
 
 # Change parameter token denominations to aevmos
 jq '.app_state["staking"]["params"]["bond_denom"]="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
@@ -106,11 +106,11 @@ jq '.app_state["feemarket"]["params"]["base_fee"]="'${BASEFEE}'"' "$GENESIS" >"$
 sed -i.bak 's/create_empty_blocks = true/create_empty_blocks = false/g' "$CONFIG_TOML"
 
 # Allocate genesis accounts (cosmos formatted addresses)
-evmosd add-genesis-account "$(evmosd keys show "$VAL_KEY" -a --keyring-backend "$KEYRING")" 100000000000000000000000000aevmos --keyring-backend "$KEYRING"
-evmosd add-genesis-account "$(evmosd keys show "$USER1_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
-evmosd add-genesis-account "$(evmosd keys show "$USER2_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
-evmosd add-genesis-account "$(evmosd keys show "$USER3_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
-evmosd add-genesis-account "$(evmosd keys show "$USER4_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
+silcd add-genesis-account "$(silcd keys show "$VAL_KEY" -a --keyring-backend "$KEYRING")" 100000000000000000000000000aevmos --keyring-backend "$KEYRING"
+silcd add-genesis-account "$(silcd keys show "$USER1_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
+silcd add-genesis-account "$(silcd keys show "$USER2_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
+silcd add-genesis-account "$(silcd keys show "$USER3_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
+silcd add-genesis-account "$(silcd keys show "$USER4_KEY" -a --keyring-backend "$KEYRING")" 1000000000000000000000aevmos --keyring-backend "$KEYRING"
 
 # Update total supply with claim values
 # Bc is required to add this big numbers
@@ -133,13 +133,13 @@ sed -i.bak 's/127.0.0.1/0.0.0.0/g' "$APP_TOML"
 sed -i.bak 's/timeout_commit = "3s"/timeout_commit = "1s"/g' "$CONFIG_TOML"
 
 # Sign genesis transaction
-evmosd gentx "$VAL_KEY" 1000000000000000000000aevmos --gas-prices ${BASEFEE}aevmos --keyring-backend "$KEYRING" --chain-id "$CHAINID"
+silcd gentx "$VAL_KEY" 1000000000000000000000aevmos --gas-prices ${BASEFEE}aevmos --keyring-backend "$KEYRING" --chain-id "$CHAINID"
 ## In case you want to create multiple validators at genesis
-## 1. Back to `evmosd keys add` step, init more keys
-## 2. Back to `evmosd add-genesis-account` step, add balance for those
-## 3. Clone this ~/.evmosd home directory into some others, let's say `~/.clonedEvmosd`
+## 1. Back to `silcd keys add` step, init more keys
+## 2. Back to `silcd add-genesis-account` step, add balance for those
+## 3. Clone this ~/.silcd home directory into some others, let's say `~/.clonedSilcd`
 ## 4. Run `gentx` in each of those folders
-## 5. Copy the `gentx-*` folders under `~/.clonedEvmosd/config/gentx/` folders into the original `~/.evmosd/config/gentx`
+## 5. Copy the `gentx-*` folders under `~/.clonedSilcd/config/gentx/` folders into the original `~/.silcd/config/gentx`
 
 # Enable the APIs for the tests to be successful
 sed -i.bak 's/enable = false/enable = true/g' "$APP_TOML"
@@ -151,13 +151,13 @@ grep -q -F '[memiavl]' "$APP_TOML" && sed -i.bak '/\[memiavl\]/,/^\[/ s/enable =
 grep -q -F '[versiondb]' "$APP_TOML" && sed -i.bak '/\[versiondb\]/,/^\[/ s/enable = true/enable = false/' "$APP_TOML"
 
 # Collect genesis tx
-evmosd collect-gentxs
+silcd collect-gentxs
 
 # Run this to ensure everything worked and that the genesis file is setup correctly
-evmosd validate-genesis
+silcd validate-genesis
 
 # Start the node
-evmosd start "$TRACE" \
+silcd start "$TRACE" \
 	--log_level $LOGLEVEL \
 	--minimum-gas-prices=0.0001aevmos \
 	--json-rpc.api eth,txpool,personal,net,debug,web3 \

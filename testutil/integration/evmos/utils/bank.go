@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package utils
 
@@ -12,7 +12,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	cmnfactory "github.com/silcprotocol/silc/testutil/integration/common/factory"
 	cmnnet "github.com/silcprotocol/silc/testutil/integration/common/network"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
 )
 
 // FundAccountWithBaseDenom funds the given account with the given amount of the network's

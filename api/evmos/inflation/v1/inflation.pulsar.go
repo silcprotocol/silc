@@ -127,17 +127,17 @@ func (x *fastReflection_InflationDistribution) Range(f func(protoreflect.FieldDe
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_InflationDistribution) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "silc.inflation.v1.InflationDistribution.staking_rewards":
+	case "evmos.inflation.v1.InflationDistribution.staking_rewards":
 		return x.StakingRewards != ""
-	case "silc.inflation.v1.InflationDistribution.usage_incentives":
+	case "evmos.inflation.v1.InflationDistribution.usage_incentives":
 		return x.UsageIncentives != ""
-	case "silc.inflation.v1.InflationDistribution.community_pool":
+	case "evmos.inflation.v1.InflationDistribution.community_pool":
 		return x.CommunityPool != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.InflationDistribution"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.InflationDistribution"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -149,17 +149,17 @@ func (x *fastReflection_InflationDistribution) Has(fd protoreflect.FieldDescript
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_InflationDistribution) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "silc.inflation.v1.InflationDistribution.staking_rewards":
+	case "evmos.inflation.v1.InflationDistribution.staking_rewards":
 		x.StakingRewards = ""
-	case "silc.inflation.v1.InflationDistribution.usage_incentives":
+	case "evmos.inflation.v1.InflationDistribution.usage_incentives":
 		x.UsageIncentives = ""
-	case "silc.inflation.v1.InflationDistribution.community_pool":
+	case "evmos.inflation.v1.InflationDistribution.community_pool":
 		x.CommunityPool = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.InflationDistribution"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.InflationDistribution"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -171,20 +171,20 @@ func (x *fastReflection_InflationDistribution) Clear(fd protoreflect.FieldDescri
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_InflationDistribution) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "silc.inflation.v1.InflationDistribution.staking_rewards":
+	case "evmos.inflation.v1.InflationDistribution.staking_rewards":
 		value := x.StakingRewards
 		return protoreflect.ValueOfString(value)
-	case "silc.inflation.v1.InflationDistribution.usage_incentives":
+	case "evmos.inflation.v1.InflationDistribution.usage_incentives":
 		value := x.UsageIncentives
 		return protoreflect.ValueOfString(value)
-	case "silc.inflation.v1.InflationDistribution.community_pool":
+	case "evmos.inflation.v1.InflationDistribution.community_pool":
 		value := x.CommunityPool
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.InflationDistribution"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.InflationDistribution"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.InflationDistribution does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.InflationDistribution does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -200,17 +200,17 @@ func (x *fastReflection_InflationDistribution) Get(descriptor protoreflect.Field
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_InflationDistribution) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "silc.inflation.v1.InflationDistribution.staking_rewards":
+	case "evmos.inflation.v1.InflationDistribution.staking_rewards":
 		x.StakingRewards = value.Interface().(string)
-	case "silc.inflation.v1.InflationDistribution.usage_incentives":
+	case "evmos.inflation.v1.InflationDistribution.usage_incentives":
 		x.UsageIncentives = value.Interface().(string)
-	case "silc.inflation.v1.InflationDistribution.community_pool":
+	case "evmos.inflation.v1.InflationDistribution.community_pool":
 		x.CommunityPool = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.InflationDistribution"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.InflationDistribution"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -226,17 +226,17 @@ func (x *fastReflection_InflationDistribution) Set(fd protoreflect.FieldDescript
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_InflationDistribution) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "silc.inflation.v1.InflationDistribution.staking_rewards":
-		panic(fmt.Errorf("field staking_rewards of message silc.inflation.v1.InflationDistribution is not mutable"))
-	case "silc.inflation.v1.InflationDistribution.usage_incentives":
-		panic(fmt.Errorf("field usage_incentives of message silc.inflation.v1.InflationDistribution is not mutable"))
-	case "silc.inflation.v1.InflationDistribution.community_pool":
-		panic(fmt.Errorf("field community_pool of message silc.inflation.v1.InflationDistribution is not mutable"))
+	case "evmos.inflation.v1.InflationDistribution.staking_rewards":
+		panic(fmt.Errorf("field staking_rewards of message evmos.inflation.v1.InflationDistribution is not mutable"))
+	case "evmos.inflation.v1.InflationDistribution.usage_incentives":
+		panic(fmt.Errorf("field usage_incentives of message evmos.inflation.v1.InflationDistribution is not mutable"))
+	case "evmos.inflation.v1.InflationDistribution.community_pool":
+		panic(fmt.Errorf("field community_pool of message evmos.inflation.v1.InflationDistribution is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.InflationDistribution"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.InflationDistribution"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -245,17 +245,17 @@ func (x *fastReflection_InflationDistribution) Mutable(fd protoreflect.FieldDesc
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_InflationDistribution) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "silc.inflation.v1.InflationDistribution.staking_rewards":
+	case "evmos.inflation.v1.InflationDistribution.staking_rewards":
 		return protoreflect.ValueOfString("")
-	case "silc.inflation.v1.InflationDistribution.usage_incentives":
+	case "evmos.inflation.v1.InflationDistribution.usage_incentives":
 		return protoreflect.ValueOfString("")
-	case "silc.inflation.v1.InflationDistribution.community_pool":
+	case "evmos.inflation.v1.InflationDistribution.community_pool":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.InflationDistribution"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.InflationDistribution"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.InflationDistribution does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -265,7 +265,7 @@ func (x *fastReflection_InflationDistribution) NewField(fd protoreflect.FieldDes
 func (x *fastReflection_InflationDistribution) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in silc.inflation.v1.InflationDistribution", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in evmos.inflation.v1.InflationDistribution", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -691,21 +691,21 @@ func (x *fastReflection_ExponentialCalculation) Range(f func(protoreflect.FieldD
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_ExponentialCalculation) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "silc.inflation.v1.ExponentialCalculation.a":
+	case "evmos.inflation.v1.ExponentialCalculation.a":
 		return x.A != ""
-	case "silc.inflation.v1.ExponentialCalculation.r":
+	case "evmos.inflation.v1.ExponentialCalculation.r":
 		return x.R != ""
-	case "silc.inflation.v1.ExponentialCalculation.c":
+	case "evmos.inflation.v1.ExponentialCalculation.c":
 		return x.C != ""
-	case "silc.inflation.v1.ExponentialCalculation.bonding_target":
+	case "evmos.inflation.v1.ExponentialCalculation.bonding_target":
 		return x.BondingTarget != ""
-	case "silc.inflation.v1.ExponentialCalculation.max_variance":
+	case "evmos.inflation.v1.ExponentialCalculation.max_variance":
 		return x.MaxVariance != ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.ExponentialCalculation"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.ExponentialCalculation"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -717,21 +717,21 @@ func (x *fastReflection_ExponentialCalculation) Has(fd protoreflect.FieldDescrip
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_ExponentialCalculation) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "silc.inflation.v1.ExponentialCalculation.a":
+	case "evmos.inflation.v1.ExponentialCalculation.a":
 		x.A = ""
-	case "silc.inflation.v1.ExponentialCalculation.r":
+	case "evmos.inflation.v1.ExponentialCalculation.r":
 		x.R = ""
-	case "silc.inflation.v1.ExponentialCalculation.c":
+	case "evmos.inflation.v1.ExponentialCalculation.c":
 		x.C = ""
-	case "silc.inflation.v1.ExponentialCalculation.bonding_target":
+	case "evmos.inflation.v1.ExponentialCalculation.bonding_target":
 		x.BondingTarget = ""
-	case "silc.inflation.v1.ExponentialCalculation.max_variance":
+	case "evmos.inflation.v1.ExponentialCalculation.max_variance":
 		x.MaxVariance = ""
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.ExponentialCalculation"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.ExponentialCalculation"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -743,26 +743,26 @@ func (x *fastReflection_ExponentialCalculation) Clear(fd protoreflect.FieldDescr
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_ExponentialCalculation) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "silc.inflation.v1.ExponentialCalculation.a":
+	case "evmos.inflation.v1.ExponentialCalculation.a":
 		value := x.A
 		return protoreflect.ValueOfString(value)
-	case "silc.inflation.v1.ExponentialCalculation.r":
+	case "evmos.inflation.v1.ExponentialCalculation.r":
 		value := x.R
 		return protoreflect.ValueOfString(value)
-	case "silc.inflation.v1.ExponentialCalculation.c":
+	case "evmos.inflation.v1.ExponentialCalculation.c":
 		value := x.C
 		return protoreflect.ValueOfString(value)
-	case "silc.inflation.v1.ExponentialCalculation.bonding_target":
+	case "evmos.inflation.v1.ExponentialCalculation.bonding_target":
 		value := x.BondingTarget
 		return protoreflect.ValueOfString(value)
-	case "silc.inflation.v1.ExponentialCalculation.max_variance":
+	case "evmos.inflation.v1.ExponentialCalculation.max_variance":
 		value := x.MaxVariance
 		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.ExponentialCalculation"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.ExponentialCalculation"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.ExponentialCalculation does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.ExponentialCalculation does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -778,21 +778,21 @@ func (x *fastReflection_ExponentialCalculation) Get(descriptor protoreflect.Fiel
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_ExponentialCalculation) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "silc.inflation.v1.ExponentialCalculation.a":
+	case "evmos.inflation.v1.ExponentialCalculation.a":
 		x.A = value.Interface().(string)
-	case "silc.inflation.v1.ExponentialCalculation.r":
+	case "evmos.inflation.v1.ExponentialCalculation.r":
 		x.R = value.Interface().(string)
-	case "silc.inflation.v1.ExponentialCalculation.c":
+	case "evmos.inflation.v1.ExponentialCalculation.c":
 		x.C = value.Interface().(string)
-	case "silc.inflation.v1.ExponentialCalculation.bonding_target":
+	case "evmos.inflation.v1.ExponentialCalculation.bonding_target":
 		x.BondingTarget = value.Interface().(string)
-	case "silc.inflation.v1.ExponentialCalculation.max_variance":
+	case "evmos.inflation.v1.ExponentialCalculation.max_variance":
 		x.MaxVariance = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.ExponentialCalculation"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.ExponentialCalculation"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -808,21 +808,21 @@ func (x *fastReflection_ExponentialCalculation) Set(fd protoreflect.FieldDescrip
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_ExponentialCalculation) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "silc.inflation.v1.ExponentialCalculation.a":
-		panic(fmt.Errorf("field a of message silc.inflation.v1.ExponentialCalculation is not mutable"))
-	case "silc.inflation.v1.ExponentialCalculation.r":
-		panic(fmt.Errorf("field r of message silc.inflation.v1.ExponentialCalculation is not mutable"))
-	case "silc.inflation.v1.ExponentialCalculation.c":
-		panic(fmt.Errorf("field c of message silc.inflation.v1.ExponentialCalculation is not mutable"))
-	case "silc.inflation.v1.ExponentialCalculation.bonding_target":
-		panic(fmt.Errorf("field bonding_target of message silc.inflation.v1.ExponentialCalculation is not mutable"))
-	case "silc.inflation.v1.ExponentialCalculation.max_variance":
-		panic(fmt.Errorf("field max_variance of message silc.inflation.v1.ExponentialCalculation is not mutable"))
+	case "evmos.inflation.v1.ExponentialCalculation.a":
+		panic(fmt.Errorf("field a of message evmos.inflation.v1.ExponentialCalculation is not mutable"))
+	case "evmos.inflation.v1.ExponentialCalculation.r":
+		panic(fmt.Errorf("field r of message evmos.inflation.v1.ExponentialCalculation is not mutable"))
+	case "evmos.inflation.v1.ExponentialCalculation.c":
+		panic(fmt.Errorf("field c of message evmos.inflation.v1.ExponentialCalculation is not mutable"))
+	case "evmos.inflation.v1.ExponentialCalculation.bonding_target":
+		panic(fmt.Errorf("field bonding_target of message evmos.inflation.v1.ExponentialCalculation is not mutable"))
+	case "evmos.inflation.v1.ExponentialCalculation.max_variance":
+		panic(fmt.Errorf("field max_variance of message evmos.inflation.v1.ExponentialCalculation is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.ExponentialCalculation"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.ExponentialCalculation"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -831,21 +831,21 @@ func (x *fastReflection_ExponentialCalculation) Mutable(fd protoreflect.FieldDes
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_ExponentialCalculation) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "silc.inflation.v1.ExponentialCalculation.a":
+	case "evmos.inflation.v1.ExponentialCalculation.a":
 		return protoreflect.ValueOfString("")
-	case "silc.inflation.v1.ExponentialCalculation.r":
+	case "evmos.inflation.v1.ExponentialCalculation.r":
 		return protoreflect.ValueOfString("")
-	case "silc.inflation.v1.ExponentialCalculation.c":
+	case "evmos.inflation.v1.ExponentialCalculation.c":
 		return protoreflect.ValueOfString("")
-	case "silc.inflation.v1.ExponentialCalculation.bonding_target":
+	case "evmos.inflation.v1.ExponentialCalculation.bonding_target":
 		return protoreflect.ValueOfString("")
-	case "silc.inflation.v1.ExponentialCalculation.max_variance":
+	case "evmos.inflation.v1.ExponentialCalculation.max_variance":
 		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: silc.inflation.v1.ExponentialCalculation"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: evmos.inflation.v1.ExponentialCalculation"))
 		}
-		panic(fmt.Errorf("message silc.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message evmos.inflation.v1.ExponentialCalculation does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -855,7 +855,7 @@ func (x *fastReflection_ExponentialCalculation) NewField(fd protoreflect.FieldDe
 func (x *fastReflection_ExponentialCalculation) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in silc.inflation.v1.ExponentialCalculation", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in evmos.inflation.v1.ExponentialCalculation", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -1238,14 +1238,14 @@ func (x *fastReflection_ExponentialCalculation) ProtoMethods() *protoiface.Metho
 	}
 }
 
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 // Code generated by protoc-gen-go. DO NOT EDIT.
 // versions:
 // 	protoc-gen-go v1.27.0
 // 	protoc        (unknown)
-// source: silc/inflation/v1/inflation.proto
+// source: evmos/inflation/v1/inflation.proto
 
 const (
 	// Verify that this generated code is sufficiently up-to-date.
@@ -1257,7 +1257,7 @@ const (
 // InflationDistribution defines the distribution in which inflation is
 // allocated through minting on each epoch (staking, incentives, community). It
 // excludes the team vesting distribution, as this is minted once at genesis.
-// The initial InflationDistribution can be calculated from the Evmos Token
+// The initial InflationDistribution can be calculated from the Silc Token
 // Model like this:
 // mintDistribution1 = distribution1 / (1 - teamVestingDistribution)
 // 0.5333333         = 40%           / (1 - 25%)
@@ -1476,8 +1476,8 @@ func file_evmos_inflation_v1_inflation_proto_rawDescGZIP() []byte {
 
 var file_evmos_inflation_v1_inflation_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_evmos_inflation_v1_inflation_proto_goTypes = []interface{}{
-	(*InflationDistribution)(nil),  // 0: silc.inflation.v1.InflationDistribution
-	(*ExponentialCalculation)(nil), // 1: silc.inflation.v1.ExponentialCalculation
+	(*InflationDistribution)(nil),  // 0: evmos.inflation.v1.InflationDistribution
+	(*ExponentialCalculation)(nil), // 1: evmos.inflation.v1.ExponentialCalculation
 }
 var file_evmos_inflation_v1_inflation_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

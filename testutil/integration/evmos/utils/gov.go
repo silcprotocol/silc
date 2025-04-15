@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package utils
 
@@ -17,8 +17,8 @@ import (
 	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	commonfactory "github.com/silcprotocol/silc/testutil/integration/common/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 )
 
 // SubmitProposal is a helper function to submit a governance proposal and

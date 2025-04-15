@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package post_test
 
@@ -8,7 +8,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/silcprotocol/silc/app/post"
 
-	// "github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	// "github.com/silcprotocol/silc/testutil/integration/evmos/factory"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -47,15 +47,15 @@ func (s *PostTestSuite) TestPostHandle() {
 		{
 			name: "pass - burn fees of a single token with non-empty end balance",
 			tx: func() sdk.Tx {
-				feeAmount := sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "silc"}}
-				amount := sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(20), Denom: "silc"}}
+				feeAmount := sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "evmos"}}
+				amount := sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(20), Denom: "evmos"}}
 				s.MintCoinsForFeeCollector(amount)
 
 				return s.BuildCosmosTxWithNSendMsg(1, feeAmount)
 			},
 			expPass: true,
 			postChecks: func() {
-				expected := sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "silc"}}
+				expected := sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "evmos"}}
 				balance := s.GetFeeCollectorBalance()
 				s.Require().Equal(expected, balance)
 			},
@@ -65,7 +65,7 @@ func (s *PostTestSuite) TestPostHandle() {
 			tx: func() sdk.Tx {
 				feeAmount := sdk.Coins{
 					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "eth"},
-					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "silc"},
+					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "evmos"},
 				}
 				amount := feeAmount
 				s.MintCoinsForFeeCollector(amount)
@@ -83,11 +83,11 @@ func (s *PostTestSuite) TestPostHandle() {
 			tx: func() sdk.Tx {
 				feeAmount := sdk.Coins{
 					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "btc"},
-					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "silc"},
+					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "evmos"},
 				}
 				amount := sdk.Coins{
 					sdk.Coin{Amount: sdkmath.NewInt(20), Denom: "btc"},
-					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "silc"},
+					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "evmos"},
 					sdk.Coin{Amount: sdkmath.NewInt(3), Denom: "osmo"},
 				}
 				s.MintCoinsForFeeCollector(amount)
@@ -109,11 +109,11 @@ func (s *PostTestSuite) TestPostHandle() {
 			tx: func() sdk.Tx {
 				feeAmount := sdk.Coins{
 					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "btc"},
-					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "silc"},
+					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "evmos"},
 				}
 				amount := sdk.Coins{
 					sdk.Coin{Amount: sdkmath.NewInt(20), Denom: "btc"},
-					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "silc"},
+					sdk.Coin{Amount: sdkmath.NewInt(10), Denom: "evmos"},
 					sdk.Coin{Amount: sdkmath.NewInt(3), Denom: "osmo"},
 				}
 				s.MintCoinsForFeeCollector(amount)
@@ -131,12 +131,12 @@ func (s *PostTestSuite) TestPostHandle() {
 			},
 		},
 		{
-			name: "pass - fees exceeds MaxUint64 (~18 EVMOS). Should not panic",
+			name: "pass - fees exceeds MaxUint64 (~18 SILC). Should not panic",
 			tx: func() sdk.Tx {
 				amt, ok := sdkmath.NewIntFromString("10000000000000000000000000000000000")
 				s.Require().True(ok)
-				feeAmount := sdk.Coins{sdk.Coin{Amount: amt, Denom: "silc"}}
-				amount := sdk.Coins{sdk.Coin{Amount: amt, Denom: "silc"}}
+				feeAmount := sdk.Coins{sdk.Coin{Amount: amt, Denom: "evmos"}}
+				amount := sdk.Coins{sdk.Coin{Amount: amt, Denom: "evmos"}}
 				s.MintCoinsForFeeCollector(amount)
 
 				return s.BuildCosmosTxWithNSendMsg(1, feeAmount)

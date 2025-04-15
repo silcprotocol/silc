@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package eip712
 
 import (
@@ -74,7 +74,7 @@ func PreprocessLedgerTx(chainID string, keyType cosmoskr.KeyType, txBuilder clie
 	extensionBuilder.SetExtensionOptions(option)
 
 	// Set blank signature with Amino Sign Type
-	// (Regardless of input signMode, Evmos requires Amino signature type for Ledger)
+	// (Regardless of input signMode, Silc requires Amino signature type for Ledger)
 	blankSig := signing.SingleSignatureData{
 		SignMode:  signing.SignMode_SIGN_MODE_LEGACY_AMINO_JSON,
 		Signature: nil,

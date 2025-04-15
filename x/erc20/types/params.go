@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package types
 
@@ -13,10 +13,10 @@ import (
 )
 
 const (
-	// WEVMOSContractMainnet is the WEVMOS contract address for mainnet
-	WEVMOSContractMainnet = "0xD4949664cD82660AaE99bEdc034a0deA8A0bd517"
-	// WEVMOSContractTestnet is the WEVMOS contract address for testnet
-	WEVMOSContractTestnet = "0xcc491f589b45d4a3c679016195b3fb87d7848210"
+	// WSILCContractMainnet is the WSILC contract address for mainnet
+	WSILCContractMainnet = "0xD4949664cD82660AaE99bEdc034a0deA8A0bd517"
+	// WSILCContractTestnet is the WSILC contract address for testnet
+	WSILCContractTestnet = "0xcc491f589b45d4a3c679016195b3fb87d7848210"
 )
 
 // Parameter store key
@@ -26,7 +26,7 @@ var (
 	ParamStoreKeyNativePrecompiles  = []byte("NativePrecompiles")
 	// DefaultNativePrecompiles defines the default precompiles for the wrapped native coin
 	// NOTE: If you modify this, make sure you modify it on the local_node genesis script as well
-	DefaultNativePrecompiles = []string{WEVMOSContractMainnet}
+	DefaultNativePrecompiles = []string{WSILCContractMainnet}
 	// DefaultDynamicPrecompiles defines the default active dynamic precompiles
 	DefaultDynamicPrecompiles []string
 )

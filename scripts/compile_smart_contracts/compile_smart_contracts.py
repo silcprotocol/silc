@@ -18,7 +18,7 @@ from pathlib import Path
 from shutil import copy, rmtree
 from typing import List, Union
 
-# The path to the main level of the Evmos repository.
+# The path to the main level of the Silc repository.
 REPO_PATH = Path(__file__).parent.parent.parent
 
 
@@ -36,7 +36,7 @@ IGNORED_FILES: List[str] = [
     # compile
     "ERC20Minter_OpenZeppelinV5.sol",
     # Ignored because it requires an older version of Solidity
-    "WEVMOS.sol",
+    "WSILC.sol",
 ]
 
 
@@ -168,7 +168,7 @@ def copy_to_contracts_directory(target_dir: Path, contracts: List[Contract]) -> 
 
 def is_evmos_repo(path: Path) -> bool:
     """
-    This function checks if the given path is the root of the Evmos repository,
+    This function checks if the given path is the root of the Silc repository,
     where this script is designed to be executed.
     """
 
@@ -183,7 +183,7 @@ def is_evmos_repo(path: Path) -> bool:
             if not line:
                 break
 
-            if "module github.com/silc/silc" in line:
+            if "module github.com/evmos/evmos" in line:
                 return True
 
     return False
@@ -300,7 +300,7 @@ if __name__ == "__main__":
     if not is_evmos_repo(REPO_PATH):
         raise ValueError(
             "This script should only be executed "
-            + "in the silc repository."
+            + "in the evmos repository."
             + f"Current path: {REPO_PATH}"
         )
 

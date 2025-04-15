@@ -7,7 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	sdkvesting "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/vesting/keeper"

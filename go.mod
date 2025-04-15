@@ -276,12 +276,12 @@ replace (
 	// need this replace when importing cosmos/rosetta pkg
 	cosmossdk.io/core => cosmossdk.io/core v0.11.0
 	// need this replace to pick up the store changes (Copy func) in our cosmos-sdk fork
-	cosmossdk.io/store => github.com/evmos/cosmos-sdk/store v0.0.0-20240718141609-414cbd051fbe
+	cosmossdk.io/store => github.com/silcprotocol/cosmos-sdk v0.0.0-20250415090135-dab84bd93218
 	// use cosmos fork of keyring
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
-	github.com/cosmos/cosmos-sdk => github.com/evmos/cosmos-sdk v0.50.9-evmos
-	// use Evmos geth fork
-	github.com/ethereum/go-ethereum => github.com/evmos/go-ethereum v1.10.26-evmos-rc4
+	github.com/cosmos/cosmos-sdk => github.com/silcprotocol/cosmos-sdk v0.0.0-20250415091149-08a4ffb612b8
+	// use Silc geth fork
+	github.com/ethereum/go-ethereum => github.com/silcprotocol/go-ethereum v0.0.0-20250415092436-9a3b4ceaf0e1
 	// Security Advisory https://github.com/advisories/GHSA-h395-qcrw-5vmq
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.9.1
 	// replace broken goleveldb

@@ -12,10 +12,10 @@ from web3.middleware import geth_poa_middleware
 from .cosmoscli import CosmosCLI
 from .utils import http_wait_for_block, memiavl_config, supervisorctl, wait_for_port
 
-DEFAULT_CHAIN_BINARY = "evmosd"
+DEFAULT_CHAIN_BINARY = "silcd"
 
 
-class Evmos:
+class Silc:
     def __init__(self, base_dir, chain_binary=DEFAULT_CHAIN_BINARY):
         self._w3 = None
         self.base_dir = base_dir
@@ -25,7 +25,7 @@ class Evmos:
         self.chain_binary = chain_binary
 
     def copy(self):
-        return Evmos(self.base_dir)
+        return Silc(self.base_dir)
 
     @property
     def w3_http_endpoint(self):  # pylint: disable=property-with-parameters
@@ -139,7 +139,7 @@ def create_snapshots_dir(
 
 def setup_evmos_rocksdb(path, base_port, long_timeout_commit=False):
     """
-    setup_evmos_rocksdb returns an Evmos chain compiled with RocksDB
+    setup_evmos_rocksdb returns an Silc chain compiled with RocksDB
     and configured to use memIAVL + versionDB.
     """
     config = memiavl_config(
@@ -151,7 +151,7 @@ def setup_evmos_rocksdb(path, base_port, long_timeout_commit=False):
         base_port,
         cfg,
         post_init=create_snapshots_dir,
-        chain_binary="evmosd-rocksdb",
+        chain_binary="silcd-rocksdb",
     )
 
 
@@ -214,7 +214,7 @@ def setup_custom_evmos(
             # wait for blocks
             # cause with sdkv0.50 the port starts faster
             http_wait_for_block(ports.rpc_port(base_port), 2)
-        yield Evmos(
+        yield Silc(
             path / "evmos_9000-1", chain_binary=chain_binary or DEFAULT_CHAIN_BINARY
         )
     finally:
@@ -222,10 +222,10 @@ def setup_custom_evmos(
         proc.wait()
 
 
-def build_patched_evmosd(patch_nix_file):
+def build_patched_silcd(patch_nix_file):
     """
     build the binary modified for a custom scenario
-    e.g. allow to register WEVMOS token
+    e.g. allow to register WSILC token
     (removes a validation check in erc20 gov proposals)
     """
     cmd = [
@@ -236,5 +236,5 @@ def build_patched_evmosd(patch_nix_file):
     print(*cmd)
     return (
         Path(subprocess.check_output(cmd, universal_newlines=True, text=True).strip())
-        / "bin/evmosd"
+        / "bin/silcd"
     )

@@ -1,11 +1,11 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package factory
 
 import (
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 )
 
 const (

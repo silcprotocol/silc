@@ -3,9 +3,9 @@ package keeper_test
 import (
 	"time"
 
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 
 	"github.com/silcprotocol/silc/x/epochs/types"
 )

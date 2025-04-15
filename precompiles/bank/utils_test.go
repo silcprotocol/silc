@@ -7,7 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/precompiles/bank"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	inflationtypes "github.com/silcprotocol/silc/x/inflation/v1/types"
 

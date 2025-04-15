@@ -7,7 +7,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
 	"github.com/silcprotocol/silc/precompiles/staking"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
 	inflationtypes "github.com/silcprotocol/silc/x/inflation/v1/types"
 )
 

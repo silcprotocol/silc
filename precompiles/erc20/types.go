@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package erc20
 
@@ -13,10 +13,10 @@ import (
 )
 
 const (
-	// WEVMOSContractMainnet is the WEVMOS contract address for mainnet
-	WEVMOSContractMainnet = "0xD4949664cD82660AaE99bEdc034a0deA8A0bd517"
-	// WEVMOSContractTestnet is the WEVMOS contract address for testnet
-	WEVMOSContractTestnet = "0xcc491f589b45d4a3c679016195b3fb87d7848210"
+	// WSILCContractMainnet is the WSILC contract address for mainnet
+	WSILCContractMainnet = "0xD4949664cD82660AaE99bEdc034a0deA8A0bd517"
+	// WSILCContractTestnet is the WSILC contract address for testnet
+	WSILCContractTestnet = "0xcc491f589b45d4a3c679016195b3fb87d7848210"
 )
 
 // EventTransfer defines the event data for the ERC20 Transfer events.

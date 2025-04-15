@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package statedb_test
 
@@ -12,10 +12,10 @@ import (
 	"github.com/silcprotocol/silc/contracts"
 	stakingprecompile "github.com/silcprotocol/silc/precompiles/staking"
 	testcontracts "github.com/silcprotocol/silc/precompiles/testutil/contracts"
-	testfactory "github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	testnetwork "github.com/silcprotocol/silc/testutil/integration/silc/network"
+	testfactory "github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	testnetwork "github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 
 	//nolint:revive // okay to use dot imports for Ginkgo

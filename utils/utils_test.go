@@ -16,7 +16,7 @@ import (
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("silc", "evmospub")
+	cfg.SetBech32PrefixForAccount("evmos", "evmospub")
 }
 
 func TestIsSupportedKeys(t *testing.T) {
@@ -72,7 +72,7 @@ func TestIsSupportedKeys(t *testing.T) {
 	}
 }
 
-func TestGetEvmosAddressFromBech32(t *testing.T) {
+func TestGetSilcAddressFromBech32(t *testing.T) {
 	testCases := []struct {
 		name       string
 		address    string
@@ -87,7 +87,7 @@ func TestGetEvmosAddressFromBech32(t *testing.T) {
 		},
 		{
 			"invalid bech32 address",
-			"silc",
+			"evmos",
 			"",
 			true,
 		},
@@ -98,7 +98,7 @@ func TestGetEvmosAddressFromBech32(t *testing.T) {
 			true,
 		},
 		{
-			"silc address",
+			"evmos address",
 			"evmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
 			"evmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
 			false,
@@ -118,7 +118,7 @@ func TestGetEvmosAddressFromBech32(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		addr, err := GetEvmosAddressFromBech32(tc.address)
+		addr, err := GetSilcAddressFromBech32(tc.address)
 		if tc.expError {
 			require.Error(t, err, tc.name)
 		} else {
@@ -128,7 +128,7 @@ func TestGetEvmosAddressFromBech32(t *testing.T) {
 	}
 }
 
-func TestEvmosCoinDenom(t *testing.T) {
+func TestSilcCoinDenom(t *testing.T) {
 	testCases := []struct {
 		name     string
 		denom    string

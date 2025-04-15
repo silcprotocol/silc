@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package coordinator
 
 import (
@@ -33,7 +33,7 @@ func generateDummyChains(t *testing.T, coord *ibctesting.Coordinator, numberOfCh
 	cfg.SetBech32PrefixForValidator(sdk.Bech32PrefixValAddr, sdk.Bech32PrefixValPub)
 	cfg.SetBech32PrefixForConsensusNode(sdk.Bech32PrefixConsAddr, sdk.Bech32PrefixConsPub)
 	// Also need to disable address cache to avoid using modules
-	// accounts with 'silc' addresses (because Evmos chain setup is first)
+	// accounts with 'evmos' addresses (because Silc chain setup is first)
 	sdk.SetAddrCacheEnabled(false)
 	for i := 1; i <= numberOfChains; i++ {
 		chainID := "dummychain-" + strconv.Itoa(i)

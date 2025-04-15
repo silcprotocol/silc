@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package config
 
@@ -12,7 +12,7 @@ import (
 
 const (
 	// Bech32Prefix defines the Bech32 prefix used for EthAccounts
-	Bech32Prefix = "silc"
+	Bech32Prefix = "evmos"
 
 	// Bech32PrefixAccAddr defines the Bech32 prefix of an account's address
 	Bech32PrefixAccAddr = Bech32Prefix
@@ -30,8 +30,8 @@ const (
 
 const (
 	// DisplayDenom defines the denomination displayed to users in client applications.
-	DisplayDenom = "silc"
-	// BaseDenom defines to the default denomination used in Evmos (staking, EVM, governance, etc.)
+	DisplayDenom = "evmos"
+	// BaseDenom defines to the default denomination used in Silc (staking, EVM, governance, etc.)
 	BaseDenom = "aevmos"
 )
 

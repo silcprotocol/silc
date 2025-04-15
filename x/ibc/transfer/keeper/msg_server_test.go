@@ -11,8 +11,8 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	"github.com/silcprotocol/silc/x/ibc/transfer/keeper"
 	"github.com/stretchr/testify/mock"
 )

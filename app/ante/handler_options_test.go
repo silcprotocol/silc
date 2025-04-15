@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	ethante "github.com/silcprotocol/silc/app/ante/evm"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	"github.com/silcprotocol/silc/types"
 	"github.com/stretchr/testify/require"
 

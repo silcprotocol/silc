@@ -15,7 +15,7 @@ import (
 
 	transfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
 
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	feemarkettypes "github.com/silcprotocol/silc/x/feemarket/types"
@@ -28,7 +28,7 @@ import (
 type GenesisTestSuite struct {
 	suite.Suite
 	ctx     sdk.Context
-	app     *app.Evmos
+	app     *app.Silc
 	genesis types.GenesisState
 }
 

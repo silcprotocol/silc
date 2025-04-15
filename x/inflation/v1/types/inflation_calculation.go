@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package types
 
@@ -62,8 +62,8 @@ func CalculateEpochMintProvision(
 	// epochProvision = periodProvision / epochsPerPeriod
 	epochProvision := reducedPeriodProvision.Quo(math.LegacyNewDec(epochsPerPeriod))
 
-	// Multiply epochMintProvision with power reduction (10^18 for silc) as the
-	// calculation is based on `silc` and the issued tokens need to be given in
+	// Multiply epochMintProvision with power reduction (10^18 for evmos) as the
+	// calculation is based on `evmos` and the issued tokens need to be given in
 	// `aevmos`
 	epochProvision = epochProvision.Mul(math.LegacyNewDecFromInt(evmostypes.PowerReduction))
 	return epochProvision

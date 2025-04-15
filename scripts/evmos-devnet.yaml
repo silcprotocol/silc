@@ -1,6 +1,6 @@
 dotenv: .env
 evmos_9000-1:
-  cmd: evmosd
+  cmd: silcd
   start-flags: "--trace"
   app-config:
     minimum-gas-prices: 0aevmos

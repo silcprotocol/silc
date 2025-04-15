@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package eth
 
 import (
@@ -22,8 +22,8 @@ import (
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
-// The Ethereum API allows applications to connect to an Evmos node that is
-// part of the Evmos blockchain. Developers can interact with on-chain EVM data
+// The Ethereum API allows applications to connect to an Silc node that is
+// part of the Silc blockchain. Developers can interact with on-chain EVM data
 // and send different types of transactions to the network by utilizing the
 // endpoints provided by the API. The API follows a JSON-RPC standard. If not
 // otherwise specified, the interface is derived from the Alchemy Ethereum API:

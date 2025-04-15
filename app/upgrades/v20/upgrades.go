@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package v20
 
@@ -16,7 +16,7 @@ import (
 	"github.com/silcprotocol/silc/x/evm/types"
 )
 
-// CreateUpgradeHandler creates an SDK upgrade handler for Evmos v20
+// CreateUpgradeHandler creates an SDK upgrade handler for Silc v20
 func CreateUpgradeHandler(
 	mm *module.Manager,
 	configurator module.Configurator,

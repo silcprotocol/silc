@@ -40,10 +40,10 @@ func TestLoadUpgradeParams(t *testing.T) {
 				targetVersion:  "v0.2.0",
 				chainID:        "evmos_9123-1",
 				skipCleanup:    "true",
-				mountPath:      "/tmp/silc",
+				mountPath:      "/tmp/evmos",
 			},
 			want: Params{
-				MountPath: "/tmp/silc",
+				MountPath: "/tmp/evmos",
 				Versions: []VersionConfig{
 					{"v0.1.0", "v0.1.0", tharsisRepo},
 					{"v0.2.0", "v0.2.0", tharsisRepo},

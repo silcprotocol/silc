@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package erc20
 
@@ -96,7 +96,7 @@ func (p Precompile) RequiredGas(input []byte) uint64 {
 	}
 
 	// TODO: these values were obtained from Remix using the ERC20.sol from OpenZeppelin.
-	// We should execute the transactions using the ERC20MinterBurnerDecimals.sol from Evmos testnet
+	// We should execute the transactions using the ERC20MinterBurnerDecimals.sol from Silc testnet
 	// to ensure parity in the values.
 	switch method.Name {
 	// ERC-20 transactions

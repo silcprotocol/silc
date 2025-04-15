@@ -13,7 +13,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
 	"github.com/silcprotocol/silc/testutil/integration/common/factory"
-	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	fmkttypes "github.com/silcprotocol/silc/x/feemarket/types"
 

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package vesting_test
 
 import (
@@ -18,10 +18,10 @@ import (
 	"github.com/silcprotocol/silc/precompiles/testutil/contracts"
 	"github.com/silcprotocol/silc/precompiles/vesting"
 	"github.com/silcprotocol/silc/precompiles/vesting/testdata"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
 
-	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"

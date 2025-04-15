@@ -20,7 +20,7 @@ KEY="dev0"
 CHAINID="evmos_9000-1"
 MONIKER="mymoniker"
 
-## default port prefixes for evmosd
+## default port prefixes for silcd
 NODE_P2P_PORT="2660"
 NODE_PORT="2663"
 NODE_RPC_PORT="2666"
@@ -54,29 +54,29 @@ done
 
 set -euxo pipefail
 
-DATA_DIR=$(mktemp -d -t silc-datadir.XXXXX)
+DATA_DIR=$(mktemp -d -t evmos-datadir.XXXXX)
 
 if [[ ! "$DATA_DIR" ]]; then
 	echo "Could not create $DATA_DIR"
 	exit 1
 fi
 
-# Compile silc
-echo "compiling silc"
+# Compile evmos
+echo "compiling evmos"
 make build
 
 # PID array declaration
 arr=()
 
 init_func() {
-	"$PWD"/build/evmosd keys add $KEY"$i" --keyring-backend test --home "$DATA_DIR$i" --no-backup --algo "eth_secp256k1"
-	"$PWD"/build/evmosd init $MONIKER --chain-id $CHAINID --home "$DATA_DIR$i"
-	"$PWD"/build/evmosd add-genesis-account \
-		"$("$PWD"/build/evmosd keys show "$KEY$i" --keyring-backend test -a --home "$DATA_DIR$i")" 1000000000000000000aevmos,1000000000000000000stake \
+	"$PWD"/build/silcd keys add $KEY"$i" --keyring-backend test --home "$DATA_DIR$i" --no-backup --algo "eth_secp256k1"
+	"$PWD"/build/silcd init $MONIKER --chain-id $CHAINID --home "$DATA_DIR$i"
+	"$PWD"/build/silcd add-genesis-account \
+		"$("$PWD"/build/silcd keys show "$KEY$i" --keyring-backend test -a --home "$DATA_DIR$i")" 1000000000000000000aevmos,1000000000000000000stake \
 		--keyring-backend test --home "$DATA_DIR$i"
-	"$PWD"/build/evmosd gentx "$KEY$i" 1000000000000000000stake --chain-id $CHAINID --keyring-backend test --home "$DATA_DIR$i"
-	"$PWD"/build/evmosd collect-gentxs --home "$DATA_DIR$i"
-	"$PWD"/build/evmosd validate-genesis --home "$DATA_DIR$i"
+	"$PWD"/build/silcd gentx "$KEY$i" 1000000000000000000stake --chain-id $CHAINID --keyring-backend test --home "$DATA_DIR$i"
+	"$PWD"/build/silcd collect-gentxs --home "$DATA_DIR$i"
+	"$PWD"/build/silcd validate-genesis --home "$DATA_DIR$i"
 
 	if [[ $MODE == "pending" ]]; then
 		ls "$DATA_DIR$i"
@@ -105,18 +105,18 @@ init_func() {
 }
 
 start_func() {
-	echo "starting silc node $i in background ..."
-	"$PWD"/build/evmosd start --pruning=nothing --rpc.unsafe \
+	echo "starting evmos node $i in background ..."
+	"$PWD"/build/silcd start --pruning=nothing --rpc.unsafe \
 		--p2p.laddr tcp://$IP_ADDR:$NODE_P2P_PORT"$i" --address tcp://$IP_ADDR:$NODE_PORT"$i" --rpc.laddr tcp://$IP_ADDR:$NODE_RPC_PORT"$i" \
 		--json-rpc.address=$IP_ADDR:$RPC_PORT"$i" \
 		--keyring-backend test --home "$DATA_DIR$i" \
 		>"$DATA_DIR"/node"$i".log 2>&1 &
 	disown
 
-	EVMOS_PID=$!
-	echo "started silc node, pid=$EVMOS_PID"
+	SILC_PID=$!
+	echo "started evmos node, pid=$SILC_PID"
 	# add PID to array
-	arr+=("$EVMOS_PID")
+	arr+=("$SILC_PID")
 
 	if [[ $MODE == "pending" ]]; then
 		echo "waiting for the first block..."
@@ -150,7 +150,7 @@ if [[ -z $TEST || $TEST == "rpc" || $TEST == "pending" ]]; then
 
 	for i in $(seq 1 "$TEST_QTD"); do
 		HOST_RPC=http://$IP_ADDR:$RPC_PORT"$i"
-		echo "going to test silc node $HOST_RPC ..."
+		echo "going to test evmos node $HOST_RPC ..."
 		MODE=$MODE HOST=$HOST_RPC go test ./tests/... -timeout=$time_out -v -short
 
 		RPC_FAIL=$?
@@ -159,12 +159,12 @@ if [[ -z $TEST || $TEST == "rpc" || $TEST == "pending" ]]; then
 fi
 
 stop_func() {
-	EVMOS_PID=$i
-	echo "shutting down node, pid=$EVMOS_PID ..."
+	SILC_PID=$i
+	echo "shutting down node, pid=$SILC_PID ..."
 
-	# Shutdown silc node
-	kill -9 "$EVMOS_PID"
-	wait "$EVMOS_PID"
+	# Shutdown evmos node
+	kill -9 "$SILC_PID"
+	wait "$SILC_PID"
 
 	if [ "$REMOVE_DATA_DIR" == "true" ]; then
 		rm -rf "$DATA_DIR"*

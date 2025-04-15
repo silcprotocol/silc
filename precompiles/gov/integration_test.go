@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package gov_test
 
 import (
@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/silcprotocol/silc/precompiles/gov"
 	"github.com/silcprotocol/silc/precompiles/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"

@@ -24,16 +24,16 @@ def custom_evmos_rocksdb(tmp_path_factory):
     yield from setup_evmos_rocksdb(path, 26810, long_timeout_commit=True)
 
 
-@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
+@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
 def evmos_cluster(request, custom_evmos, custom_evmos_rocksdb):
     """
-    run on silc and
-    silc built with rocksdb (memIAVL + versionDB)
+    run on evmos and
+    evmos built with rocksdb (memIAVL + versionDB)
     """
     provider = request.param
-    if provider == "silc":
+    if provider == "evmos":
         yield custom_evmos
-    elif provider == "silc-rocksdb":
+    elif provider == "evmos-rocksdb":
         yield custom_evmos_rocksdb
     else:
         raise NotImplementedError

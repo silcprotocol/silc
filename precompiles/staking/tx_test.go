@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"math/big"
 
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
 
 	"cosmossdk.io/math"
 

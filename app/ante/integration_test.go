@@ -7,11 +7,11 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
 	commonfactory "github.com/silcprotocol/silc/testutil/integration/common/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
-	integrationutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	integrationutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 

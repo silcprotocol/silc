@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package ibc
 
@@ -30,15 +30,15 @@ func GetTransferSenderRecipient(data transfertypes.FungibleTokenPacketData) (
 	err error,
 ) {
 	// validate the sender bech32 address from the counterparty chain
-	// and change the bech32 human readable prefix (HRP) of the sender to `silc`
-	sender, err = utils.GetEvmosAddressFromBech32(data.Sender)
+	// and change the bech32 human readable prefix (HRP) of the sender to `evmos`
+	sender, err = utils.GetSilcAddressFromBech32(data.Sender)
 	if err != nil {
 		return nil, nil, "", "", errorsmod.Wrap(err, "invalid sender")
 	}
 
 	// validate the recipient bech32 address from the counterparty chain
-	// and change the bech32 human readable prefix (HRP) of the recipient to `silc`
-	recipient, err = utils.GetEvmosAddressFromBech32(data.Receiver)
+	// and change the bech32 human readable prefix (HRP) of the recipient to `evmos`
+	recipient, err = utils.GetSilcAddressFromBech32(data.Receiver)
 	if err != nil {
 		return nil, nil, "", "", errorsmod.Wrap(err, "invalid recipient")
 	}

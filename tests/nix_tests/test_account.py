@@ -29,23 +29,23 @@ def custom_evmos_rocksdb(tmp_path_factory):
     )
 
 
-@pytest.fixture(scope="module", params=["silc", "silc-ws", "silc-rocksdb", "geth"])
+@pytest.fixture(scope="module", params=["evmos", "evmos-ws", "evmos-rocksdb", "geth"])
 def cluster(request, custom_evmos, custom_evmos_rocksdb, geth):
     """
-    run on silc, silc websocket,
-    silc built with rocksdb (memIAVL + versionDB)
+    run on evmos, evmos websocket,
+    evmos built with rocksdb (memIAVL + versionDB)
     and geth
     """
     provider = request.param
-    if provider == "silc":
+    if provider == "evmos":
         yield custom_evmos
-    elif provider == "silc-ws":
+    elif provider == "evmos-ws":
         evmos_ws = custom_evmos.copy()
         evmos_ws.use_websocket()
         yield evmos_ws
     # ATM rocksdb build is not supported for sdkv0.50
     # This is due to cronos dependencies (versionDB, memIAVL)
-    elif provider == "silc-rocksdb":
+    elif provider == "evmos-rocksdb":
         yield custom_evmos_rocksdb
     elif provider == "geth":
         yield geth

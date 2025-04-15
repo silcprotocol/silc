@@ -1,7 +1,7 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 syntax = "proto3";
-package silc.inflation.v1;
+package evmos.inflation.v1;
 
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
@@ -11,7 +11,7 @@ option go_package = "github.com/silcprotocol/silc/x/inflation/v1/types";
 // InflationDistribution defines the distribution in which inflation is
 // allocated through minting on each epoch (staking, incentives, community). It
 // excludes the team vesting distribution, as this is minted once at genesis.
-// The initial InflationDistribution can be calculated from the Evmos Token
+// The initial InflationDistribution can be calculated from the Silc Token
 // Model like this:
 // mintDistribution1 = distribution1 / (1 - teamVestingDistribution)
 // 0.5333333         = 40%           / (1 - 25%)

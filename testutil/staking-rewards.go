@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package testutil
 
@@ -57,7 +57,7 @@ func CreateValidator(ctx sdk.Context, t *testing.T, pubKey cryptotypes.PubKey, s
 //   - Allocate rewards to the validator.
 //
 // The function returns the updated context along with a potential error.
-func PrepareAccountsForDelegationRewards(t *testing.T, ctx sdk.Context, app *app.Evmos, addr sdk.AccAddress, balance math.Int, rewards ...math.Int) (sdk.Context, error) {
+func PrepareAccountsForDelegationRewards(t *testing.T, ctx sdk.Context, app *app.Silc, addr sdk.AccAddress, balance math.Int, rewards ...math.Int) (sdk.Context, error) {
 	// Calculate the necessary amount of tokens to fund the account in order for the desired residual balance to
 	// be left after creating validators and delegating to them.
 	totalRewards := math.ZeroInt()

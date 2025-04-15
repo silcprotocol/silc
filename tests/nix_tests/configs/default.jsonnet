@@ -1,9 +1,9 @@
 {
   dotenv: '../../../scripts/.env',
   'evmos_9000-1': {
-    'account-prefix': 'silc',
+    'account-prefix': 'evmos',
     'coin-type': 60,
-    cmd: 'evmosd',
+    cmd: 'silcd',
     'start-flags': '--trace',
     'app-config': {
       'app-db-backend': 'goleveldb',

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package network
 
@@ -158,7 +158,7 @@ func collectGenFiles(cfg Config, vals []*Validator, outputDir string) error {
 	for i := 0; i < cfg.NumValidators; i++ {
 		cmtCfg := vals[i].Ctx.Config
 
-		nodeDir := filepath.Join(outputDir, vals[i].Moniker, "evmosd")
+		nodeDir := filepath.Join(outputDir, vals[i].Moniker, "silcd")
 		gentxsDir := filepath.Join(outputDir, "gentxs")
 
 		cmtCfg.Moniker = vals[i].Moniker

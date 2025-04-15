@@ -8,8 +8,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	evmostypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/inflation/v1/types"
@@ -203,7 +203,7 @@ func TestQueryCirculatingSupply(t *testing.T) {
 	// the total bonded tokens for the 4 accounts initialized on the setup (3 validators, 1 EOA)
 	bondedAmount := network.DefaultBondedAmount.MulRaw(nVals)
 	bondedAmount = bondedAmount.Add(network.PrefundedAccountInitialBalance.MulRaw(nAccs))
-	bondedCoins := sdk.NewDecCoin(evmostypes.AttoEvmos, bondedAmount)
+	bondedCoins := sdk.NewDecCoin(evmostypes.AttoSilc, bondedAmount)
 
 	res, err := qc.CirculatingSupply(ctx, &types.QueryCirculatingSupplyRequest{})
 	require.NoError(t, err)

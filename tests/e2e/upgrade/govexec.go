@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package upgrade
 
@@ -53,7 +53,7 @@ func getProposalCmd(legacy ProposalVersion, targetVersion string, upgradeHeight 
 	var cmd []string
 	if legacy == UpgradeProposalV50 {
 		cmd = []string{
-			"evmosd",
+			"silcd",
 			"tx",
 			"upgrade",
 			"software-upgrade",
@@ -76,7 +76,7 @@ func getProposalCmd(legacy ProposalVersion, targetVersion string, upgradeHeight 
 		}
 
 		cmd = []string{
-			"evmosd",
+			"silcd",
 			"tx",
 			"gov",
 			proposalType,
@@ -104,7 +104,7 @@ func getProposalCmd(legacy ProposalVersion, targetVersion string, upgradeHeight 
 // CreateDepositProposalExec creates a gov tx to deposit for the proposal with the given id
 func (m *Manager) CreateDepositProposalExec(chainID string, id int) (string, error) {
 	cmd := []string{
-		"evmosd",
+		"silcd",
 		"tx",
 		"gov",
 		"deposit",
@@ -125,7 +125,7 @@ func (m *Manager) CreateDepositProposalExec(chainID string, id int) (string, err
 // CreateVoteProposalExec creates gov tx to vote 'yes' on the proposal with the given id
 func (m *Manager) CreateVoteProposalExec(chainID string, id int, flags ...string) (string, error) {
 	cmd := []string{
-		"evmosd",
+		"silcd",
 		"tx",
 		"gov",
 		"vote",

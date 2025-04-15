@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package eip712
 
 import (
@@ -13,7 +13,7 @@ import (
 	txTypes "github.com/cosmos/cosmos-sdk/types/tx"
 
 	apitypes "github.com/ethereum/go-ethereum/signer/core/apitypes"
-	silc "github.com/silcprotocol/silc/types"
+	evmos "github.com/silcprotocol/silc/types"
 )
 
 type aminoMessage struct {
@@ -99,7 +99,7 @@ func legacyDecodeAminoSignDoc(signDocBytes []byte) (apitypes.TypedData, error) {
 		FeePayer: feePayer,
 	}
 
-	chainID, err := silc.ParseChainID(aminoDoc.ChainID)
+	chainID, err := evmos.ParseChainID(aminoDoc.ChainID)
 	if err != nil {
 		return apitypes.TypedData{}, errors.New("invalid chain ID passed as argument")
 	}
@@ -169,7 +169,7 @@ func legacyDecodeProtobufSignDoc(signDocBytes []byte) (apitypes.TypedData, error
 
 	signerInfo := authInfo.SignerInfos[0]
 
-	chainID, err := silc.ParseChainID(signDoc.ChainId)
+	chainID, err := evmos.ParseChainID(signDoc.ChainId)
 	if err != nil {
 		return apitypes.TypedData{}, fmt.Errorf("invalid chain ID passed as argument: %w", err)
 	}

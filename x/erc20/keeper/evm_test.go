@@ -8,7 +8,7 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
 	"github.com/ethereum/go-ethereum/common"
-	testfactory "github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	testfactory "github.com/silcprotocol/silc/testutil/integration/evmos/factory"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	"github.com/stretchr/testify/mock"

@@ -9,7 +9,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/ethereum/go-ethereum/common"
-	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	"github.com/silcprotocol/silc/x/erc20/keeper"
 	"github.com/silcprotocol/silc/x/erc20/types"
 	erc20mocks "github.com/silcprotocol/silc/x/erc20/types/mocks"

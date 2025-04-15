@@ -43,10 +43,10 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 	ethPk, err := ethsecp256k1.GenerateKey()
 	suite.Require().Nil(err)
 	ethsecpAddr := sdk.AccAddress(ethPk.PubKey().Address())
-	ethsecpAddrEvmos := sdk.AccAddress(ethPk.PubKey().Address()).String()
+	ethsecpAddrSilc := sdk.AccAddress(ethPk.PubKey().Address()).String()
 	ethsecpAddrCosmos := sdk.MustBech32ifyAddressBytes(sdk.Bech32MainPrefix, ethsecpAddr)
 
-	// Setup Cosmos <=> Evmos IBC relayer
+	// Setup Cosmos <=> Silc IBC relayer
 	sourceChannel := "channel-292"
 	evmosChannel := "channel-3"
 	path := fmt.Sprintf("%s/%s", transfertypes.PortID, evmosChannel)
@@ -89,7 +89,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 		{
 			name: "no-op - erc20 module param disabled",
 			malleate: func() {
-				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", ethsecpAddrEvmos, ethsecpAddrCosmos, "")
+				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", ethsecpAddrSilc, ethsecpAddrCosmos, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
 			},
@@ -103,7 +103,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 		{
 			name: "error - invalid sender (no '1')",
 			malleate: func() {
-				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", "silc", ethsecpAddrCosmos, "")
+				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", "evmos", ethsecpAddrCosmos, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
 			},
@@ -129,7 +129,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 		{
 			name: "error - invalid recipient (bad address)",
 			malleate: func() {
-				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", ethsecpAddrEvmos, "badbadhf0468jjpe6m6vx38s97z2qqe8ldu0njdyf625", "")
+				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", ethsecpAddrSilc, "badbadhf0468jjpe6m6vx38s97z2qqe8ldu0njdyf625", "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
 			},
@@ -142,7 +142,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 		{
 			name: "error - sender == receiver, not from Evm channel",
 			malleate: func() {
-				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", ethsecpAddrEvmos, ethsecpAddrCosmos, "")
+				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", ethsecpAddrSilc, ethsecpAddrCosmos, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, "channel-100", timeoutHeight, 0)
 			},
@@ -174,7 +174,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 				bondDenom, err := suite.network.App.StakingKeeper.BondDenom(ctx)
 				suite.Require().NoError(err)
 				prefixedDenom := sourcePrefix + bondDenom
-				transfer := transfertypes.NewFungibleTokenPacketData(prefixedDenom, "100", secpAddrCosmos, ethsecpAddrEvmos, "")
+				transfer := transfertypes.NewFungibleTokenPacketData(prefixedDenom, "100", secpAddrCosmos, ethsecpAddrSilc, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
 			},
@@ -187,7 +187,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 		{
 			name: "no-op - pair is not registered",
 			malleate: func() {
-				transfer := transfertypes.NewFungibleTokenPacketData(erc20Denom, "100", secpAddrCosmos, ethsecpAddrEvmos, "")
+				transfer := transfertypes.NewFungibleTokenPacketData(erc20Denom, "100", secpAddrCosmos, ethsecpAddrSilc, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
 			},
@@ -203,8 +203,8 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 				pk1 := secp256k1.GenPrivKey()
 				sourcePrefix := transfertypes.GetDenomPrefix(transfertypes.PortID, sourceChannel)
 				prefixedDenom := sourcePrefix + registeredDenom
-				otherSecpAddrEvmos := sdk.AccAddress(pk1.PubKey().Address()).String()
-				transfer := transfertypes.NewFungibleTokenPacketData(prefixedDenom, "500", otherSecpAddrEvmos, ethsecpAddrEvmos, "")
+				otherSecpAddrSilc := sdk.AccAddress(pk1.PubKey().Address()).String()
+				transfer := transfertypes.NewFungibleTokenPacketData(prefixedDenom, "500", otherSecpAddrSilc, ethsecpAddrSilc, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
 				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
 			},
@@ -265,7 +265,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 				&suite.network.App.TransferKeeper,
 			)
 
-			// Fund receiver account with EVMOS, ERC20 coins and IBC vouchers
+			// Fund receiver account with SILC, ERC20 coins and IBC vouchers
 			// We do this since we are interested in the conversion portion w/ OnRecvPacket
 			err = testutil.FundAccount(ctx, suite.network.App.BankKeeper, tc.receiver, coins)
 			suite.Require().NoError(err)
@@ -473,7 +473,7 @@ func (suite *KeeperTestSuite) TestOnAcknowledgementPacket() {
 
 				sender = sdk.AccAddress(senderPk.PubKey().Address())
 
-				// Fund receiver account with EVMOS, ERC20 coins and IBC vouchers
+				// Fund receiver account with SILC, ERC20 coins and IBC vouchers
 				// We do this since we are interested in the conversion portion w/ OnRecvPacket
 				err = testutil.FundAccount(
 					ctx,

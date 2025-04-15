@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package hd
 
 import (
@@ -23,11 +23,11 @@ const (
 )
 
 var (
-	// SupportedAlgorithms defines the list of signing algorithms used on Evmos:
+	// SupportedAlgorithms defines the list of signing algorithms used on Silc:
 	//  - eth_secp256k1 (Ethereum)
 	//  - secp256k1 (Tendermint)
 	SupportedAlgorithms = keyring.SigningAlgoList{EthSecp256k1, hd.Secp256k1}
-	// SupportedAlgorithmsLedger defines the list of signing algorithms used on Evmos for the Ledger device:
+	// SupportedAlgorithmsLedger defines the list of signing algorithms used on Silc for the Ledger device:
 	//  - eth_secp256k1 (Ethereum)
 	//  - secp256k1 (Tendermint)
 	SupportedAlgorithmsLedger = keyring.SigningAlgoList{EthSecp256k1, hd.Secp256k1}

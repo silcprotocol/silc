@@ -16,13 +16,13 @@ def test_single_request_netversion(evmos_cluster):
 # todo: follow https://github.com/ethereum/web3.py/issues/1402, add tests when complete
 
 
-def test_batch_request_netversion(silc):
+def test_batch_request_netversion(evmos):
     return
 
 
-def test_ws_subscribe_log(silc):
+def test_ws_subscribe_log(evmos):
     return
 
 
-def test_ws_subscribe_newheads(silc):
+def test_ws_subscribe_newheads(evmos):
     return

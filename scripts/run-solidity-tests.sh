@@ -3,9 +3,9 @@ export GOPATH="$HOME"/go
 export PATH="$PATH":"$GOPATH"/bin
 
 # remove existing data
-rm -rf "$HOME"/.evmosd
+rm -rf "$HOME"/.silcd
 
-# build silc binary
+# build evmos binary
 make install
 
 cd tests/solidity || exit
@@ -19,4 +19,4 @@ else
 	yarn install
 fi
 
-yarn test --network silc "$@"
+yarn test --network evmos "$@"

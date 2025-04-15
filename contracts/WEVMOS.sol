@@ -1,6 +1,6 @@
 // Sources flattened with hardhat v2.8.4 https://hardhat.org
 
-// File contracts/WEVMOS9.sol
+// File contracts/WSILC9.sol
 
 // Copyright (C) 2015, 2016, 2017 Dapphub
 
@@ -19,9 +19,9 @@
 
 pragma solidity >=0.4.22 <0.6;
 
-contract WEVMOS9 {
-    string public name     = "Wrapped Evmos";
-    string public symbol   = "WEVMOS";
+contract WSILC9 {
+    string public name     = "Wrapped Silc";
+    string public symbol   = "WSILC";
     uint8  public decimals = 18;
 
     event  Approval(address indexed src, address indexed guy, uint wad);

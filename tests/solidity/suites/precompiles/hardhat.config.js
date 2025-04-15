@@ -6,7 +6,7 @@ module.exports = {
     compilers: [{ version: '0.8.18' }]
   },
   networks: {
-    silc: {
+    evmos: {
       url: 'http://127.0.0.1:8545',
       chainId: 9000,
       accounts: [

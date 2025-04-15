@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package ledger_test
 
@@ -21,7 +21,7 @@ import (
 	auxTx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	bankTypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	"github.com/silcprotocol/silc/wallets/ledger"
 	"github.com/silcprotocol/silc/wallets/ledger/mocks"
 	"github.com/silcprotocol/silc/wallets/usbwallet"
@@ -31,7 +31,7 @@ type LedgerTestSuite struct {
 	suite.Suite
 	txAmino    []byte
 	txProtobuf []byte
-	ledger     ledger.EvmosSECP256K1
+	ledger     ledger.SilcSECP256K1
 	mockWallet *mocks.Wallet
 	hrp        string
 }
@@ -48,7 +48,7 @@ func TestLedgerTestSuite(t *testing.T) {
 }
 
 func (suite *LedgerTestSuite) SetupTest() {
-	suite.hrp = "silc"
+	suite.hrp = "evmos"
 
 	suite.txAmino = suite.getMockTxAmino()
 	suite.txProtobuf = suite.getMockTxProtobuf()
@@ -58,7 +58,7 @@ func (suite *LedgerTestSuite) SetupTest() {
 
 	mockWallet := new(mocks.Wallet)
 	suite.mockWallet = mockWallet
-	suite.ledger = ledger.EvmosSECP256K1{Hub: hub, PrimaryWallet: mockWallet}
+	suite.ledger = ledger.SilcSECP256K1{Hub: hub, PrimaryWallet: mockWallet}
 }
 
 func (suite *LedgerTestSuite) newPubKey(pk string) (res cryptoTypes.PubKey) {

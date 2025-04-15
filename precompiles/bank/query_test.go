@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/precompiles/bank"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	evmosutiltx "github.com/silcprotocol/silc/testutil/tx"
 )
 
@@ -81,7 +81,7 @@ func (s *PrecompileTestSuite) TestBalances() {
 			},
 		},
 		{
-			"pass - EVMOS and XMPL balances present - mint extra XMPL",
+			"pass - SILC and XMPL balances present - mint extra XMPL",
 			func() []interface{} {
 				ctx = s.mintAndSendXMPLCoin(ctx, s.keyring.GetAccAddr(0), math.NewInt(1e18))
 				return []interface{}{
@@ -145,7 +145,7 @@ func (s *PrecompileTestSuite) TestTotalSupply() {
 		expSupply func(evmosAddr, xmplAddr common.Address) []bank.Balance
 	}{
 		{
-			"pass - EVMOS and XMPL total supply",
+			"pass - SILC and XMPL total supply",
 			func() {
 				ctx = s.mintAndSendXMPLCoin(ctx, s.keyring.GetAccAddr(0), math.NewInt(1e18))
 			},
@@ -246,7 +246,7 @@ func (s *PrecompileTestSuite) TestSupplyOf() {
 		},
 
 		{
-			"pass - EVMOS total supply",
+			"pass - SILC total supply",
 			func() []interface{} {
 				return []interface{}{
 					s.evmosAddr,

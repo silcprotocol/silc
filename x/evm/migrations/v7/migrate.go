@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package v7
 
@@ -61,7 +61,7 @@ func MigrateStore(
 	// set the default access control configuration
 	params.AccessControl = types.DefaultAccessControl
 
-	// Migrate old ExtraEIPs from int64 to string. Since no Evmos EIPs have been
+	// Migrate old ExtraEIPs from int64 to string. Since no Silc EIPs have been
 	// created before and activators contains only `ethereum_XXXX` activations,
 	// all values will be prefixed with `ethereum_`.
 	params.ExtraEIPs = make([]string, 0, len(paramsV6.ExtraEIPs))

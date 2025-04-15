@@ -8,14 +8,14 @@
           "exponent": 0
         },
         {
-          "denom": "silc",
+          "denom": "evmos",
           "exponent": 18
         }
       ],
       "base": "aevmos",
       "display": "aevmos",
       "name": "aevmos",
-      "symbol": "EVMOS"
+      "symbol": "SILC"
     }
   ]
 }

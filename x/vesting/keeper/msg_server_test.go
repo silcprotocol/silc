@@ -14,7 +14,7 @@ import (
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/silcprotocol/silc/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	evmostypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"

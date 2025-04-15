@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package upgrade
 
 // The constants used in the upgrade tests are defined here
@@ -12,8 +12,8 @@ const (
 	// NOTE: For upgrade tests we're using the PebbleDB build
 	LocalVersionTag = "latest-pebble"
 
-	// tharsisRepo is the docker hub repository that contains the Evmos images pulled during tests
-	tharsisRepo = "tharsishq/silc"
+	// tharsisRepo is the docker hub repository that contains the Silc images pulled during tests
+	tharsisRepo = "tharsishq/evmos"
 
 	// upgradesPath is the relative path from this folder to the app/upgrades folder
 	upgradesPath = "../../../app/upgrades"

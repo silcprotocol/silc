@@ -16,7 +16,7 @@ import (
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("silc", "evmospub")
+	cfg.SetBech32PrefixForAccount("evmos", "evmospub")
 }
 
 func TestGetTransferSenderRecipient(t *testing.T) {
@@ -57,7 +57,7 @@ func TestGetTransferSenderRecipient(t *testing.T) {
 			expError:     true,
 		},
 		{
-			name: "valid - cosmos sender, silc recipient",
+			name: "valid - cosmos sender, evmos recipient",
 			data: transfertypes.FungibleTokenPacketData{
 				Sender:   "cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
 				Receiver: "evmos1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",
@@ -68,7 +68,7 @@ func TestGetTransferSenderRecipient(t *testing.T) {
 			expError:     false,
 		},
 		{
-			name: "valid - silc sender, cosmos recipient",
+			name: "valid - evmos sender, cosmos recipient",
 			data: transfertypes.FungibleTokenPacketData{
 				Sender:   "evmos1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",
 				Receiver: "cosmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueulg2gmc",
@@ -79,7 +79,7 @@ func TestGetTransferSenderRecipient(t *testing.T) {
 			expError:     false,
 		},
 		{
-			name: "valid - osmosis sender, silc recipient",
+			name: "valid - osmosis sender, evmos recipient",
 			data: transfertypes.FungibleTokenPacketData{
 				Sender:   "osmo1qql8ag4cluz6r4dz28p3w00dnc9w8ueuhnecd2",
 				Receiver: "evmos1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v",

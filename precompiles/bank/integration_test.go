@@ -12,11 +12,11 @@ import (
 	"github.com/silcprotocol/silc/precompiles/bank"
 	"github.com/silcprotocol/silc/precompiles/bank/testdata"
 	"github.com/silcprotocol/silc/precompiles/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
-	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
@@ -242,7 +242,7 @@ var _ = Describe("Bank Extension -", func() {
 		})
 
 		Context("supplyOf query", func() {
-			It("should return the supply of Evmos", func() {
+			It("should return the supply of Silc", func() {
 				queryArgs, supplyArgs := getTxAndCallArgs(directCall, contractData, bank.SupplyOfMethod, is.evmosAddr)
 				_, ethRes, err := is.factory.CallContractAndCheckLogs(sender.Priv, queryArgs, supplyArgs, passCheck)
 				Expect(err).ToNot(HaveOccurred(), "unexpected result calling contract")
@@ -385,7 +385,7 @@ var _ = Describe("Bank Extension -", func() {
 		})
 
 		Context("supplyOf query", func() {
-			It("should return the supply of Evmos", func() {
+			It("should return the supply of Silc", func() {
 				queryArgs, supplyArgs := getTxAndCallArgs(contractCall, contractData, SupplyOfFunction, is.evmosAddr)
 				_, ethRes, err := is.factory.CallContractAndCheckLogs(sender.Priv, queryArgs, supplyArgs, passCheck)
 				Expect(err).ToNot(HaveOccurred(), "unexpected result calling contract")

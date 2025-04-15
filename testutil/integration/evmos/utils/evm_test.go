@@ -6,11 +6,11 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/contracts"
-	testfactory "github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	testhandler "github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	testnetwork "github.com/silcprotocol/silc/testutil/integration/silc/network"
-	"github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	testfactory "github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	testhandler "github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	testnetwork "github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	"github.com/stretchr/testify/require"
 )

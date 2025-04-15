@@ -47,7 +47,7 @@ var s *LedgerTestSuite
 type LedgerTestSuite struct {
 	suite.Suite
 
-	app *app.Evmos
+	app *app.Silc
 	ctx sdk.Context
 
 	ledger       *mocks.SECP256K1
@@ -64,7 +64,7 @@ func TestLedger(t *testing.T) {
 	suite.Run(t, s)
 
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Evmosd Suite")
+	RunSpecs(t, "Silcd Suite")
 }
 
 func (suite *LedgerTestSuite) SetupTest() {
@@ -83,7 +83,7 @@ func (suite *LedgerTestSuite) SetupTest() {
 	suite.accAddr = sdk.AccAddress(ethAddr.Bytes())
 }
 
-func (suite *LedgerTestSuite) SetupEvmosApp() {
+func (suite *LedgerTestSuite) SetupSilcApp() {
 	consAddress := sdk.ConsAddress(utiltx.GenerateAddress().Bytes())
 
 	// init app

@@ -8,7 +8,7 @@ import pytest
 import requests
 from pystarport import ports
 
-from .network import Evmos, create_snapshots_dir, setup_custom_evmos
+from .network import Silc, create_snapshots_dir, setup_custom_evmos
 from .utils import (
     CONTRACTS,
     decode_bech32,
@@ -38,20 +38,20 @@ def custom_evmos_rocksdb(tmp_path_factory):
         26810,
         memiavl_config(path, "rollback-test"),
         post_init=create_snapshots_dir,
-        chain_binary="evmosd-rocksdb",
+        chain_binary="silcd-rocksdb",
     )
 
 
-@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
+@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
 def evmos_cluster(request, custom_evmos, custom_evmos_rocksdb):
     """
-    run on silc and
-    silc built with rocksdb (memIAVL + versionDB)
+    run on evmos and
+    evmos built with rocksdb (memIAVL + versionDB)
     """
     provider = request.param
-    if provider == "silc":
+    if provider == "evmos":
         yield custom_evmos
-    elif provider == "silc-rocksdb":
+    elif provider == "evmos-rocksdb":
         yield custom_evmos_rocksdb
     else:
         raise NotImplementedError
@@ -68,10 +68,10 @@ def grpc_eth_call(port: int, args: dict, chain_id=None, proposer_address=None):
         params["chain_id"] = str(chain_id)
     if proposer_address is not None:
         params["proposer_address"] = str(proposer_address)
-    return requests.get(f"http://localhost:{port}/silc/evm/v1/eth_call", params).json()
+    return requests.get(f"http://localhost:{port}/evmos/evm/v1/eth_call", params).json()
 
 
-def test_grpc_mode(evmos_cluster: Evmos):
+def test_grpc_mode(evmos_cluster: Silc):
     """
     - restart a fullnode in grpc-only mode
     - test the grpc queries all works

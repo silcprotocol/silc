@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package utils
 
 import (
@@ -8,7 +8,7 @@ import (
 
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
 	evmostypes "github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )

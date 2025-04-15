@@ -19,7 +19,7 @@ def test_gas_eth_tx(geth, evmos_cluster):
     tx = {"to": ADDRS["community"], "value": tx_value, "gasPrice": geth_gas_price}
     geth_receipt = send_transaction(geth.w3, tx, KEYS["validator"])
 
-    # send an equivalent transaction with silc
+    # send an equivalent transaction with evmos
     evmos_gas_price = evmos_cluster.w3.eth.gas_price
     tx = {"to": ADDRS["community"], "value": tx_value, "gasPrice": evmos_gas_price}
     evmos_receipt = send_transaction(evmos_cluster.w3, tx, KEYS["validator"])
@@ -28,7 +28,7 @@ def test_gas_eth_tx(geth, evmos_cluster):
 
 
 def test_gas_deployment(geth, evmos_cluster):
-    # deploy an identical contract on geth and silc
+    # deploy an identical contract on geth and evmos
     # ensure that the gasUsed is equivalent
     info = json.loads(CONTRACTS["TestERC20A"].read_text())
     geth_tx = build_deploy_contract_tx(geth.w3, info)
@@ -56,7 +56,7 @@ def test_gas_deployment(geth, evmos_cluster):
 def test_gas_call(geth, evmos_cluster):
     function_input = 10
 
-    # deploy an identical contract on geth and silc
+    # deploy an identical contract on geth and evmos
     # ensure that the contract has a function which consumes non-trivial gas
     geth_contract, _ = deploy_contract(geth.w3, CONTRACTS["BurnGas"])
     evmos_contract, _ = deploy_contract(evmos_cluster.w3, CONTRACTS["BurnGas"])
@@ -69,7 +69,7 @@ def test_gas_call(geth, evmos_cluster):
     geth_gas_estimation = geth.w3.eth.estimate_gas(geth_tx)
     geth_call_receipt = send_transaction(geth.w3, geth_tx)
 
-    # repeat the above for silc
+    # repeat the above for evmos
     evmos_gas_price = evmos_cluster.w3.eth.gas_price
     evmos_tx = evmos_contract.functions.burnGas(function_input).build_transaction(
         {"from": ADDRS["validator"], "gasPrice": evmos_gas_price}
@@ -111,7 +111,7 @@ def test_block_gas_limit(evmos_cluster):
     except Exception as error:
         assert "exceeds block gas limit" in error.args[0]["message"]
 
-    # deploy a contract on silc
+    # deploy a contract on evmos
     evmos_contract, _ = deploy_contract(evmos_cluster.w3, CONTRACTS["BurnGas"])
 
     # expect an error on contract call due to block gas limit

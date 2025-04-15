@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package backend
 
 import (
@@ -131,7 +131,7 @@ func (b *Backend) getTransactionByHashPending(txHash common.Hash) (*rpctypes.RPC
 func (b *Backend) GetGasUsed(res *types.TxResult, price *big.Int, gas uint64) uint64 {
 	// patch gasUsed if tx is reverted and happened before height on which fixed was introduced
 	// to return real gas charged
-	// more info at https://github.com/silc/ethermint/pull/1557
+	// more info at https://github.com/evmos/ethermint/pull/1557
 	if res.Failed && res.Height < b.cfg.JSONRPC.FixRevertGasRefundHeight {
 		return new(big.Int).Mul(price, new(big.Int).SetUint64(gas)).Uint64()
 	}

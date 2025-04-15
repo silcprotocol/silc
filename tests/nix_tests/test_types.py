@@ -22,7 +22,7 @@ from .utils import (
 
 def test_block(evmos_cluster, geth):
     # Perform block queries (eth_getBlockByNumber & eth_getBlockByHash)
-    # on silc and geth nodes, and compare the responses
+    # on evmos and geth nodes, and compare the responses
     # Case 1: block without transactions
     get_blocks(evmos_cluster, geth, False)
     # Case 2: block with transactions
@@ -197,7 +197,7 @@ def send_and_get_hash(w3, tx_value=10):
 
 
 def test_get_proof(evmos_cluster, geth):
-    # on silc the proof query will fail for block numbers <= 2
+    # on evmos the proof query will fail for block numbers <= 2
     # so we must wait for several blocks
     w3: Web3 = evmos_cluster.w3
     eth_rpc = w3.provider

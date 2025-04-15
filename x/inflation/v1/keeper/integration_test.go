@@ -12,7 +12,7 @@ import (
 	. "github.com/onsi/gomega"
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	integrationutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	integrationutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	epochstypes "github.com/silcprotocol/silc/x/epochs/types"
 	"github.com/silcprotocol/silc/x/inflation/v1/types"
 )

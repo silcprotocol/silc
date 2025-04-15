@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package testutils
 
 import (
@@ -15,10 +15,10 @@ import (
 	"github.com/silcprotocol/silc/app"
 	ante "github.com/silcprotocol/silc/app/ante"
 	evmante "github.com/silcprotocol/silc/app/ante/evm"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	"github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	feemarkettypes "github.com/silcprotocol/silc/x/feemarket/types"

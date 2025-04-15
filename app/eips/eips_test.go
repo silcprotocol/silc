@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package eips_test
 
@@ -12,11 +12,11 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/app/eips"
 	"github.com/silcprotocol/silc/app/eips/testdata"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
-	integrationutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	integrationutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 
@@ -37,7 +37,7 @@ import (
 
 func TestIPs(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "EvmosIPs Suite")
+	RunSpecs(t, "SilcIPs Suite")
 }
 
 var _ = Describe("Improvement proposal evmos_0 - ", Ordered, func() {

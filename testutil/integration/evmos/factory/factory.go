@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package factory
 
@@ -18,12 +18,12 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/silcprotocol/silc/precompiles/testutil"
 	commonfactory "github.com/silcprotocol/silc/testutil/integration/common/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
-// TxFactory defines a struct that can build and broadcast transactions for the Evmos
+// TxFactory defines a struct that can build and broadcast transactions for the Silc
 // network.
 // Methods are organized by build sign and broadcast type methods.
 type TxFactory interface {

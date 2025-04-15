@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package main
 
@@ -60,19 +60,19 @@ import (
 	evmoskr "github.com/silcprotocol/silc/crypto/keyring"
 )
 
-const EnvPrefix = "EVMOS"
+const EnvPrefix = "SILC"
 
 type emptyAppOptions struct{}
 
 func (ao emptyAppOptions) Get(_ string) interface{} { return nil }
 
-// NewRootCmd creates a new root command for evmosd. It is called once in the
+// NewRootCmd creates a new root command for silcd. It is called once in the
 // main function.
 func NewRootCmd() (*cobra.Command, sdktestutil.TestEncodingConfig) {
 	// we "pre"-instantiate the application for getting the injected/configured encoding configuration
 	// and the CLI options for the modules
 	// add keyring to autocli opts
-	tempApp := app.NewEvmos(
+	tempApp := app.NewSilc(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
 		nil, true, nil,
@@ -101,7 +101,7 @@ func NewRootCmd() (*cobra.Command, sdktestutil.TestEncodingConfig) {
 
 	rootCmd := &cobra.Command{
 		Use:   app.Name,
-		Short: "Evmos Daemon",
+		Short: "Silc Daemon",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
@@ -348,7 +348,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		chainID = conf.ChainID
 	}
 
-	evmosApp := app.NewEvmos(
+	evmosApp := app.NewSilc(
 		logger, db, traceStore, true, skipUpgradeHeights,
 		cast.ToString(appOpts.Get(flags.FlagHome)),
 		cast.ToUint(appOpts.Get(sdkserver.FlagInvCheckPeriod)),
@@ -382,20 +382,20 @@ func (a appCreator) appExport(
 	appOpts servertypes.AppOptions,
 	modulesToExport []string,
 ) (servertypes.ExportedApp, error) {
-	var evmosApp *app.Evmos
+	var evmosApp *app.Silc
 	homePath, ok := appOpts.Get(flags.FlagHome).(string)
 	if !ok || homePath == "" {
 		return servertypes.ExportedApp{}, errors.New("application home not set")
 	}
 
 	if height != -1 {
-		evmosApp = app.NewEvmos(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), appOpts)
+		evmosApp = app.NewSilc(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), appOpts)
 
 		if err := evmosApp.LoadHeight(height); err != nil {
 			return servertypes.ExportedApp{}, err
 		}
 	} else {
-		evmosApp = app.NewEvmos(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), appOpts)
+		evmosApp = app.NewSilc(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), appOpts)
 	}
 
 	return evmosApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
@@ -415,7 +415,7 @@ func initTendermintConfig() *cmtcfg.Config {
 }
 
 func tempDir(defaultHome string) string {
-	dir, err := os.MkdirTemp("", "silc")
+	dir, err := os.MkdirTemp("", "evmos")
 	if err != nil {
 		dir = defaultHome
 	}

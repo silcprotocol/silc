@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package ibctesting
 
@@ -27,7 +27,7 @@ import (
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
-// ChainIDPrefix defines the default chain ID prefix for Evmos test chains
+// ChainIDPrefix defines the default chain ID prefix for Silc test chains
 var (
 	ChainIDPrefix = utils.MainnetChainID + "-"
 	ChainIDSuffix = ""

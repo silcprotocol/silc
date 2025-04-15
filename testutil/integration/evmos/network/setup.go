@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package network
 
@@ -44,7 +44,7 @@ import (
 )
 
 // genSetupFn is the type for the module genesis setup functions
-type genSetupFn func(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, customGenesis interface{}) (evmostypes.GenesisState, error)
+type genSetupFn func(evmosApp *app.Silc, genesisState evmostypes.GenesisState, customGenesis interface{}) (evmostypes.GenesisState, error)
 
 // defaultGenesisParams contains the params that are needed to
 // setup the default genesis for the testing setup
@@ -68,7 +68,7 @@ var genesisSetupFunctions = map[string]genSetupFn{
 	banktypes.ModuleName:      setBankGenesisState,
 	authtypes.ModuleName:      setAuthGenesisState,
 	epochstypes.ModuleName:    genStateSetter[*epochstypes.GenesisState](epochstypes.ModuleName),
-	consensustypes.ModuleName: func(_ *app.Evmos, genesisState evmostypes.GenesisState, _ interface{}) (evmostypes.GenesisState, error) {
+	consensustypes.ModuleName: func(_ *app.Silc, genesisState evmostypes.GenesisState, _ interface{}) (evmostypes.GenesisState, error) {
 		// no-op. Consensus does not have a genesis state on the application
 		// but the params are used on it
 		// (e.g. block max gas, max bytes).
@@ -80,7 +80,7 @@ var genesisSetupFunctions = map[string]genSetupFn{
 
 // genStateSetter is a generic function to set module-specific genesis state
 func genStateSetter[T proto.Message](moduleName string) genSetupFn {
-	return func(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, customGenesis interface{}) (evmostypes.GenesisState, error) {
+	return func(evmosApp *app.Silc, genesisState evmostypes.GenesisState, customGenesis interface{}) (evmostypes.GenesisState, error) {
 		moduleGenesis, ok := customGenesis.(T)
 		if !ok {
 			return nil, fmt.Errorf("invalid type %T for %s module genesis state", customGenesis, moduleName)
@@ -157,9 +157,9 @@ func createBalances(accounts []sdktypes.AccAddress, denoms []string) []banktypes
 	return fundedAccountBalances
 }
 
-// createEvmosApp creates an silc app
-func createEvmosApp(chainID string, customBaseAppOptions ...func(*baseapp.BaseApp)) *app.Evmos {
-	// Create silc app
+// createSilcApp creates an evmos app
+func createSilcApp(chainID string, customBaseAppOptions ...func(*baseapp.BaseApp)) *app.Silc {
+	// Create evmos app
 	db := dbm.NewMemDB()
 	logger := log.NewNopLogger()
 	loadLatest := true
@@ -169,7 +169,7 @@ func createEvmosApp(chainID string, customBaseAppOptions ...func(*baseapp.BaseAp
 	appOptions := simutils.NewAppOptionsWithFlagHome(app.DefaultNodeHome)
 	baseAppOptions := append(customBaseAppOptions, baseapp.SetChainID(chainID)) //nolint:gocritic
 
-	return app.NewEvmos(
+	return app.NewSilc(
 		logger,
 		db,
 		nil,
@@ -309,7 +309,7 @@ type StakingCustomGenesisState struct {
 }
 
 // setDefaultStakingGenesisState sets the default staking genesis state
-func setDefaultStakingGenesisState(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, overwriteParams StakingCustomGenesisState) evmostypes.GenesisState {
+func setDefaultStakingGenesisState(evmosApp *app.Silc, genesisState evmostypes.GenesisState, overwriteParams StakingCustomGenesisState) evmostypes.GenesisState {
 	// Set staking params
 	stakingParams := stakingtypes.DefaultParams()
 	stakingParams.BondDenom = overwriteParams.denom
@@ -329,7 +329,7 @@ type BankCustomGenesisState struct {
 }
 
 // setDefaultBankGenesisState sets the default bank genesis state
-func setDefaultBankGenesisState(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, overwriteParams BankCustomGenesisState) evmostypes.GenesisState {
+func setDefaultBankGenesisState(evmosApp *app.Silc, genesisState evmostypes.GenesisState, overwriteParams BankCustomGenesisState) evmostypes.GenesisState {
 	bankGenesis := banktypes.NewGenesisState(
 		banktypes.DefaultGenesisState().Params,
 		overwriteParams.balances,
@@ -349,7 +349,7 @@ type SlashingCustomGenesisState struct {
 }
 
 // setDefaultSlashingGenesisState sets the default slashing genesis state
-func setDefaultSlashingGenesisState(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, overwriteParams SlashingCustomGenesisState) evmostypes.GenesisState {
+func setDefaultSlashingGenesisState(evmosApp *app.Silc, genesisState evmostypes.GenesisState, overwriteParams SlashingCustomGenesisState) evmostypes.GenesisState {
 	slashingGen := slashingtypes.DefaultGenesisState()
 	slashingGen.SigningInfos = overwriteParams.signingInfo
 	slashingGen.MissedBlocks = overwriteParams.missedBlocks
@@ -359,7 +359,7 @@ func setDefaultSlashingGenesisState(evmosApp *app.Evmos, genesisState evmostypes
 }
 
 // setBankGenesisState updates the bank genesis state with custom genesis state
-func setBankGenesisState(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, customGenesis interface{}) (evmostypes.GenesisState, error) {
+func setBankGenesisState(evmosApp *app.Silc, genesisState evmostypes.GenesisState, customGenesis interface{}) (evmostypes.GenesisState, error) {
 	customGen, ok := customGenesis.(*banktypes.GenesisState)
 	if !ok {
 		return nil, fmt.Errorf("invalid type %T for bank module genesis state", customGenesis)
@@ -411,14 +411,14 @@ func addBondedModuleAccountToFundedBalances(
 }
 
 // setDefaultAuthGenesisState sets the default auth genesis state
-func setDefaultAuthGenesisState(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, genAccs []authtypes.GenesisAccount) evmostypes.GenesisState {
+func setDefaultAuthGenesisState(evmosApp *app.Silc, genesisState evmostypes.GenesisState, genAccs []authtypes.GenesisAccount) evmostypes.GenesisState {
 	defaultAuthGen := authtypes.NewGenesisState(authtypes.DefaultParams(), genAccs)
 	genesisState[authtypes.ModuleName] = evmosApp.AppCodec().MustMarshalJSON(defaultAuthGen)
 	return genesisState
 }
 
 // setAuthGenesisState updates the bank genesis state with custom genesis state
-func setAuthGenesisState(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, customGenesis interface{}) (evmostypes.GenesisState, error) {
+func setAuthGenesisState(evmosApp *app.Silc, genesisState evmostypes.GenesisState, customGenesis interface{}) (evmostypes.GenesisState, error) {
 	customGen, ok := customGenesis.(*authtypes.GenesisState)
 	if !ok {
 		return nil, fmt.Errorf("invalid type %T for auth module genesis state", customGenesis)
@@ -443,7 +443,7 @@ type GovCustomGenesisState struct {
 }
 
 // setDefaultGovGenesisState sets the default gov genesis state
-func setDefaultGovGenesisState(evmosApp *app.Evmos, genesisState evmostypes.GenesisState, overwriteParams GovCustomGenesisState) evmostypes.GenesisState {
+func setDefaultGovGenesisState(evmosApp *app.Silc, genesisState evmostypes.GenesisState, overwriteParams GovCustomGenesisState) evmostypes.GenesisState {
 	govGen := govtypesv1.DefaultGenesisState()
 	updatedParams := govGen.Params
 	minDepositAmt := sdkmath.NewInt(1e18)
@@ -454,7 +454,7 @@ func setDefaultGovGenesisState(evmosApp *app.Evmos, genesisState evmostypes.Gene
 	return genesisState
 }
 
-func setDefaultErc20GenesisState(evmosApp *app.Evmos, genesisState evmostypes.GenesisState) evmostypes.GenesisState {
+func setDefaultErc20GenesisState(evmosApp *app.Silc, genesisState evmostypes.GenesisState) evmostypes.GenesisState {
 	erc20Gen := erc20types.DefaultGenesisState()
 	genesisState[erc20types.ModuleName] = evmosApp.AppCodec().MustMarshalJSON(erc20Gen)
 	return genesisState
@@ -462,7 +462,7 @@ func setDefaultErc20GenesisState(evmosApp *app.Evmos, genesisState evmostypes.Ge
 
 // defaultAuthGenesisState sets the default genesis state
 // for the testing setup
-func newDefaultGenesisState(evmosApp *app.Evmos, params defaultGenesisParams) evmostypes.GenesisState {
+func newDefaultGenesisState(evmosApp *app.Silc, params defaultGenesisParams) evmostypes.GenesisState {
 	genesisState := evmosApp.DefaultGenesis()
 
 	genesisState = setDefaultAuthGenesisState(evmosApp, genesisState, params.genAccounts)
@@ -477,7 +477,7 @@ func newDefaultGenesisState(evmosApp *app.Evmos, params defaultGenesisParams) ev
 
 // customizeGenesis modifies genesis state if there're any custom genesis state
 // for specific modules
-func customizeGenesis(evmosApp *app.Evmos, customGen CustomGenesisState, genesisState evmostypes.GenesisState) (evmostypes.GenesisState, error) {
+func customizeGenesis(evmosApp *app.Silc, customGen CustomGenesisState, genesisState evmostypes.GenesisState) (evmostypes.GenesisState, error) {
 	var err error
 	for mod, modGenState := range customGen {
 		if fn, found := genesisSetupFunctions[mod]; found {

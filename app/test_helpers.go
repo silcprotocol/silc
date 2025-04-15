@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package app
 
@@ -37,7 +37,7 @@ import (
 var DefaultTestingAppInit func(chainID string) func() (ibctesting.TestingApp, map[string]json.RawMessage) = SetupTestingApp
 
 // DefaultConsensusParams defines the default Tendermint consensus params used in
-// Evmos testing.
+// Silc testing.
 var DefaultConsensusParams = &cmtproto.ConsensusParams{
 	Block: &cmtproto.BlockParams{
 		MaxBytes: 200000,
@@ -62,12 +62,12 @@ func init() {
 	config.SetBip44CoinType(cfg)
 }
 
-// Setup initializes a new Evmos. A Nop logger is set in Evmos.
+// Setup initializes a new Silc. A Nop logger is set in Silc.
 func Setup(
 	isCheckTx bool,
 	feemarketGenesis *feemarkettypes.GenesisState,
 	chainID string,
-) *Evmos {
+) *Silc {
 	privVal := mock.NewPV()
 	pubKey, _ := privVal.GetPubKey()
 
@@ -84,7 +84,7 @@ func Setup(
 	}
 
 	db := dbm.NewMemDB()
-	app := NewEvmos(
+	app := NewSilc(
 		log.NewNopLogger(),
 		db, nil, true, map[int64]bool{},
 		DefaultNodeHome, 5,
@@ -126,7 +126,7 @@ func Setup(
 	return app
 }
 
-func GenesisStateWithValSet(app *Evmos, genesisState evmostypes.GenesisState,
+func GenesisStateWithValSet(app *Silc, genesisState evmostypes.GenesisState,
 	valSet *cmttypes.ValidatorSet, genAccs []authtypes.GenesisAccount,
 	balances ...banktypes.Balance,
 ) evmostypes.GenesisState {
@@ -195,7 +195,7 @@ func GenesisStateWithValSet(app *Evmos, genesisState evmostypes.GenesisState,
 func SetupTestingApp(chainID string) func() (ibctesting.TestingApp, map[string]json.RawMessage) {
 	return func() (ibctesting.TestingApp, map[string]json.RawMessage) {
 		db := dbm.NewMemDB()
-		app := NewEvmos(
+		app := NewSilc(
 			log.NewNopLogger(),
 			db, nil, true,
 			map[int64]bool{},

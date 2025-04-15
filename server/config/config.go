@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package config
 
 import (
@@ -110,10 +110,10 @@ const (
 	DefaultGasAdjustment = 1.2
 
 	// DefaultRosettaBlockchain defines the default blockchain name for the rosetta server
-	DefaultRosettaBlockchain = "silc"
+	DefaultRosettaBlockchain = "evmos"
 
 	// DefaultRosettaNetwork defines the default network name for the rosetta server
-	DefaultRosettaNetwork = "silc"
+	DefaultRosettaNetwork = "evmos"
 
 	// DefaultRosettaGasToSuggest defines the default gas to suggest for the rosetta server
 	DefaultRosettaGasToSuggest = 300_000
@@ -266,7 +266,7 @@ func AppConfig(denom string) (string, interface{}) {
 	// - if you set srvCfg.MinGasPrices non-empty, validators CAN tweak their
 	//   own app.toml to override, or use this default value.
 	//
-	// In silc, we set the min gas prices to 0.
+	// In evmos, we set the min gas prices to 0.
 	if denom != "" {
 		customAppConfig.Config.MinGasPrices = "0" + denom
 	}

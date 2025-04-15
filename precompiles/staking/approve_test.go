@@ -5,7 +5,7 @@ import (
 	"math/big"
 	"time"
 
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
 
 	"cosmossdk.io/math"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
@@ -199,7 +199,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			"",
 		},
 		{ //nolint:dupl
-			"success - MsgDelegate with 1 Evmos as limit amount",
+			"success - MsgDelegate with 1 Silc as limit amount",
 			func(_ *vm.Contract, _, grantee testkeyring.Key) []interface{} {
 				return []interface{}{
 					grantee.Addr,
@@ -263,7 +263,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			"",
 		},
 		{ //nolint:dupl
-			"success - MsgUndelegate with 1 Evmos as limit amount",
+			"success - MsgUndelegate with 1 Silc as limit amount",
 			func(_ *vm.Contract, _, grantee testkeyring.Key) []interface{} {
 				return []interface{}{
 					grantee.Addr,
@@ -285,7 +285,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			"",
 		},
 		{
-			"success - MsgRedelegate with 1 Evmos as limit amount",
+			"success - MsgRedelegate with 1 Silc as limit amount",
 			func(_ *vm.Contract, _, grantee testkeyring.Key) []interface{} {
 				return []interface{}{
 					grantee.Addr,
@@ -305,7 +305,7 @@ func (s *PrecompileTestSuite) TestApprove() {
 			"",
 		},
 		{
-			"success - MsgRedelegate, MsgUndelegate and MsgDelegate with 1 Evmos as limit amount",
+			"success - MsgRedelegate, MsgUndelegate and MsgDelegate with 1 Silc as limit amount",
 			func(_ *vm.Contract, _, grantee testkeyring.Key) []interface{} {
 				return []interface{}{
 					grantee.Addr,
@@ -481,7 +481,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowance() {
 			"amount by which the allowance should be decreased is greater than the authorization limit",
 		},
 		{
-			"success - decrease delegate authorization allowance by 1 Evmos",
+			"success - decrease delegate authorization allowance by 1 Silc",
 			func(_ *vm.Contract, granter, grantee testkeyring.Key) []interface{} {
 				s.ApproveAndCheckAuthz(method, granter, grantee, staking.DelegateMsg, big.NewInt(2e18))
 				return []interface{}{
@@ -614,7 +614,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowance() {
 			"",
 		},
 		{
-			"success - increase delegate authorization allowance by 1 Evmos",
+			"success - increase delegate authorization allowance by 1 Silc",
 			func(granter, grantee testkeyring.Key) []interface{} {
 				s.ApproveAndCheckAuthz(method, granter, grantee, staking.DelegateMsg, big.NewInt(1e18))
 				return []interface{}{

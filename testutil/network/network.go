@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package network
 
@@ -108,7 +108,7 @@ func DefaultConfig() Config {
 		panic(fmt.Sprintf("failed creating temporary directory: %v", err))
 	}
 	defer os.RemoveAll(dir)
-	app := app.NewEvmos(log.NewNopLogger(), dbm.NewMemDB(), nil, true, nil, dir, 0, simutils.NewAppOptionsWithFlagHome(dir), baseapp.SetChainID(chainID))
+	app := app.NewSilc(log.NewNopLogger(), dbm.NewMemDB(), nil, true, nil, dir, 0, simutils.NewAppOptionsWithFlagHome(dir), baseapp.SetChainID(chainID))
 	return Config{
 		Codec:             app.AppCodec(),
 		TxConfig:          app.GetTxConfig(),
@@ -121,7 +121,7 @@ func DefaultConfig() Config {
 		ChainID:           chainID,
 		NumValidators:     4,
 		BondDenom:         "aevmos",
-		MinGasPrices:      fmt.Sprintf("0.000006%s", evmostypes.AttoEvmos),
+		MinGasPrices:      fmt.Sprintf("0.000006%s", evmostypes.AttoSilc),
 		AccountTokens:     sdk.TokensFromConsensusPower(1000000000000000000, evmostypes.PowerReduction),
 		StakingTokens:     sdk.TokensFromConsensusPower(500000000000000000, evmostypes.PowerReduction),
 		BondedTokens:      sdk.TokensFromConsensusPower(100000000000000000, evmostypes.PowerReduction),
@@ -133,10 +133,10 @@ func DefaultConfig() Config {
 	}
 }
 
-// NewAppConstructor returns a new Evmos AppConstructor
+// NewAppConstructor returns a new Silc AppConstructor
 func NewAppConstructor(chainID string) AppConstructor {
 	return func(val Validator) servertypes.Application {
-		return app.NewEvmos(
+		return app.NewSilc(
 			val.Ctx.Logger, dbm.NewMemDB(), nil, true, make(map[int64]bool), val.Ctx.Config.RootDir, 0,
 			simutils.NewAppOptionsWithFlagHome(val.Ctx.Config.RootDir),
 			baseapp.SetPruning(pruningtypes.NewPruningOptionsFromString(val.AppConfig.Pruning)),
@@ -338,7 +338,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 		ctx.Logger = logger
 
 		nodeDirName := fmt.Sprintf("node%d", i)
-		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "evmosd")
+		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "silcd")
 		clientDir := filepath.Join(network.BaseDir, nodeDirName, "evmoscli")
 		gentxsDir := filepath.Join(network.BaseDir, "gentxs")
 
@@ -478,7 +478,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 			return nil, err
 		}
 
-		customAppTemplate, _ := config.AppConfig(evmostypes.AttoEvmos)
+		customAppTemplate, _ := config.AppConfig(evmostypes.AttoSilc)
 		srvconfig.SetConfigTemplate(customAppTemplate)
 		srvconfig.WriteConfigFile(filepath.Join(nodeDir, "config/app.toml"), appCfg)
 

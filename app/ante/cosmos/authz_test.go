@@ -21,7 +21,7 @@ import (
 	cosmosante "github.com/silcprotocol/silc/app/ante/cosmos"
 	"github.com/silcprotocol/silc/testutil"
 	"github.com/silcprotocol/silc/testutil/integration/common/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"

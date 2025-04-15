@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package main
 
@@ -20,7 +20,7 @@ func main() {
 
 	rootCmd, _ := NewRootCmd()
 
-	if err := svrcmd.Execute(rootCmd, "evmosd", app.DefaultNodeHome); err != nil {
+	if err := svrcmd.Execute(rootCmd, "silcd", app.DefaultNodeHome); err != nil {
 		fmt.Fprintln(rootCmd.OutOrStderr(), err)
 		os.Exit(1)
 	}

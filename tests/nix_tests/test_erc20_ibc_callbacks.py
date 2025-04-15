@@ -4,7 +4,7 @@ import tempfile
 import pytest
 
 from .ibc_utils import assert_ready, get_balance, prepare_network
-from .network import CosmosChain, Evmos
+from .network import CosmosChain, Silc
 from .utils import (
     ADDRS,
     CONTRACTS,
@@ -19,7 +19,7 @@ from .utils import (
 )
 
 
-@pytest.fixture(scope="module", params=["silc"])
+@pytest.fixture(scope="module", params=["evmos"])
 def ibc(request, tmp_path_factory):
     """
     Prepares the network.
@@ -64,11 +64,11 @@ def test_ibc_callbacks(
     """Test ibc precompile denom trace query"""
     assert_ready(ibc)
 
-    silc: Evmos = ibc.chains["silc"]
+    evmos: Silc = ibc.chains["evmos"]
     chainmain: CosmosChain = ibc.chains["chainmain"]
 
-    w3 = silc.w3
-    evmos_cli = silc.cosmos_cli()
+    w3 = evmos.w3
+    evmos_cli = evmos.cosmos_cli()
     evmos_addr = ADDRS["signer2"]
     bech32_evmos_addr = evmos_cli.address("signer2")
     dst_addr = chainmain.cosmos_cli().address("signer2")
@@ -78,7 +78,7 @@ def test_ibc_callbacks(
     w3_wait_for_new_blocks(w3, 2)
 
     # Check token pairs before IBC transfer,
-    # should only exist the WEVMOS pair
+    # should only exist the WSILC pair
     pairs = evmos_cli.get_token_pairs()
     pairs_count_before = len(pairs)
 
@@ -101,7 +101,7 @@ def test_ibc_callbacks(
     props_count = len(props)
     assert props_count >= 1
 
-    approve_proposal(silc, props[props_count - 1]["id"])
+    approve_proposal(evmos, props[props_count - 1]["id"])
 
     pairs = evmos_cli.get_token_pairs()
     assert len(pairs) == pairs_count_before + 1
@@ -126,7 +126,7 @@ def test_ibc_callbacks(
     erc20_balance = contract.functions.balanceOf(evmos_addr).call()
     assert erc20_balance == initial_amt - convert_amt
 
-    ibc_voucher_balance = get_balance(silc, bech32_evmos_addr, ibc_voucher_denom)
+    ibc_voucher_balance = get_balance(evmos, bech32_evmos_addr, ibc_voucher_denom)
     assert ibc_voucher_balance == convert_amt
 
     # send erc20 via IBC
@@ -177,7 +177,7 @@ def test_ibc_callbacks(
     assert rsp["code"] == 0, rsp["raw_log"]
 
     # wait for ack on destination chain
-    wait_for_ack(evmos_cli, "silc")
+    wait_for_ack(evmos_cli, "evmos")
     wait_for_new_blocks(evmos_cli, 2)
 
     txhash = rsp["txhash"]
@@ -194,5 +194,5 @@ def test_ibc_callbacks(
     erc20_balance = contract.functions.balanceOf(evmos_addr).call()
     assert erc20_balance == initial_amt
 
-    ibc_voucher_balance = get_balance(silc, bech32_evmos_addr, ibc_voucher_denom)
+    ibc_voucher_balance = get_balance(evmos, bech32_evmos_addr, ibc_voucher_denom)
     assert ibc_voucher_balance == 0

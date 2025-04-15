@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package network
 
@@ -61,7 +61,7 @@ type IntegrationNetwork struct {
 	cfg        Config
 	ctx        sdktypes.Context
 	validators []stakingtypes.Validator
-	app        *app.Evmos
+	app        *app.Silc
 
 	// This is only needed for IBC chain testing setup
 	valSet     *cmttypes.ValidatorSet
@@ -125,8 +125,8 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 
 	delegations := createDelegations(validators, genAccounts[0].GetAddress())
 
-	// Create a new EvmosApp with the following params
-	evmosApp := createEvmosApp(n.cfg.chainID, n.cfg.customBaseAppOpts...)
+	// Create a new SilcApp with the following params
+	evmosApp := createSilcApp(n.cfg.chainID, n.cfg.customBaseAppOpts...)
 
 	stakingParams := StakingCustomGenesisState{
 		denom:       n.cfg.denom,

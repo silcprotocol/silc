@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package types
 
@@ -16,7 +16,7 @@ type OpCodeHooks interface {
 	AddCreateHooks(hooks ...CreateHook)
 }
 
-// DefaultOpCodesHooks is the default implementation of OpCodeHooks for EVMOS chain
+// DefaultOpCodesHooks is the default implementation of OpCodeHooks for SILC chain
 // The hooks are used to enforce access control policies on EVM operations.
 // They are ran BEFORE the respective opcode execution every time they are called.
 type DefaultOpCodesHooks struct {

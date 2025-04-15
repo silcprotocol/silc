@@ -1,7 +1,7 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 syntax = "proto3";
-package silc.vesting.v2;
+package evmos.vesting.v2;
 
 option go_package = "github.com/silcprotocol/silc/x/vesting/types";
 

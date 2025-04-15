@@ -8,7 +8,7 @@ from pystarport import ports
 from .network import (
     CosmosChain,
     Hermes,
-    build_patched_evmosd,
+    build_patched_silcd,
     create_snapshots_dir,
     setup_custom_evmos,
 )
@@ -18,33 +18,33 @@ from .utils import (
     memiavl_config,
     setup_stride,
     update_evmos_bin,
-    update_evmosd_and_setup_stride,
+    update_silcd_and_setup_stride,
     wait_for_fn,
     wait_for_port,
 )
 
 # aevmos IBC representation on another chain connected via channel-0.
-EVMOS_IBC_DENOM = "ibc/8EAC8061F4499F03D2D1419A3E73D346289AE9DB89CAB1486B72539572B1915E"
-# uosmo IBC representation on the Evmos chain.
+SILC_IBC_DENOM = "ibc/8EAC8061F4499F03D2D1419A3E73D346289AE9DB89CAB1486B72539572B1915E"
+# uosmo IBC representation on the Silc chain.
 OSMO_IBC_DENOM = "ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518"
 # cro IBC representation on another chain connected via channel-0.
 BASECRO_IBC_DENOM = (
     "ibc/6411AE2ADA1E73DB59DB151A8988F9B7D5E7E233D8414DB6817F8F1A01611F86"
 )
-# uatom from cosmoshub-1 IBC representation on the Evmos chain and on Cosmos Hub 2 chain.
+# uatom from cosmoshub-1 IBC representation on the Silc chain and on Cosmos Hub 2 chain.
 ATOM_IBC_DENOM = "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2"
 
 RATIO = 10**10
 # IBC_CHAINS_META metadata of cosmos chains to setup these for IBC tests
 IBC_CHAINS_META = {
-    "silc": {
+    "evmos": {
         "chain_name": "evmos_9000-1",
-        "bin": "evmosd",
+        "bin": "silcd",
         "denom": "aevmos",
     },
-    "silc-rocksdb": {
+    "evmos-rocksdb": {
         "chain_name": "evmos_9000-1",
-        "bin": "evmosd-rocksdb",
+        "bin": "silcd-rocksdb",
         "denom": "aevmos",
     },
     "chainmain": {
@@ -89,7 +89,7 @@ def get_evmos_generator(
     custom_scenario: str | None = None,
 ):
     """
-    setup silc with custom config
+    setup evmos with custom config
     depending on the build
     """
     post_init_func = None
@@ -99,17 +99,17 @@ def get_evmos_generator(
             tmp_path,
             26710,
             Path(__file__).parent / file,
-            chain_binary="evmosd-rocksdb",
+            chain_binary="silcd-rocksdb",
             post_init=create_snapshots_dir,
         )
     else:
         file = f"configs/{file}.jsonnet"
         if custom_scenario:
             # build the binary modified for a custom scenario
-            modified_bin = build_patched_evmosd(custom_scenario)
+            modified_bin = build_patched_silcd(custom_scenario)
             post_init_func = update_evmos_bin(modified_bin)
             if stride_included:
-                post_init_func = update_evmosd_and_setup_stride(modified_bin)
+                post_init_func = update_silcd_and_setup_stride(modified_bin)
             gen = setup_custom_evmos(
                 tmp_path,
                 26700,
@@ -148,10 +148,10 @@ def prepare_network(
         chain_name = meta["chain_name"]
         chains_to_connect.append(chain_name)
 
-        # silc is the first chain
+        # evmos is the first chain
         # set it up and the relayer
-        if "silc" in chain_name:
-            # setup silc with the custom config
+        if "evmos" in chain_name:
+            # setup evmos with the custom config
             # depending on the build
             gen = get_evmos_generator(
                 tmp_path,
@@ -160,14 +160,14 @@ def prepare_network(
                 "stride" in chain_names,
                 custom_scenario,
             )
-            silc = next(gen)  # pylint: disable=stop-iteration-return
+            evmos = next(gen)  # pylint: disable=stop-iteration-return
 
             # setup relayer
             hermes = Hermes(tmp_path / "relayer.toml")
 
             # wait for grpc ready
-            wait_for_port(ports.grpc_port(silc.base_port(0)))  # silc grpc
-            chains["silc"] = silc
+            wait_for_port(ports.grpc_port(evmos.base_port(0)))  # evmos grpc
+            chains["evmos"] = evmos
             continue
 
         chain_instance = CosmosChain(tmp_path / chain_name, meta["bin"])
@@ -219,7 +219,7 @@ def prepare_network(
                 ]
             )
 
-    silc.supervisorctl("start", "relayer-demo")
+    evmos.supervisorctl("start", "relayer-demo")
     wait_for_port(hermes.port)
     yield IBCNetwork(chains, hermes)
 
@@ -268,14 +268,14 @@ def get_balances(chain, addr):
 
 def setup_denom_trace(ibc):
     """
-    Helper setup function to send some funds from chain-main to silc
+    Helper setup function to send some funds from chain-main to evmos
     to register the denom trace (if not registered already)
     """
-    res = ibc.chains["silc"].cosmos_cli().denom_traces()
+    res = ibc.chains["evmos"].cosmos_cli().denom_traces()
     if len(res["denom_traces"]) == 0:
         amt = 100
         src_denom = "basecro"
-        dst_addr = ibc.chains["silc"].cosmos_cli().address("signer2")
+        dst_addr = ibc.chains["evmos"].cosmos_cli().address("signer2")
         src_addr = ibc.chains["chainmain"].cosmos_cli().address("signer2")
         rsp = (
             ibc.chains["chainmain"]
@@ -293,7 +293,7 @@ def setup_denom_trace(ibc):
 
         # wait for the ack and registering the denom trace
         def check_denom_trace_change():
-            res = ibc.chains["silc"].cosmos_cli().denom_traces()
+            res = ibc.chains["evmos"].cosmos_cli().denom_traces()
             return len(res["denom_traces"]) > 0
 
         wait_for_fn("denom trace registration", check_denom_trace_change)

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package client
 
 import (
@@ -66,7 +66,7 @@ func UnsafeExportEthKeyCommand() *cobra.Command {
 				return fmt.Errorf("invalid key algorithm, got %s, expected %s", algo, ethsecp256k1.KeyType)
 			}
 
-			// Converts key to Evmos secp256k1 implementation
+			// Converts key to Silc secp256k1 implementation
 			ethPrivKey, ok := privKey.(*ethsecp256k1.PrivKey)
 			if !ok {
 				return fmt.Errorf("invalid private key type %T, expected %T", privKey, &ethsecp256k1.PrivKey{})

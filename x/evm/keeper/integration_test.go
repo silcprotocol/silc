@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package keeper_test
 
 import (
@@ -19,11 +19,11 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/silcprotocol/silc/contracts"
 	"github.com/silcprotocol/silc/precompiles/staking"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
-	integrationutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	integrationutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
@@ -34,8 +34,8 @@ type IntegrationTestSuite struct {
 	keyring     testkeyring.Keyring
 }
 
-// This test suite is meant to test the EVM module in the context of the EVMOS.
-// It uses the integration test framework to spin up a local EVMOS network and
+// This test suite is meant to test the EVM module in the context of the SILC.
+// It uses the integration test framework to spin up a local SILC network and
 // perform transactions on it.
 // The test suite focus on testing how the MsgEthereumTx message is handled under the
 // different params configuration of the module while testing the different Tx types

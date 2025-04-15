@@ -13,10 +13,10 @@ import (
 
 	"github.com/silcprotocol/silc/testutil"
 	"github.com/silcprotocol/silc/testutil/integration/common/factory"
-	evmosfactory "github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	evmosfactory "github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	vestingtypes "github.com/silcprotocol/silc/x/vesting/types"
 
 	//nolint:revive // dot imports are fine for Ginkgo

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package client
 
 // DONTCOVER
@@ -95,7 +95,7 @@ func addTestnetFlagsToCmd(cmd *cobra.Command) {
 	cmd.Flags().String(flags.FlagChainID, "", "genesis file chain-id, if left blank will be randomly created")
 	cmd.Flags().String(sdkserver.FlagMinGasPrices,
 		fmt.Sprintf("0.000006%s",
-			evmostypes.AttoEvmos),
+			evmostypes.AttoSilc),
 		"Minimum gas prices to accept for transactions; All fees in a tx must meet this minimum (e.g. 0.01photino,0.001stake)")
 	cmd.Flags().String(flags.FlagKeyType, string(hd.EthSecp256k1Type), "Key signing algorithm to generate keys for")
 }
@@ -131,7 +131,7 @@ or a similar setup where each node has a manually configurable IP address.
 Note, strict routability for addresses is turned off in the config file.
 
 Example:
-	evmosd testnet init-files --v 4 --output-dir ./.testnets --starting-ip-address 192.168.10.2
+	silcd testnet init-files --v 4 --output-dir ./.testnets --starting-ip-address 192.168.10.2
 	`,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -177,7 +177,7 @@ and generate "v" directories, populated with necessary validator configuration f
 (private validator, genesis, config, etc.).
 
 Example:
-	evmosd testnet --v 4 --output-dir ./.testnets
+	silcd testnet --v 4 --output-dir ./.testnets
 	`,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			args := startArgs{}
@@ -303,7 +303,7 @@ func initTestnetFiles(
 
 		accStakingTokens := sdk.TokensFromConsensusPower(5000, evmostypes.PowerReduction)
 		coins := sdk.Coins{
-			sdk.NewCoin(evmostypes.AttoEvmos, accStakingTokens),
+			sdk.NewCoin(evmostypes.AttoSilc, accStakingTokens),
 		}
 
 		genBalances = append(genBalances, banktypes.Balance{Address: addr.String(), Coins: coins.Sort()})
@@ -316,7 +316,7 @@ func initTestnetFiles(
 		createValMsg, err := stakingtypes.NewMsgCreateValidator(
 			addr.String(),
 			valPubKeys[i],
-			sdk.NewCoin(evmostypes.AttoEvmos, valTokens),
+			sdk.NewCoin(evmostypes.AttoSilc, valTokens),
 			stakingtypes.NewDescription(nodeDirName, "", "", "", ""),
 			stakingtypes.NewCommissionRates(math.LegacyOneDec(), math.LegacyOneDec(), math.LegacyOneDec()),
 			math.OneInt(),
@@ -352,7 +352,7 @@ func initTestnetFiles(
 			return err
 		}
 
-		customAppTemplate, customAppConfig := config.AppConfig(evmostypes.AttoEvmos)
+		customAppTemplate, customAppConfig := config.AppConfig(evmostypes.AttoSilc)
 		srvconfig.SetConfigTemplate(customAppTemplate)
 		if err := sdkserver.InterceptConfigsPreRunHandler(cmd, customAppTemplate, customAppConfig, cmtconfig.DefaultConfig()); err != nil {
 			return err
@@ -361,7 +361,7 @@ func initTestnetFiles(
 		srvconfig.WriteConfigFile(filepath.Join(nodeDir, "config/app.toml"), appConfig)
 	}
 
-	if err := initGenFiles(clientCtx, mbm, args.chainID, evmostypes.AttoEvmos, genAccounts, genBalances, genFiles, args.numValidators); err != nil {
+	if err := initGenFiles(clientCtx, mbm, args.chainID, evmostypes.AttoSilc, genAccounts, genBalances, genFiles, args.numValidators); err != nil {
 		return err
 	}
 

@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package post_test
 
@@ -14,9 +14,9 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	inflationtypes "github.com/silcprotocol/silc/x/inflation/v1/types"
 
@@ -85,7 +85,7 @@ func (s *PostTestSuite) BuildEthTx() sdk.Tx {
 
 	msgEthereumTx := evmtypes.NewTx(ethTxParams)
 	msgEthereumTx.From = s.from.String()
-	tx, err := msgEthereumTx.BuildTx(s.txBuilder, "silc")
+	tx, err := msgEthereumTx.BuildTx(s.txBuilder, "evmos")
 	s.Require().NoError(err)
 	return tx
 }

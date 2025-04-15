@@ -19,11 +19,11 @@ import (
 	"github.com/silcprotocol/silc/precompiles/erc20"
 	"github.com/silcprotocol/silc/precompiles/erc20/testdata"
 	"github.com/silcprotocol/silc/precompiles/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
-	"github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	erc20types "github.com/silcprotocol/silc/x/erc20/types"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
@@ -245,7 +245,7 @@ var _ = Describe("ERC20 Extension -", func() {
 
 		erc20Params := is.network.App.Erc20Keeper.GetParams(is.network.GetContext())
 		Expect(len(erc20Params.NativePrecompiles)).To(Equal(1))
-		Expect(common.HexToAddress(erc20Params.NativePrecompiles[0])).To(Equal(common.HexToAddress(erc20types.WEVMOSContractTestnet)))
+		Expect(common.HexToAddress(erc20Params.NativePrecompiles[0])).To(Equal(common.HexToAddress(erc20types.WSILCContractTestnet)))
 
 		wevmosAddress = common.HexToAddress(erc20Params.NativePrecompiles[0])
 		revertContractAddr, err = is.factory.DeployContract(
@@ -416,7 +416,7 @@ var _ = Describe("ERC20 Extension -", func() {
 			)
 		})
 		When("calling reverter contract", func() {
-			Context("in a direct call to the WEVMOS contract", func() {
+			Context("in a direct call to the WSILC contract", func() {
 				var (
 					args   factory.CallArgs
 					txArgs evmtypes.EvmTxArgs
@@ -476,7 +476,7 @@ var _ = Describe("ERC20 Extension -", func() {
 					Expect(senderFinalBalance.Amount).To(Equal(senderInitialBalance.Amount.Sub(denomSpent)))
 				},
 				)
-				DescribeTable("it should revert token transfer from the WEVMOS contract", func(before bool, after bool) {
+				DescribeTable("it should revert token transfer from the WSILC contract", func(before bool, after bool) {
 					sender := is.keyring.GetKey(0)
 					receiver := is.keyring.GetAddr(1)
 					amountToSend := big.NewInt(100)
@@ -521,7 +521,7 @@ var _ = Describe("ERC20 Extension -", func() {
 					Entry("revert before", true, false),
 					Entry("revert after", false, true),
 				)
-				It("it should send token transfer and send from WEVMOS contract", func() {
+				It("it should send token transfer and send from WSILC contract", func() {
 					sender := is.keyring.GetKey(0)
 					receiver := is.keyring.GetAddr(1)
 					totalToSend := int64(350)
@@ -569,7 +569,7 @@ var _ = Describe("ERC20 Extension -", func() {
 					Expect(senderFinalBalance.Amount).To(Equal(senderInitialBalance.Amount.Sub(denomSpent)))
 				},
 				)
-				DescribeTable("it should revert token transfer and send from WEVMOS contract", func(before bool, after bool) {
+				DescribeTable("it should revert token transfer and send from WSILC contract", func(before bool, after bool) {
 					sender := is.keyring.GetKey(0)
 					receiver := is.keyring.GetAddr(1)
 					balRes, err := is.handler.GetBalance(receiver.Bytes(), is.bondDenom)
@@ -1222,7 +1222,7 @@ var _ = Describe("ERC20 Extension -", func() {
 				// querying allowance and reducing allowance on a transferFrom transaction is not possible without
 				// changes to the Cosmos SDK.
 				//
-				// For reference see this comment: https://github.com/silc/silc/pull/2088#discussion_r1407646217
+				// For reference see this comment: https://github.com/evmos/evmos/pull/2088#discussion_r1407646217
 				It("should return the maxUint256 value when calling the EVM extension", func() {
 					grantee := is.keyring.GetAddr(0)
 					granter := is.keyring.GetKey(0)
@@ -1566,7 +1566,7 @@ var _ = Describe("ERC20 Extension -", func() {
 					// querying allowance and reducing allowance on a transferFrom transaction is not possible without
 					// changes to the Cosmos SDK.
 					//
-					// For reference see this comment: https://github.com/silc/silc/pull/2088#discussion_r1407646217
+					// For reference see this comment: https://github.com/evmos/evmos/pull/2088#discussion_r1407646217
 					It("should return an error when calling the EVM extension", func() {
 						grantee := is.keyring.GetKey(0)
 						granter := is.keyring.GetKey(0)
@@ -1798,7 +1798,7 @@ var _ = Describe("ERC20 Extension -", func() {
 					// querying allowance and reducing allowance on a transferFrom transaction is not possible without
 					// changes to the Cosmos SDK.
 					//
-					// For reference see this comment: https://github.com/silc/silc/pull/2088#discussion_r1407646217
+					// For reference see this comment: https://github.com/evmos/evmos/pull/2088#discussion_r1407646217
 					It("should return an error when calling the EVM extension", func() {
 						callType := contractCall
 						sender := is.keyring.GetKey(0)
@@ -2074,7 +2074,7 @@ var _ = Describe("ERC20 Extension -", func() {
 			// querying allowance and reducing allowance on a transferFrom transaction is not possible without
 			// changes to the Cosmos SDK.
 			//
-			// For reference see this comment: https://github.com/silc/silc/pull/2088#discussion_r1407646217
+			// For reference see this comment: https://github.com/evmos/evmos/pull/2088#discussion_r1407646217
 			Context("increasing allowance", func() {
 				It("should return an error when calling the EVM extension", func() {
 					granter := is.keyring.GetKey(0)
@@ -2854,8 +2854,8 @@ var _ = Describe("ERC20 Extension migration Flows -", func() {
 		})
 	})
 
-	When("using Evmos (not wEvmos) in smart contracts", func() {
-		It("should be using straight Evmos for sending funds in smart contracts", func() {
+	When("using Silc (not wSilc) in smart contracts", func() {
+		It("should be using straight Silc for sending funds in smart contracts", func() {
 			Skip("will be addressed in follow-up PR")
 
 			Expect(true).To(BeFalse(), "not implemented")

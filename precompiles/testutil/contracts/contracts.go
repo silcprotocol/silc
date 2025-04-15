@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package contracts
 
@@ -19,7 +19,7 @@ import (
 )
 
 // Call is a helper function to call any arbitrary smart contract.
-func Call(ctx sdk.Context, app *evmosapp.Evmos, args CallArgs) (res abci.ExecTxResult, ethRes *evmtypes.MsgEthereumTxResponse, err error) {
+func Call(ctx sdk.Context, app *evmosapp.Silc, args CallArgs) (res abci.ExecTxResult, ethRes *evmtypes.MsgEthereumTxResponse, err error) {
 	var (
 		nonce    uint64
 		gasLimit = args.GasLimit
@@ -100,7 +100,7 @@ func Call(ctx sdk.Context, app *evmosapp.Evmos, args CallArgs) (res abci.ExecTxR
 
 // CallContractAndCheckLogs is a helper function to call any arbitrary smart contract and check that the logs
 // contain the expected events.
-func CallContractAndCheckLogs(ctx sdk.Context, app *evmosapp.Evmos, cArgs CallArgs, logCheckArgs testutil.LogCheckArgs) (abci.ExecTxResult, *evmtypes.MsgEthereumTxResponse, error) {
+func CallContractAndCheckLogs(ctx sdk.Context, app *evmosapp.Silc, cArgs CallArgs, logCheckArgs testutil.LogCheckArgs) (abci.ExecTxResult, *evmtypes.MsgEthereumTxResponse, error) {
 	res, ethRes, err := Call(ctx, app, cArgs)
 	if err != nil {
 		return res, nil, err

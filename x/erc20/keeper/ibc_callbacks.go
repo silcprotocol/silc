@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 package keeper
 
@@ -221,7 +221,7 @@ func (k Keeper) ConvertCoinToERC20FromPacket(ctx sdk.Context, data transfertypes
 			return nil
 		}
 
-		// assume that all module accounts on Evmos need to have their tokens in the
+		// assume that all module accounts on Silc need to have their tokens in the
 		// IBC representation as opposed to ERC20
 		senderAcc := k.accountKeeper.GetAccount(ctx, sender)
 		if types.IsModuleAccount(senderAcc) {

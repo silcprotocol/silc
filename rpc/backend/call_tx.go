@@ -1,5 +1,5 @@
-// Copyright Tharsis Labs Ltd.(Evmos)
-// SPDX-License-Identifier:ENCL-1.0(https://github.com/silc/silc/blob/main/LICENSE)
+// Copyright Tharsis Labs Ltd.(Silc)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 package backend
 
 import (
@@ -71,7 +71,7 @@ func (b *Backend) Resend(args evmtypes.TransactionArgs, gasPrice *hexutil.Big, g
 	}
 
 	for _, tx := range pending {
-		// FIXME does Resend api possible at all?  https://github.com/silc/ethermint/issues/905
+		// FIXME does Resend api possible at all?  https://github.com/evmos/ethermint/issues/905
 		p, err := evmtypes.UnwrapEthereumMsg(tx, common.Hash{})
 		if err != nil {
 			// not valid ethereum tx

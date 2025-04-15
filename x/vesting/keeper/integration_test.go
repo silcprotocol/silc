@@ -23,11 +23,11 @@ import (
 	"github.com/silcprotocol/silc/contracts"
 	"github.com/silcprotocol/silc/testutil"
 	"github.com/silcprotocol/silc/testutil/integration/common/factory"
-	evmosfactory "github.com/silcprotocol/silc/testutil/integration/silc/factory"
-	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/silc/network"
-	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
+	evmosfactory "github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
@@ -78,7 +78,7 @@ var (
 // employee starts before mainnet launch (periodsCliff < lockupPeriod)
 //
 // Example:
-// 21/10 Employee joins Evmos and vesting starts
+// 21/10 Employee joins Silc and vesting starts
 // 22/03 Mainnet launch
 // 22/09 Cliff ends
 // 23/02 Lock ends
