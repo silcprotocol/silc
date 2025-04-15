@@ -111,14 +111,14 @@ The following header including a license identifier in [SPDX](https://spdx.dev/l
 short form has been added to all ENCL-1.0 files:
 
 ```go
-// Copyright Tharsis Labs Ltd.(Silc)
+// Copyright Tharsis Labs Ltd.(Evmos)
 // SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 ```
 
 Exempted files contain the following SPDX ID:
 
 ```go
-// Copyright Tharsis Labs Ltd.(Silc)
+// Copyright Tharsis Labs Ltd.(Evmos)
 // SPDX-License-Identifier:LGPL-3.0-only
 ```
 
