@@ -101,7 +101,7 @@ def test_grpc_mode(evmos_cluster: Silc):
     # wait 1 more block for both nodes to avoid node stopped before tnx get included
     for i in range(2):
         wait_for_block(evmos_cluster.cosmos_cli(i), 1)
-    supervisorctl(evmos_cluster.base_dir / "../tasks.ini", "stop", "evmos_9000-1-node1")
+    supervisorctl(evmos_cluster.base_dir / "../tasks.ini", "stop", "silc_2024-1-node1")
 
     # run grpc-only mode directly with existing chain state
     with open(evmos_cluster.base_dir / "node1.log", "a", encoding="utf-8") as logfile:

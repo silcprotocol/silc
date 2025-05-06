@@ -61,7 +61,7 @@ contract VestingCaller {
     }
 
     /// @dev Defines a method to test funding a vesting account.
-    /// If specified, it sends 15 aevmos to the funder before and/or after
+    /// If specified, it sends 15 sillet to the funder before and/or after
     /// the precompile call
     /// @param funder The address of the account that will fund the vesting account.
     /// @param to The address of the account that will receive the vesting account.

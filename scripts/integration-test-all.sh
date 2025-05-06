@@ -17,7 +17,7 @@ RPC_PORT="854"
 IP_ADDR="0.0.0.0"
 
 KEY="dev0"
-CHAINID="evmos_9000-1"
+CHAINID="silc_2024-1"
 MONIKER="mymoniker"
 
 ## default port prefixes for silcd
@@ -72,7 +72,7 @@ init_func() {
 	"$PWD"/build/silcd keys add $KEY"$i" --keyring-backend test --home "$DATA_DIR$i" --no-backup --algo "eth_secp256k1"
 	"$PWD"/build/silcd init $MONIKER --chain-id $CHAINID --home "$DATA_DIR$i"
 	"$PWD"/build/silcd add-genesis-account \
-		"$("$PWD"/build/silcd keys show "$KEY$i" --keyring-backend test -a --home "$DATA_DIR$i")" 1000000000000000000aevmos,1000000000000000000stake \
+		"$("$PWD"/build/silcd keys show "$KEY$i" --keyring-backend test -a --home "$DATA_DIR$i")" 1000000000000000000sillet,1000000000000000000stake \
 		--keyring-backend test --home "$DATA_DIR$i"
 	"$PWD"/build/silcd gentx "$KEY$i" 1000000000000000000stake --chain-id $CHAINID --keyring-backend test --home "$DATA_DIR$i"
 	"$PWD"/build/silcd collect-gentxs --home "$DATA_DIR$i"

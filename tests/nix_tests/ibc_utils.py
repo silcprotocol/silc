@@ -23,7 +23,7 @@ from .utils import (
     wait_for_port,
 )
 
-# aevmos IBC representation on another chain connected via channel-0.
+# sillet IBC representation on another chain connected via channel-0.
 SILC_IBC_DENOM = "ibc/8EAC8061F4499F03D2D1419A3E73D346289AE9DB89CAB1486B72539572B1915E"
 # uosmo IBC representation on the Silc chain.
 OSMO_IBC_DENOM = "ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518"
@@ -38,14 +38,14 @@ RATIO = 10**10
 # IBC_CHAINS_META metadata of cosmos chains to setup these for IBC tests
 IBC_CHAINS_META = {
     "evmos": {
-        "chain_name": "evmos_9000-1",
+        "chain_name": "silc_2024-1",
         "bin": "silcd",
-        "denom": "aevmos",
+        "denom": "sillet",
     },
     "evmos-rocksdb": {
-        "chain_name": "evmos_9000-1",
+        "chain_name": "silc_2024-1",
         "bin": "silcd-rocksdb",
-        "denom": "aevmos",
+        "denom": "sillet",
     },
     "chainmain": {
         "chain_name": "chainmain-1",
@@ -234,9 +234,9 @@ def assert_ready(ibc):
 
 def hermes_transfer(ibc, other_chain_name="chainmain-1", other_chain_denom="basecro"):
     assert_ready(ibc)
-    # chainmain-1 -> evmos_9000-1
+    # chainmain-1 -> silc_2024-1
     my_ibc0 = other_chain_name
-    my_ibc1 = "evmos_9000-1"
+    my_ibc1 = "silc_2024-1"
     my_channel = "channel-0"
     dst_addr = eth_to_bech32(ADDRS["signer2"])
     src_amount = 10

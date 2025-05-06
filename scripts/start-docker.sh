@@ -1,7 +1,7 @@
 #!/bin/bash
 
 KEY="dev0"
-CHAINID="evmos_9000-1"
+CHAINID="silc_2024-1"
 MONIKER="mymoniker"
 DATA_DIR=$(mktemp -d -t evmos-datadir.XXXXX)
 
@@ -11,7 +11,7 @@ echo "init Silc with moniker=$MONIKER and chain-id=$CHAINID"
 ./silcd init $MONIKER --chain-id "$CHAINID" --home "$DATA_DIR"
 echo "prepare genesis: Allocate genesis accounts"
 ./silcd add-genesis-account \
-	"$(./silcd keys show "$KEY" -a --home "$DATA_DIR" --keyring-backend test)" 1000000000000000000aevmos,1000000000000000000stake \
+	"$(./silcd keys show "$KEY" -a --home "$DATA_DIR" --keyring-backend test)" 1000000000000000000sillet,1000000000000000000stake \
 	--home "$DATA_DIR" --keyring-backend test
 echo "prepare genesis: Sign genesis transaction"
 ./silcd gentx "$KEY" 1000000000000000000stake --keyring-backend test --home "$DATA_DIR" --keyring-backend test --chain-id "$CHAINID"

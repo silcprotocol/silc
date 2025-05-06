@@ -35,7 +35,7 @@ ACCOUNTS = {
 KEYS = {name: account.key for name, account in ACCOUNTS.items()}
 ADDRS = {name: account.address for name, account in ACCOUNTS.items()}
 SILC_ADDRESS_PREFIX = "evmos"
-DEFAULT_DENOM = "aevmos"
+DEFAULT_DENOM = "sillet"
 WSILC_ADDRESS = Web3.toChecksumAddress("0xD4949664cD82660AaE99bEdc034a0deA8A0bd517")
 TEST_CONTRACTS = {
     "TestERC20A": "TestERC20A.sol",
@@ -79,7 +79,7 @@ REGISTER_ERC20_PROP = {
         }
     ],
     "metadata": "ipfs://CID",
-    "deposit": "1aevmos",
+    "deposit": "1sillet",
     "title": "register erc20",
     "summary": "register erc20",
     "expedited": False,
@@ -243,7 +243,7 @@ def approve_proposal(n, proposal_id, **kwargs):
     """
     cli = n.cosmos_cli()
 
-    # make the deposit (1 aevmos)
+    # make the deposit (1 sillet)
     rsp = cli.gov_deposit("signer2", proposal_id, 1)
     assert rsp["code"] == 0, rsp["raw_log"]
     wait_for_new_blocks(cli, 1)
@@ -489,7 +489,7 @@ local default = import '{tests_dir}/configs/{file_name}.jsonnet';
 
 default {{
   dotenv: '{root_dir}/scripts/.env',
-  'evmos_9000-1'+: {{
+  'silc_2024-1'+: {{
     cmd: 'silcd-rocksdb',
     'app-config'+: {{
       'app-db-backend': 'rocksdb',
@@ -534,7 +534,7 @@ def update_node_cmd(path, cmd, i):
     ini = configparser.RawConfigParser()
     ini.read(ini_path)
     for section in ini.sections():
-        if section == f"program:evmos_9000-1-node{i}":
+        if section == f"program:silc_2024-1-node{i}":
             ini[section].update(
                 {
                     "command": f"{cmd} start --home %(here)s/node{i}",
@@ -566,7 +566,7 @@ def update_evmos_bin(
     """
 
     def inner(path, base_port, config):  # pylint: disable=unused-argument
-        chain_id = "evmos_9000-1"
+        chain_id = "silc_2024-1"
         # by default, there're 2 nodes
         # need to update the bin in all these
         for i in nodes:

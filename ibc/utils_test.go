@@ -16,7 +16,7 @@ import (
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("evmos", "evmospub")
+	cfg.SetBech32PrefixForAccount("silc", "silcpub")
 }
 
 func TestGetTransferSenderRecipient(t *testing.T) {
@@ -204,9 +204,9 @@ func TestGetReceivedCoin(t *testing.T) {
 			"channel-0",
 			"transfer",
 			"channel-0",
-			"transfer/channel-0/aevmos",
+			"transfer/channel-0/sillet",
 			"10",
-			sdk.Coin{Denom: "aevmos", Amount: math.NewInt(10)},
+			sdk.Coin{Denom: "sillet", Amount: math.NewInt(10)},
 		},
 		{
 			"transfer 2x ibc wrapped coin to destination which is its source",
@@ -244,16 +244,16 @@ func TestGetSentCoin(t *testing.T) {
 		expCoin   sdk.Coin
 	}{
 		{
-			"get unwrapped aevmos coin",
-			"aevmos",
+			"get unwrapped sillet coin",
+			"sillet",
 			"10",
-			sdk.Coin{Denom: "aevmos", Amount: math.NewInt(10)},
+			sdk.Coin{Denom: "sillet", Amount: math.NewInt(10)},
 		},
 		{
-			"get ibc wrapped aevmos coin",
-			"transfer/channel-0/aevmos",
+			"get ibc wrapped sillet coin",
+			"transfer/channel-0/sillet",
 			"10",
-			sdk.Coin{Denom: teststypes.AevmosIbcdenom, Amount: math.NewInt(10)},
+			sdk.Coin{Denom: teststypes.silletIbcdenom, Amount: math.NewInt(10)},
 		},
 		{
 			"get ibc wrapped uosmo coin",
@@ -312,7 +312,7 @@ func TestDeriveDecimalsFromDenom(t *testing.T) {
 		},
 		{
 			name:      "success: atto 'a' prefix",
-			baseDenom: "aevmos",
+			baseDenom: "sillet",
 			expDec:    18,
 			expFail:   false,
 			expErrMsg: "",

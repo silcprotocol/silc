@@ -120,7 +120,7 @@ func DefaultConfig() Config {
 		TimeoutCommit:     3 * time.Second,
 		ChainID:           chainID,
 		NumValidators:     4,
-		BondDenom:         "aevmos",
+		BondDenom:         "sillet",
 		MinGasPrices:      fmt.Sprintf("0.000006%s", evmostypes.AttoSilc),
 		AccountTokens:     sdk.TokensFromConsensusPower(1000000000000000000, evmostypes.PowerReduction),
 		StakingTokens:     sdk.TokensFromConsensusPower(500000000000000000, evmostypes.PowerReduction),

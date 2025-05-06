@@ -426,7 +426,7 @@ class CosmosCLI:
         if "amount" in res["pool"][0]:
             return float(res["pool"][0]["amount"])
         # the amount is returned in a string with
-        # the amount and denom, e.g. '10aevmos'
+        # the amount and denom, e.g. '10sillet'
         numbers = re.findall(r"\d+", res["pool"][0])
         if numbers:
             amount = numbers[0]
@@ -894,7 +894,7 @@ class CosmosCLI:
         channel,  # src channel
         target_version,  # chain version number of target chain
         i=0,  # pylint: disable=unused-argument
-        fees="0aevmos",
+        fees="0sillet",
     ):
         return json.loads(
             self.raw(

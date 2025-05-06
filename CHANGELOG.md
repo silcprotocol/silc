@@ -573,7 +573,7 @@ Ref: https://keepachangelog.com/en/1.0.0/
 
 ### Improvements
 
-- (tests) [#1434](https://github.com/evmos/evmos/pull/1434) Set default staking denom to `aevmos` in `evm` and `feemarket` tests.
+- (tests) [#1434](https://github.com/evmos/evmos/pull/1434) Set default staking denom to `sillet` in `evm` and `feemarket` tests.
 - (tests) [#1402](https://github.com/evmos/evmos/pull/1402) Refactor NewTx function arguments.
 - (tests) [#1415](https://github.com/evmos/evmos/pull/1415) Refactor InvalidTx type and NextFn used in AnteHandler tests.
 - (vesting) [#1400](https://github.com/evmos/evmos/pull/1400) Add convert vesting account message.
@@ -880,7 +880,7 @@ Ref: https://keepachangelog.com/en/1.0.0/
 - (ci) [#564](https://github.com/evmos/evmos/pull/564) Add one-click development environment.
 - (erc20) [#556](https://github.com/evmos/evmos/pull/556) Remove deprecated migrations.
 - (incentives) [#551](https://github.com/evmos/evmos/pull/551) Add additional check to only distribute incentives to EOAs.
-- (cli) [#543](https://github.com/evmos/evmos/pull/543) Update mainnet default `min-gas-price` to `0.0025aevmos`.
+- (cli) [#543](https://github.com/evmos/evmos/pull/543) Update mainnet default `min-gas-price` to `0.0025sillet`.
 - (epochs) [#539](https://github.com/evmos/evmos/pull/539) Use constants for epoch identifiers.
 
 ### Bug Fixes

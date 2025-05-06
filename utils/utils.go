@@ -30,7 +30,7 @@ const (
 	// TestingChainID defines the Silc EIP155 chain ID for integration test
 	TestingChainID = "test_9000"
 	// BaseDenom defines the Silc mainnet denomination
-	BaseDenom = "aevmos"
+	BaseDenom = "sillet"
 )
 
 // EthHexToSDKAddr takes a given Hex string and derives a Cosmos SDK account address

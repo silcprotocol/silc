@@ -18,7 +18,7 @@ def test_block_cmd(evmos_cluster):
     wait_for_block(node1, last_block)
 
     # stop node1
-    supervisorctl(evmos_cluster.base_dir / "../tasks.ini", "stop", "evmos_9000-1-node1")
+    supervisorctl(evmos_cluster.base_dir / "../tasks.ini", "stop", "silc_2024-1-node1")
 
     # use 'block' CLI cmd in node1
     test_cases = [
@@ -59,7 +59,7 @@ def test_block_cmd(evmos_cluster):
 
     # start node1 again
     supervisorctl(
-        evmos_cluster.base_dir / "../tasks.ini", "start", "evmos_9000-1-node1"
+        evmos_cluster.base_dir / "../tasks.ini", "start", "silc_2024-1-node1"
     )
     # check if chain continues alright
     wait_for_block(node1, last_block + 3)
@@ -77,7 +77,7 @@ def test_tx_flags(evmos_cluster):
     test_cases = [
         {
             "name": "fail - invalid flags combination (gas-prices & fees)",
-            "flags": {"fees": "5000000000aevmos", "gas_prices": "50000aevmos"},
+            "flags": {"fees": "5000000000sillet", "gas_prices": "50000sillet"},
             "exp_err": True,
             "err_msg": "cannot provide both fees and gas prices",
         },
@@ -89,20 +89,20 @@ def test_tx_flags(evmos_cluster):
         },
         {
             "name": "fail - insufficient fees",
-            "flags": {"fees": "10aevmos", "gas": 50000, "gas_prices": None},
+            "flags": {"fees": "10sillet", "gas": 50000, "gas_prices": None},
             "exp_err": True,
             "err_msg": "insufficient fee",
         },
         {
             "name": "fail - insufficient gas",
-            "flags": {"fees": "500000000000aevmos", "gas": 1, "gas_prices": None},
+            "flags": {"fees": "500000000000sillet", "gas": 1, "gas_prices": None},
             "exp_err": True,
             "err_msg": "out of gas",
         },
         {
             "name": "success - defined fees & gas",
             "flags": {
-                "fees": "10000000000000000000aevmos",
+                "fees": "10000000000000000000sillet",
                 "gas": 1500000,
                 "gas_prices": None,
             },
@@ -111,7 +111,7 @@ def test_tx_flags(evmos_cluster):
         },
         {
             "name": "success - using gas & gas-prices",
-            "flags": {"gas_prices": "100000000000aevmos", "gas": 1500000},
+            "flags": {"gas_prices": "100000000000sillet", "gas": 1500000},
             "exp_err": False,
             "err_msg": None,
         },
@@ -119,7 +119,7 @@ def test_tx_flags(evmos_cluster):
             "name": "success - using gas 'auto' and specific fees",
             "flags": {
                 "gas": "auto",
-                "fees": "10000000000000000000aevmos",
+                "fees": "10000000000000000000sillet",
                 "gas_prices": None,
             },
             "exp_err": False,
@@ -132,7 +132,7 @@ def test_tx_flags(evmos_cluster):
             res = node.transfer(
                 "signer1",
                 "evmos10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky",
-                "100000000000000aevmos",
+                "100000000000000sillet",
                 False,
                 **tc["flags"],
             )

@@ -45,7 +45,7 @@ UPDATE_PARAMS_PROP = {
         }
     ],
     "metadata": "ipfs://CID",
-    "deposit": "1aevmos",
+    "deposit": "1sillet",
     "title": "update erc20 mod params",
     "summary": "update erc20 mod params",
 }
@@ -191,7 +191,7 @@ def test_wevmos_precompile_transfer(ibc):
     signer1 = ADDRS["signer1"]
     signer2 = ADDRS["signer2"]
     bech_dst = eth_to_bech32(signer2)
-    src_denom = "aevmos"
+    src_denom = "sillet"
 
     w3 = evmos.w3
     evmos_balance = get_balance(evmos, bech_dst, src_denom)

@@ -99,7 +99,7 @@ func TestUpdateExpeditedPropsParams(t *testing.T) {
 			postCheck: func() {
 				params, err := nw.App.GovKeeper.Params.Get(ctx)
 				require.NoError(t, err)
-				require.Equal(t, "aevmos", params.ExpeditedMinDeposit[0].Denom)
+				require.Equal(t, "sillet", params.ExpeditedMinDeposit[0].Denom)
 				require.Equal(t, initialParams.ExpeditedMinDeposit[0].Amount, params.ExpeditedMinDeposit[0].Amount)
 			},
 		},
@@ -119,7 +119,7 @@ func TestUpdateExpeditedPropsParams(t *testing.T) {
 			postCheck: func() {
 				params, err := nw.App.GovKeeper.Params.Get(ctx)
 				require.NoError(t, err)
-				require.Equal(t, "aevmos", params.ExpeditedMinDeposit[0].Denom)
+				require.Equal(t, "sillet", params.ExpeditedMinDeposit[0].Denom)
 				require.Equal(t, initialParams.MinDeposit[0].Amount.MulRaw(govv1.DefaultMinExpeditedDepositTokensRatio), params.ExpeditedMinDeposit[0].Amount)
 				require.Equal(t, *initialParams.VotingPeriod/2, *params.ExpeditedVotingPeriod)
 			},

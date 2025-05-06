@@ -24,7 +24,7 @@ RATE_LIMIT_PROP = {
         {
             "@type": "/ratelimit.v1.MsgAddRateLimit",
             "authority": "evmos10d07y265gmmuvt4z0w9aw880jnsr700jcrztvm",
-            "denom": "aevmos",
+            "denom": "sillet",
             "channel_id": "channel-0",
             "max_percent_send": "10",
             "max_percent_recv": "100",
@@ -32,7 +32,7 @@ RATE_LIMIT_PROP = {
         }
     ],
     "metadata": "ipfs://CID",
-    "deposit": "1aevmos",
+    "deposit": "1sillet",
     "title": "add rate limit",
     "summary": "add rate limit",
 }
@@ -69,7 +69,7 @@ def ibc(request, tmp_path_factory):
 )
 def test_evmos_ibc_transfer_native_denom(ibc, name, transfer_amt, err_contains):
     """
-    test sending aevmos from evmos to crypto-org-chain using cli.
+    test sending sillet from evmos to crypto-org-chain using cli.
     """
     assert_ready(ibc)
     evmos: Silc = ibc.chains["evmos"]
@@ -79,7 +79,7 @@ def test_evmos_ibc_transfer_native_denom(ibc, name, transfer_amt, err_contains):
 
     cli = evmos.cosmos_cli()
     src_addr = cli.address("signer2")
-    src_denom = "aevmos"
+    src_denom = "sillet"
 
     # submit proposal if limit was not set
     limits = cli.rate_limits()
@@ -158,7 +158,7 @@ def test_evmos_ibc_transfer_ibc_denom(
     ibc, name, amt_in, amt_out, err_inflow, err_outflow
 ):
     """
-    test sending aevmos from evmos to crypto-org-chain using cli.
+    test sending sillet from evmos to crypto-org-chain using cli.
     """
     assert_ready(ibc)
     evmos: Silc = ibc.chains["evmos"]
@@ -200,7 +200,7 @@ def test_evmos_ibc_transfer_ibc_denom(
 
     # submit proposal if limit was not set
     limits = cli.rate_limits()
-    # expect to already have one rate limit (for 'aevmos') from the previous test
+    # expect to already have one rate limit (for 'sillet') from the previous test
     if len(limits) == 1:
         add_rate_limit(evmos, src_denom)
 
@@ -250,7 +250,7 @@ def test_evmos_ibc_transfer_ibc_denom(
     assert old_src_balance - amt_out == new_src_balance, name
 
 
-def add_rate_limit(evmos: Silc, denom: str = "aevmos"):
+def add_rate_limit(evmos: Silc, denom: str = "sillet"):
     cli = evmos.cosmos_cli()
     with tempfile.NamedTemporaryFile("w") as fp:
         RATE_LIMIT_PROP["messages"][0]["denom"] = denom  # type: ignore

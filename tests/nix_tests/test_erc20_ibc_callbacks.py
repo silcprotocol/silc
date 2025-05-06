@@ -137,7 +137,7 @@ def test_ibc_callbacks(
         "channel-0",
         1,
         1,
-        fees=f"{int(1e17)}aevmos",
+        fees=f"{int(1e17)}sillet",
     )
     assert rsp["code"] == 0, rsp["raw_log"]
     wait_for_new_blocks(evmos_cli, 2)

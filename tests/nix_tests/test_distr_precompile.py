@@ -45,7 +45,7 @@ def test_fund_community_pool(evmos_cluster, name, deposit_amt, args, err_contain
     Test the fundCommunityPool function of the distribution
     precompile calling it from another precompile
     """
-    denom = "aevmos"
+    denom = "sillet"
     gas_limit = 200_000
     gas_price = evmos_cluster.w3.eth.gas_price
 

@@ -16,7 +16,7 @@ import (
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("evmos", "evmospub")
+	cfg.SetBech32PrefixForAccount("silc", "silcpub")
 }
 
 func TestIsSupportedKeys(t *testing.T) {
@@ -136,7 +136,7 @@ func TestSilcCoinDenom(t *testing.T) {
 	}{
 		{
 			"valid denom - native coin",
-			"aevmos",
+			"sillet",
 			false,
 		},
 		{

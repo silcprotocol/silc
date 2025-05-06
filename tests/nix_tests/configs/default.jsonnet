@@ -1,13 +1,13 @@
 {
   dotenv: '../../../scripts/.env',
-  'evmos_9000-1': {
+  'silc_2024-1': {
     'account-prefix': 'evmos',
     'coin-type': 60,
     cmd: 'silcd',
     'start-flags': '--trace',
     'app-config': {
       'app-db-backend': 'goleveldb',
-      'minimum-gas-prices': '0aevmos',
+      'minimum-gas-prices': '0sillet',
       'index-events': ['ethereum_tx.ethereumTxHash'],
       'json-rpc': {
         address: '127.0.0.1:{EVMRPC_PORT}',
@@ -24,25 +24,25 @@
       }
     },
     validators: [{
-      coins: '10001000000000000000000aevmos',
-      staked: '1000000000000000000aevmos',
+      coins: '10001000000000000000000sillet',
+      staked: '1000000000000000000sillet',
       mnemonic: '${VALIDATOR1_MNEMONIC}',
     }, {
-      coins: '10001000000000000000000aevmos',
-      staked: '1000000000000000000aevmos',
+      coins: '10001000000000000000000sillet',
+      staked: '1000000000000000000sillet',
       mnemonic: '${VALIDATOR2_MNEMONIC}',
     }],
     accounts: [{
       name: 'community',
-      coins: '10000000000000000000000aevmos',
+      coins: '10000000000000000000000sillet',
       mnemonic: '${COMMUNITY_MNEMONIC}',
     }, {
       name: 'signer1',
-      coins: '20000000000000000000000aevmos',
+      coins: '20000000000000000000000sillet',
       mnemonic: '${SIGNER1_MNEMONIC}',
     }, {
       name: 'signer2',
-      coins: '30000000000000000000000aevmos',
+      coins: '30000000000000000000000sillet',
       mnemonic: '${SIGNER2_MNEMONIC}',
     }],
     genesis: {
@@ -55,22 +55,22 @@
       app_state: {
         evm: {
           params: {
-            evm_denom: 'aevmos',
+            evm_denom: 'sillet',
           },
         },
         crisis: {
           constant_fee: {
-            denom: 'aevmos',
+            denom: 'sillet',
           },
         },
         staking: {
           params: {
-            bond_denom: 'aevmos',
+            bond_denom: 'sillet',
           },
         },
         inflation: {
           params: {
-            mint_denom: 'aevmos',
+            mint_denom: 'sillet',
           },
         },
         gov: {
@@ -78,7 +78,7 @@
             max_deposit_period: '10s',
             min_deposit: [
               {
-                denom: 'aevmos',
+                denom: 'sillet',
                 amount: '1',
               },
             ],
@@ -86,7 +86,7 @@
           params: {
             min_deposit: [
               {
-                denom: 'aevmos',
+                denom: 'sillet',
                 amount: '1',
               },
             ],
