@@ -20,7 +20,7 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/ethereum/go-ethereum/common"
-	testnetwork "github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	testnetwork "github.com/silcprotocol/silc/testutil/integration/silc/network"
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 )
@@ -99,7 +99,7 @@ func (m *Manager) BuildImage(name, version, dockerFile, contextDir string, args 
 		// rebuild the image every time in case there were changes
 		// and the image is cached
 		NoCache: true,
-		// name with tag, e.g. evmos:v9.0.0
+		// name with tag, e.g. silc:v9.0.0
 		Name:         fmt.Sprintf("%s:%s", name, version),
 		OutputStream: io.Discard,
 		ErrorStream:  os.Stdout,
@@ -151,7 +151,7 @@ func (m *Manager) RunNode(node *Node) error {
 			if c.State.ExitCode != 0 {
 				stdOut, stdErr, _ := m.GetLogs(resource.Container.ID)
 				return fmt.Errorf(
-					"can't start evmos node, container exit code: %d\n\n[error stream]:\n\n%s\n\n[output stream]:\n\n%s",
+					"can't start silc node, container exit code: %d\n\n[error stream]:\n\n%s\n\n[output stream]:\n\n%s",
 					c.State.ExitCode,
 					stdErr,
 					stdOut,
@@ -261,7 +261,7 @@ func (m *Manager) GetNodeHeight(ctx context.Context) (int, error) {
 	}
 
 	if errBuff.String() != "" {
-		return 0, fmt.Errorf("evmos query error: %s", errBuff.String())
+		return 0, fmt.Errorf("silc query error: %s", errBuff.String())
 	}
 
 	// NOTE: we're splitting the output because it has the first line saying "falling back to latest height"
@@ -343,7 +343,7 @@ func (m *Manager) GetNodeVersion(ctx context.Context) (string, error) {
 		return "", fmt.Errorf("run exec error: %w", err)
 	}
 	if errBuff.String() != "" {
-		return "", fmt.Errorf("evmos version error: %s", errBuff.String())
+		return "", fmt.Errorf("silc version error: %s", errBuff.String())
 	}
 	return outBuff.String(), nil
 }
@@ -388,7 +388,7 @@ func (m *Manager) getTimeoutCommit(ctx context.Context) (*big.Int, error) {
 	}
 
 	if errBuff.String() != "" {
-		return common.Big0, fmt.Errorf("evmos version error: %s", errBuff.String())
+		return common.Big0, fmt.Errorf("silc version error: %s", errBuff.String())
 	}
 
 	re := regexp.MustCompile(`timeout_commit = "(?P<t>\d+)s"`)
@@ -422,7 +422,7 @@ func (m *Manager) getVotingPeriod(ctx context.Context, chainID string) (*big.Int
 	}
 
 	if errBuff.String() != "" {
-		return common.Big0, fmt.Errorf("evmos version error: %s", errBuff.String())
+		return common.Big0, fmt.Errorf("silc version error: %s", errBuff.String())
 	}
 
 	re := regexp.MustCompile(`"voting_period":"(?P<votingPeriod>\d+)s"`)

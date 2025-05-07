@@ -23,7 +23,7 @@ import (
 	"github.com/silcprotocol/silc/indexer"
 	"github.com/silcprotocol/silc/rpc/backend/mocks"
 	rpctypes "github.com/silcprotocol/silc/rpc/types"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
@@ -51,7 +51,7 @@ func (suite *BackendTestSuite) SetupTest() {
 
 	baseDir := suite.T().TempDir()
 	nodeDirName := "node"
-	clientDir := filepath.Join(baseDir, nodeDirName, "evmoscli")
+	clientDir := filepath.Join(baseDir, nodeDirName, "silccli")
 	keyRing, err := suite.generateTestKeyring(clientDir)
 	if err != nil {
 		panic(err)

@@ -7,8 +7,8 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 )
 
 // WaitToAccrueRewards is a helper function that waits for rewards to

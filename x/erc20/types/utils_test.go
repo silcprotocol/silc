@@ -61,7 +61,7 @@ func TestEqualMetadata(t *testing.T) {
 			"equal metadata",
 			banktypes.Metadata{
 				Base:        "sillet",
-				Display:     "evmos",
+				Display:     "silc",
 				Name:        "Silc",
 				Symbol:      "SILC",
 				Description: "EVM, staking and governance denom of Silc",
@@ -69,17 +69,17 @@ func TestEqualMetadata(t *testing.T) {
 					{
 						Denom:    "sillet",
 						Exponent: 0,
-						Aliases:  []string{"atto evmos"},
+						Aliases:  []string{"atto silc"},
 					},
 					{
-						Denom:    "evmos",
+						Denom:    "silc",
 						Exponent: 18,
 					},
 				},
 			},
 			banktypes.Metadata{
 				Base:        "sillet",
-				Display:     "evmos",
+				Display:     "silc",
 				Name:        "Silc",
 				Symbol:      "SILC",
 				Description: "EVM, staking and governance denom of Silc",
@@ -87,10 +87,10 @@ func TestEqualMetadata(t *testing.T) {
 					{
 						Denom:    "sillet",
 						Exponent: 0,
-						Aliases:  []string{"atto evmos"},
+						Aliases:  []string{"atto silc"},
 					},
 					{
-						Denom:    "evmos",
+						Denom:    "silc",
 						Exponent: 18,
 					},
 				},
@@ -111,7 +111,7 @@ func TestEqualMetadata(t *testing.T) {
 			"different denom units length",
 			banktypes.Metadata{
 				Base:        "sillet",
-				Display:     "evmos",
+				Display:     "silc",
 				Name:        "Silc",
 				Symbol:      "SILC",
 				Description: "EVM, staking and governance denom of Silc",
@@ -119,17 +119,17 @@ func TestEqualMetadata(t *testing.T) {
 					{
 						Denom:    "sillet",
 						Exponent: 0,
-						Aliases:  []string{"atto evmos"},
+						Aliases:  []string{"atto silc"},
 					},
 					{
-						Denom:    "evmos",
+						Denom:    "silc",
 						Exponent: 18,
 					},
 				},
 			},
 			banktypes.Metadata{
 				Base:        "sillet",
-				Display:     "evmos",
+				Display:     "silc",
 				Name:        "Silc",
 				Symbol:      "SILC",
 				Description: "EVM, staking and governance denom of Silc",
@@ -137,7 +137,7 @@ func TestEqualMetadata(t *testing.T) {
 					{
 						Denom:    "sillet",
 						Exponent: 0,
-						Aliases:  []string{"atto evmos"},
+						Aliases:  []string{"atto silc"},
 					},
 				},
 			},
@@ -147,7 +147,7 @@ func TestEqualMetadata(t *testing.T) {
 			"different denom units",
 			banktypes.Metadata{
 				Base:        "sillet",
-				Display:     "evmos",
+				Display:     "silc",
 				Name:        "Silc",
 				Symbol:      "SILC",
 				Description: "EVM, staking and governance denom of Silc",
@@ -155,22 +155,22 @@ func TestEqualMetadata(t *testing.T) {
 					{
 						Denom:    "sillet",
 						Exponent: 0,
-						Aliases:  []string{"atto evmos"},
+						Aliases:  []string{"atto silc"},
 					},
 					{
-						Denom:    "uevmos",
+						Denom:    "usilc",
 						Exponent: 12,
-						Aliases:  []string{"micro evmos"},
+						Aliases:  []string{"micro silc"},
 					},
 					{
-						Denom:    "evmos",
+						Denom:    "silc",
 						Exponent: 18,
 					},
 				},
 			},
 			banktypes.Metadata{
 				Base:        "sillet",
-				Display:     "evmos",
+				Display:     "silc",
 				Name:        "Silc",
 				Symbol:      "SILC",
 				Description: "EVM, staking and governance denom of Silc",
@@ -178,15 +178,15 @@ func TestEqualMetadata(t *testing.T) {
 					{
 						Denom:    "sillet",
 						Exponent: 0,
-						Aliases:  []string{"atto evmos"},
+						Aliases:  []string{"atto silc"},
 					},
 					{
-						Denom:    "Uevmos",
+						Denom:    "Usilc",
 						Exponent: 12,
-						Aliases:  []string{"micro evmos"},
+						Aliases:  []string{"micro silc"},
 					},
 					{
-						Denom:    "evmos",
+						Denom:    "silc",
 						Exponent: 18,
 					},
 				},
@@ -221,25 +221,25 @@ func TestEqualAliases(t *testing.T) {
 		{
 			"different lengths",
 			[]string{},
-			[]string{"atto evmos"},
+			[]string{"atto silc"},
 			false,
 		},
 		{
 			"different values",
-			[]string{"attoevmos"},
-			[]string{"atto evmos"},
+			[]string{"attosilc"},
+			[]string{"atto silc"},
 			false,
 		},
 		{
 			"same values, unsorted",
-			[]string{"atto evmos", "sillet"},
-			[]string{"sillet", "atto evmos"},
+			[]string{"atto silc", "sillet"},
+			[]string{"sillet", "atto silc"},
 			false,
 		},
 		{
 			"same values, sorted",
-			[]string{"sillet", "atto evmos"},
-			[]string{"sillet", "atto evmos"},
+			[]string{"sillet", "atto silc"},
+			[]string{"sillet", "atto silc"},
 			true,
 		},
 	}

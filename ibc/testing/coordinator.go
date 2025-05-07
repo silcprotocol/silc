@@ -130,8 +130,8 @@ func SendMsgs(chain *ibctesting.TestChain, feeAmt int64, msgs ...sdk.Msg) (*sdk.
 	// ensure the chain has the latest time
 	chain.Coordinator.UpdateTimeForChain(chain)
 
-	if evmosChain, ok := chain.App.(*app.Silc); ok {
-		bondDenom, err = evmosChain.StakingKeeper.BondDenom(chain.GetContext())
+	if silcChain, ok := chain.App.(*app.Silc); ok {
+		bondDenom, err = silcChain.StakingKeeper.BondDenom(chain.GetContext())
 	} else {
 		bondDenom, err = chain.GetSimApp().StakingKeeper.BondDenom(chain.GetContext())
 	}

@@ -12,8 +12,8 @@ import (
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
 	testutiltypes "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 )
 
 // BaseTxFactory is the interface that wraps the common methods to build and broadcast transactions

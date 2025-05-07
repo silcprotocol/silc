@@ -5,7 +5,7 @@ import (
 
 	storetypes "cosmossdk.io/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/x/vesting/keeper"
 	vestingtypes "github.com/silcprotocol/silc/x/vesting/types"

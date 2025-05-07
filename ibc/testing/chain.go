@@ -22,7 +22,7 @@ import (
 	"github.com/cosmos/ibc-go/v8/testing/mock"
 
 	"github.com/silcprotocol/silc/crypto/ethsecp256k1"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
@@ -66,12 +66,12 @@ func NewTestChain(t *testing.T, coord *ibcgotesting.Coordinator, chainID string)
 
 	baseAcc := authtypes.NewBaseAccount(senderPrivKey.PubKey().Address().Bytes(), senderPrivKey.PubKey(), 0, 0)
 
-	acc := &evmostypes.EthAccount{
+	acc := &silctypes.EthAccount{
 		BaseAccount: baseAcc,
 		CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 	}
 
-	amount := sdk.TokensFromConsensusPower(1, evmostypes.PowerReduction)
+	amount := sdk.TokensFromConsensusPower(1, silctypes.PowerReduction)
 
 	balance := banktypes.Balance{
 		Address: acc.GetAddress().String(),

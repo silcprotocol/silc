@@ -9,7 +9,7 @@ import (
 	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 
 	v20 "github.com/silcprotocol/silc/app/upgrades/v20"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	"github.com/silcprotocol/silc/x/evm/types"
 )
 

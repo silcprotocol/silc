@@ -44,11 +44,11 @@ import (
 
 	cmdcfg "github.com/silcprotocol/silc/cmd/config"
 	"github.com/silcprotocol/silc/crypto/hd"
-	evmoskr "github.com/silcprotocol/silc/crypto/keyring"
+	silckr "github.com/silcprotocol/silc/crypto/keyring"
 	"github.com/silcprotocol/silc/server/config"
 	srvflags "github.com/silcprotocol/silc/server/flags"
 	"github.com/silcprotocol/silc/testutil/network"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	feemarkettypes "github.com/silcprotocol/silc/x/feemarket/types"
 )
@@ -242,7 +242,7 @@ func initTestnetFiles(
 	args initArgs,
 ) error {
 	if args.chainID == "" {
-		args.chainID = fmt.Sprintf("evmos_%d-1", cmtrand.Int63n(9999999999999)+1)
+		args.chainID = fmt.Sprintf("silc_%d-1", cmtrand.Int63n(9999999999999)+1)
 	}
 
 	nodeIDs := make([]string, args.numValidators)
@@ -294,7 +294,7 @@ func initTestnetFiles(
 		memo := fmt.Sprintf("%s@%s:26656", nodeIDs[i], ip)
 		genFiles = append(genFiles, nodeConfig.GenesisFile())
 
-		kb, err := keyring.New(sdk.KeyringServiceName(), args.keyringBackend, nodeDir, inBuf, clientCtx.Codec, evmoskr.Option())
+		kb, err := keyring.New(sdk.KeyringServiceName(), args.keyringBackend, nodeDir, inBuf, clientCtx.Codec, silckr.Option())
 		if err != nil {
 			return err
 		}
@@ -323,18 +323,18 @@ func initTestnetFiles(
 			return err
 		}
 
-		accStakingTokens := sdk.TokensFromConsensusPower(5000, evmostypes.PowerReduction)
+		accStakingTokens := sdk.TokensFromConsensusPower(5000, silctypes.PowerReduction)
 		coins := sdk.Coins{
 			sdk.NewCoin(cmdcfg.BaseDenom, accStakingTokens),
 		}
 
 		genBalances = append(genBalances, banktypes.Balance{Address: addr.String(), Coins: coins.Sort()})
-		genAccounts = append(genAccounts, &evmostypes.EthAccount{
+		genAccounts = append(genAccounts, &silctypes.EthAccount{
 			BaseAccount: authtypes.NewBaseAccount(addr, nil, 0, 0),
 			CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 		})
 
-		valTokens := sdk.TokensFromConsensusPower(100, evmostypes.PowerReduction)
+		valTokens := sdk.TokensFromConsensusPower(100, silctypes.PowerReduction)
 		createValMsg, err := stakingtypes.NewMsgCreateValidator(
 			addr.String(),
 			valPubKeys[i],

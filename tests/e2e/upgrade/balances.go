@@ -32,7 +32,7 @@ func (m *Manager) GetBalance(ctx context.Context, chainID, address string) (sdk.
 		return sdk.Coins{}, fmt.Errorf("run exec error: %w", err)
 	}
 	if errBuff.String() != "" {
-		return sdk.Coins{}, fmt.Errorf("evmos query error: %s", errBuff.String())
+		return sdk.Coins{}, fmt.Errorf("silc query error: %s", errBuff.String())
 	}
 
 	return UnpackBalancesResponse(m.ProtoCodec, outBuff.String())

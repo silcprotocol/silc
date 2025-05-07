@@ -15,9 +15,9 @@ import (
 	cmn "github.com/silcprotocol/silc/precompiles/common"
 	"github.com/silcprotocol/silc/precompiles/testutil"
 	"github.com/silcprotocol/silc/precompiles/vesting"
-	evmosutil "github.com/silcprotocol/silc/testutil"
-	evmosutiltx "github.com/silcprotocol/silc/testutil/tx"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silcutil "github.com/silcprotocol/silc/testutil"
+	silcutiltx "github.com/silcprotocol/silc/testutil/tx"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
 	vestingtypes "github.com/silcprotocol/silc/x/vesting/types"
@@ -28,9 +28,9 @@ var (
 	quarter          = []cmn.Coin{{Denom: utils.BaseDenom, Amount: big.NewInt(250)}}
 	balancesSdkCoins = sdk.NewCoins(sdk.NewInt64Coin(utils.BaseDenom, 1000))
 	quarterSdkCoins  = sdk.NewCoins(sdk.NewInt64Coin(utils.BaseDenom, 250))
-	toAddr           = evmosutiltx.GenerateAddress()
-	funderAddr       = evmosutiltx.GenerateAddress()
-	diffFunderAddr   = evmosutiltx.GenerateAddress()
+	toAddr           = silcutiltx.GenerateAddress()
+	funderAddr       = silcutiltx.GenerateAddress()
+	diffFunderAddr   = silcutiltx.GenerateAddress()
 	lockupPeriods    = []vesting.Period{{Length: 5000, Amount: balances}}
 	sdkLockupPeriods = []sdkvesting.Period{{Length: 5000, Amount: balancesSdkCoins}}
 	vestingPeriods   = []vesting.Period{
@@ -71,7 +71,7 @@ func (s *PrecompileTestSuite) TestCreateClawbackVestingAccount() {
 		{
 			name: "fail - different origin than vesting address",
 			malleate: func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					funderAddr,
 					differentAddr,
@@ -157,7 +157,7 @@ func (s *PrecompileTestSuite) TestFundVestingAccount() {
 		{
 			name: "fail - different origin than funder address",
 			malleate: func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					toAddr,
@@ -174,7 +174,7 @@ func (s *PrecompileTestSuite) TestFundVestingAccount() {
 			"success",
 			func() []interface{} {
 				s.CreateTestClawbackVestingAccount(ctx, s.keyring.GetAddr(0), toAddr)
-				err = evmosutil.FundAccount(ctx, s.network.App.BankKeeper, toAddr.Bytes(), sdk.NewCoins(sdk.NewCoin(utils.BaseDenom, math.NewInt(100))))
+				err = silcutil.FundAccount(ctx, s.network.App.BankKeeper, toAddr.Bytes(), sdk.NewCoins(sdk.NewCoin(utils.BaseDenom, math.NewInt(100))))
 				return []interface{}{
 					s.keyring.GetAddr(0),
 					toAddr,
@@ -246,7 +246,7 @@ func (s *PrecompileTestSuite) TestClawback() {
 		{
 			name: "fail - different origin than funder address",
 			malleate: func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					toAddr,
@@ -326,7 +326,7 @@ func (s *PrecompileTestSuite) TestUpdateVestingFunder() {
 		{
 			name: "fail - different origin than funder address",
 			malleate: func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					toAddr,
@@ -439,7 +439,7 @@ func (s *PrecompileTestSuite) TestConvertVestingAccount() {
 
 				// Check if the vesting account was converted back to an EthAccountI
 				account := s.network.App.AccountKeeper.GetAccount(s.network.GetContext(), toAddr.Bytes())
-				_, ok := account.(evmostypes.EthAccountI)
+				_, ok := account.(silctypes.EthAccountI)
 				s.Require().True(ok)
 			},
 			false,

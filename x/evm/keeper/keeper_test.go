@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/x/evm/keeper"
 	"github.com/silcprotocol/silc/x/evm/statedb"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
@@ -28,13 +28,13 @@ func (suite *KeeperTestSuite) TestWithChainID() {
 		},
 		{
 			"success - Silc mainnet chain ID",
-			"evmos_9001-2",
+			"silc_9001-2",
 			9001,
 			false,
 		},
 		{
 			"success - Silc testnet chain ID",
-			"evmos_9000-4",
+			"silc_9000-4",
 			9000,
 			false,
 		},
@@ -120,7 +120,7 @@ func (suite *KeeperTestSuite) TestGetAccountStorage() {
 
 			i := 0
 			suite.network.App.AccountKeeper.IterateAccounts(suite.network.GetContext(), func(account sdk.AccountI) bool {
-				ethAccount, ok := account.(evmostypes.EthAccountI)
+				ethAccount, ok := account.(silctypes.EthAccountI)
 				if !ok {
 					// ignore non EthAccounts
 					return false

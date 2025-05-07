@@ -4,7 +4,7 @@ import (
 	"math/big"
 	"time"
 
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
 
 	"cosmossdk.io/math"
 

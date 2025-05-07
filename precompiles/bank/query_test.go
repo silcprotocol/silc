@@ -8,13 +8,13 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/precompiles/bank"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
-	evmosutiltx "github.com/silcprotocol/silc/testutil/tx"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	silcutiltx "github.com/silcprotocol/silc/testutil/tx"
 )
 
 func (s *PrecompileTestSuite) TestBalances() {
 	var ctx sdk.Context
-	// setup test in order to have s.precompile, s.evmosAddr and s.xmplAddr defined
+	// setup test in order to have s.precompile, s.silcAddr and s.xmplAddr defined
 	s.SetupTest()
 	method := s.precompile.Methods[bank.BalancesMethod]
 
@@ -23,7 +23,7 @@ func (s *PrecompileTestSuite) TestBalances() {
 		malleate    func() []interface{}
 		expPass     bool
 		errContains string
-		expBalances func(evmosAddr, xmplAddr common.Address) []bank.Balance
+		expBalances func(silcAddr, xmplAddr common.Address) []bank.Balance
 	}{
 		{
 			"fail - invalid number of arguments",
@@ -51,7 +51,7 @@ func (s *PrecompileTestSuite) TestBalances() {
 			"pass - empty balances for new account",
 			func() []interface{} {
 				return []interface{}{
-					evmosutiltx.GenerateAddress(),
+					silcutiltx.GenerateAddress(),
 				}
 			},
 			true,
@@ -67,10 +67,10 @@ func (s *PrecompileTestSuite) TestBalances() {
 			},
 			true,
 			"",
-			func(evmosAddr, xmplAddr common.Address) []bank.Balance {
+			func(silcAddr, xmplAddr common.Address) []bank.Balance {
 				return []bank.Balance{
 					{
-						ContractAddress: evmosAddr,
+						ContractAddress: silcAddr,
 						Amount:          network.PrefundedAccountInitialBalance.BigInt(),
 					},
 					{
@@ -90,9 +90,9 @@ func (s *PrecompileTestSuite) TestBalances() {
 			},
 			true,
 			"",
-			func(evmosAddr, xmplAddr common.Address) []bank.Balance {
+			func(silcAddr, xmplAddr common.Address) []bank.Balance {
 				return []bank.Balance{{
-					ContractAddress: evmosAddr,
+					ContractAddress: silcAddr,
 					Amount:          network.PrefundedAccountInitialBalance.BigInt(),
 				}, {
 					ContractAddress: xmplAddr,
@@ -120,7 +120,7 @@ func (s *PrecompileTestSuite) TestBalances() {
 				var balances []bank.Balance
 				err = s.precompile.UnpackIntoInterface(&balances, method.Name, bz)
 				s.Require().NoError(err)
-				s.Require().Equal(tc.expBalances(s.evmosAddr, s.xmplAddr), balances)
+				s.Require().Equal(tc.expBalances(s.silcAddr, s.xmplAddr), balances)
 			} else {
 				s.Require().Contains(err.Error(), tc.errContains)
 			}
@@ -130,29 +130,29 @@ func (s *PrecompileTestSuite) TestBalances() {
 
 func (s *PrecompileTestSuite) TestTotalSupply() {
 	var ctx sdk.Context
-	// setup test in order to have s.precompile, s.evmosAddr and s.xmplAddr defined
+	// setup test in order to have s.precompile, s.silcAddr and s.xmplAddr defined
 	s.SetupTest()
 	method := s.precompile.Methods[bank.TotalSupplyMethod]
 
 	totSupplRes, err := s.grpcHandler.GetTotalSupply()
 	s.Require().NoError(err)
-	evmosTotalSupply := totSupplRes.Supply.AmountOf(s.bondDenom)
+	silcTotalSupply := totSupplRes.Supply.AmountOf(s.bondDenom)
 	xmplTotalSupply := totSupplRes.Supply.AmountOf(s.tokenDenom)
 
 	testcases := []struct {
 		name      string
 		malleate  func()
-		expSupply func(evmosAddr, xmplAddr common.Address) []bank.Balance
+		expSupply func(silcAddr, xmplAddr common.Address) []bank.Balance
 	}{
 		{
 			"pass - SILC and XMPL total supply",
 			func() {
 				ctx = s.mintAndSendXMPLCoin(ctx, s.keyring.GetAccAddr(0), math.NewInt(1e18))
 			},
-			func(evmosAddr, xmplAddr common.Address) []bank.Balance {
+			func(silcAddr, xmplAddr common.Address) []bank.Balance {
 				return []bank.Balance{{
-					ContractAddress: evmosAddr,
-					Amount:          evmosTotalSupply.BigInt(),
+					ContractAddress: silcAddr,
+					Amount:          silcTotalSupply.BigInt(),
 				}, {
 					ContractAddress: xmplAddr,
 					Amount:          xmplTotalSupply.Add(math.NewInt(1e18)).BigInt(),
@@ -178,19 +178,19 @@ func (s *PrecompileTestSuite) TestTotalSupply() {
 			var balances []bank.Balance
 			err = s.precompile.UnpackIntoInterface(&balances, method.Name, bz)
 			s.Require().NoError(err)
-			s.Require().Equal(tc.expSupply(s.evmosAddr, s.xmplAddr), balances)
+			s.Require().Equal(tc.expSupply(s.silcAddr, s.xmplAddr), balances)
 		})
 	}
 }
 
 func (s *PrecompileTestSuite) TestSupplyOf() {
-	// setup test in order to have s.precompile, s.evmosAddr and s.xmplAddr defined
+	// setup test in order to have s.precompile, s.silcAddr and s.xmplAddr defined
 	s.SetupTest()
 	method := s.precompile.Methods[bank.SupplyOfMethod]
 
 	totSupplRes, err := s.grpcHandler.GetTotalSupply()
 	s.Require().NoError(err)
-	evmosTotalSupply := totSupplRes.Supply.AmountOf(s.bondDenom)
+	silcTotalSupply := totSupplRes.Supply.AmountOf(s.bondDenom)
 	xmplTotalSupply := totSupplRes.Supply.AmountOf(s.tokenDenom)
 
 	testcases := []struct {
@@ -226,7 +226,7 @@ func (s *PrecompileTestSuite) TestSupplyOf() {
 			"pass - erc20 not registered return 0 supply",
 			func() []interface{} {
 				return []interface{}{
-					evmosutiltx.GenerateAddress(),
+					silcutiltx.GenerateAddress(),
 				}
 			},
 			false,
@@ -249,12 +249,12 @@ func (s *PrecompileTestSuite) TestSupplyOf() {
 			"pass - SILC total supply",
 			func() []interface{} {
 				return []interface{}{
-					s.evmosAddr,
+					s.silcAddr,
 				}
 			},
 			false,
 			"",
-			evmosTotalSupply.BigInt(),
+			silcTotalSupply.BigInt(),
 		},
 	}
 

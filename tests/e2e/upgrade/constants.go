@@ -13,7 +13,7 @@ const (
 	LocalVersionTag = "latest-pebble"
 
 	// tharsisRepo is the docker hub repository that contains the Silc images pulled during tests
-	tharsisRepo = "tharsishq/evmos"
+	tharsisRepo = "tharsishq/silc"
 
 	// upgradesPath is the relative path from this folder to the app/upgrades folder
 	upgradesPath = "../../../app/upgrades"

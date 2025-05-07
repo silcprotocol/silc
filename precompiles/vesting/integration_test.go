@@ -18,10 +18,10 @@ import (
 	"github.com/silcprotocol/silc/precompiles/testutil/contracts"
 	"github.com/silcprotocol/silc/precompiles/vesting"
 	"github.com/silcprotocol/silc/precompiles/vesting/testdata"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
 
-	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
+	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
 
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"

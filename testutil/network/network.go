@@ -55,7 +55,7 @@ import (
 	"github.com/silcprotocol/silc/crypto/hd"
 
 	"github.com/silcprotocol/silc/server/config"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
@@ -79,7 +79,7 @@ type Config struct {
 	TxConfig          client.TxConfig
 	AccountRetriever  client.AccountRetriever
 	AppConstructor    AppConstructor          // the ABCI application constructor
-	GenesisState      evmostypes.GenesisState // custom gensis state to provide
+	GenesisState      silctypes.GenesisState // custom gensis state to provide
 	TimeoutCommit     time.Duration           // the consensus commitment timeout
 	AccountTokens     math.Int                // the amount of unique validator tokens (e.g. 1000node0)
 	StakingTokens     math.Int                // the amount of tokens each validator has available to stake
@@ -102,7 +102,7 @@ type Config struct {
 // DefaultConfig returns a sane default configuration suitable for nearly all
 // testing requirements.
 func DefaultConfig() Config {
-	chainID := fmt.Sprintf("evmos_%d-1", cmtrand.Int63n(9999999999999)+1)
+	chainID := fmt.Sprintf("silc_%d-1", cmtrand.Int63n(9999999999999)+1)
 	dir, err := os.MkdirTemp("", "simapp")
 	if err != nil {
 		panic(fmt.Sprintf("failed creating temporary directory: %v", err))
@@ -121,10 +121,10 @@ func DefaultConfig() Config {
 		ChainID:           chainID,
 		NumValidators:     4,
 		BondDenom:         "sillet",
-		MinGasPrices:      fmt.Sprintf("0.000006%s", evmostypes.AttoSilc),
-		AccountTokens:     sdk.TokensFromConsensusPower(1000000000000000000, evmostypes.PowerReduction),
-		StakingTokens:     sdk.TokensFromConsensusPower(500000000000000000, evmostypes.PowerReduction),
-		BondedTokens:      sdk.TokensFromConsensusPower(100000000000000000, evmostypes.PowerReduction),
+		MinGasPrices:      fmt.Sprintf("0.000006%s", silctypes.AttoSilc),
+		AccountTokens:     sdk.TokensFromConsensusPower(1000000000000000000, silctypes.PowerReduction),
+		StakingTokens:     sdk.TokensFromConsensusPower(500000000000000000, silctypes.PowerReduction),
+		BondedTokens:      sdk.TokensFromConsensusPower(100000000000000000, silctypes.PowerReduction),
 		PruningStrategy:   pruningtypes.PruningOptionNothing,
 		CleanupDir:        true,
 		SigningAlgo:       string(hd.EthSecp256k1Type),
@@ -230,7 +230,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 	l.Log("acquiring test network lock")
 	lock.Lock()
 
-	if !evmostypes.IsValidChainID(cfg.ChainID) {
+	if !silctypes.IsValidChainID(cfg.ChainID) {
 		return nil, fmt.Errorf("invalid chain-id: %s", cfg.ChainID)
 	}
 
@@ -339,7 +339,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 
 		nodeDirName := fmt.Sprintf("node%d", i)
 		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "silcd")
-		clientDir := filepath.Join(network.BaseDir, nodeDirName, "evmoscli")
+		clientDir := filepath.Join(network.BaseDir, nodeDirName, "silccli")
 		gentxsDir := filepath.Join(network.BaseDir, "gentxs")
 
 		err := os.MkdirAll(filepath.Join(nodeDir, "config"), 0o750)
@@ -420,7 +420,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 
 		genFiles = append(genFiles, cmtCfg.GenesisFile())
 		genBalances = append(genBalances, banktypes.Balance{Address: addr.String(), Coins: balances.Sort()})
-		genAccounts = append(genAccounts, &evmostypes.EthAccount{
+		genAccounts = append(genAccounts, &silctypes.EthAccount{
 			BaseAccount: authtypes.NewBaseAccount(addr, nil, 0, 0),
 			CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 		})
@@ -478,7 +478,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 			return nil, err
 		}
 
-		customAppTemplate, _ := config.AppConfig(evmostypes.AttoSilc)
+		customAppTemplate, _ := config.AppConfig(silctypes.AttoSilc)
 		srvconfig.SetConfigTemplate(customAppTemplate)
 		srvconfig.WriteConfigFile(filepath.Join(nodeDir, "config/app.toml"), appCfg)
 

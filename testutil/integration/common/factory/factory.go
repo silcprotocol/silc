@@ -4,8 +4,8 @@
 package factory
 
 import (
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 )
 
 const (

@@ -83,27 +83,27 @@ func TestExtendActivators(t *testing.T) {
 		{
 			"success - single new activator",
 			map[string]func(*JumpTable){
-				"evmos_0": func(jt *JumpTable) {},
+				"silc_0": func(jt *JumpTable) {},
 			},
 			true,
 			"",
 			func() {
 				eips := GetActivatorsEipNames()
-				require.ElementsMatch(t, append(eips_snapshot, "evmos_0"), eips, "expected eips number to be equal")
+				require.ElementsMatch(t, append(eips_snapshot, "silc_0"), eips, "expected eips number to be equal")
 			},
 		},
 		{
 			"success - multiple new activators",
 			map[string]func(*JumpTable){
-				"evmos_1": func(jt *JumpTable) {},
-				"evmos_2": func(jt *JumpTable) {},
+				"silc_1": func(jt *JumpTable) {},
+				"silc_2": func(jt *JumpTable) {},
 			},
 			true,
 			"",
 			func() {
 				eips := GetActivatorsEipNames()
 				// since we are working with a global function, tests are not independent
-				require.ElementsMatch(t, append(eips_snapshot, "evmos_0", "evmos_1", "evmos_2"), eips, "expected eips number to be equal")
+				require.ElementsMatch(t, append(eips_snapshot, "silc_0", "silc_1", "silc_2"), eips, "expected eips number to be equal")
 			},
 		},
 		{
@@ -116,13 +116,13 @@ func TestExtendActivators(t *testing.T) {
 			func() {
 				eips := GetActivatorsEipNames()
 				// since we are working with a global function, tests are not independent
-				require.ElementsMatch(t, append(eips_snapshot, "evmos_0", "evmos_1", "evmos_2"), eips, "expected eips number to be equal")
+				require.ElementsMatch(t, append(eips_snapshot, "silc_0", "silc_1", "silc_2"), eips, "expected eips number to be equal")
 			},
 		},
 		{
 			"fail - valid activator is not stored if a repeated is present",
 			map[string]func(*JumpTable){
-				"evmos_3":       func(jt *JumpTable) {},
+				"silc_3":       func(jt *JumpTable) {},
 				"ethereum_3855": func(jt *JumpTable) {},
 			},
 			false,
@@ -130,7 +130,7 @@ func TestExtendActivators(t *testing.T) {
 			func() {
 				eips := GetActivatorsEipNames()
 				// since we are working with a global function, tests are not independent
-				require.ElementsMatch(t, append(eips_snapshot, "evmos_0", "evmos_1", "evmos_2"), eips, "expected eips number to be equal")
+				require.ElementsMatch(t, append(eips_snapshot, "silc_0", "silc_1", "silc_2"), eips, "expected eips number to be equal")
 			},
 		},
 	}

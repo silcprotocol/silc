@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
 	"github.com/silcprotocol/silc/x/evm/types"
 	"github.com/stretchr/testify/suite"
 )

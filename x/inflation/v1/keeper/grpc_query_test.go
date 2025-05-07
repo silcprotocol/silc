@@ -8,9 +8,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
-	evmostypes "github.com/silcprotocol/silc/types"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/inflation/v1/types"
 )
@@ -193,17 +193,17 @@ func TestQueryCirculatingSupply(t *testing.T) {
 
 	// Mint coins to increase supply
 	mintDenom := nw.App.InflationKeeper.GetParams(ctx).MintDenom
-	mintCoin := sdk.NewCoin(mintDenom, sdk.TokensFromConsensusPower(int64(400_000_000), evmostypes.PowerReduction))
+	mintCoin := sdk.NewCoin(mintDenom, sdk.TokensFromConsensusPower(int64(400_000_000), silctypes.PowerReduction))
 	err := nw.App.InflationKeeper.MintCoins(ctx, mintCoin)
 	require.NoError(t, err)
 
 	// team allocation is zero if not on mainnet
-	expCirculatingSupply := sdk.NewDecCoin(mintDenom, sdk.TokensFromConsensusPower(200_000_000, evmostypes.PowerReduction))
+	expCirculatingSupply := sdk.NewDecCoin(mintDenom, sdk.TokensFromConsensusPower(200_000_000, silctypes.PowerReduction))
 
 	// the total bonded tokens for the 4 accounts initialized on the setup (3 validators, 1 EOA)
 	bondedAmount := network.DefaultBondedAmount.MulRaw(nVals)
 	bondedAmount = bondedAmount.Add(network.PrefundedAccountInitialBalance.MulRaw(nAccs))
-	bondedCoins := sdk.NewDecCoin(evmostypes.AttoSilc, bondedAmount)
+	bondedCoins := sdk.NewDecCoin(silctypes.AttoSilc, bondedAmount)
 
 	res, err := qc.CirculatingSupply(ctx, &types.QueryCirculatingSupplyRequest{})
 	require.NoError(t, err)
@@ -228,7 +228,7 @@ func TestQueryInflationRate(t *testing.T) {
 
 	// Mint coins to increase supply
 	mintDenom := nw.App.InflationKeeper.GetParams(ctx).MintDenom
-	mintCoin := sdk.NewCoin(mintDenom, sdk.TokensFromConsensusPower(int64(400_000_000), evmostypes.PowerReduction).Sub(bondedAmt))
+	mintCoin := sdk.NewCoin(mintDenom, sdk.TokensFromConsensusPower(int64(400_000_000), silctypes.PowerReduction).Sub(bondedAmt))
 	err := nw.App.InflationKeeper.MintCoins(ctx, mintCoin)
 	require.NoError(t, err)
 

@@ -8,7 +8,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	commongrpc "github.com/silcprotocol/silc/testutil/integration/common/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	feemarkettypes "github.com/silcprotocol/silc/x/feemarket/types"
 	infltypes "github.com/silcprotocol/silc/x/inflation/v1/types"

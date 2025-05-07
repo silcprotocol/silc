@@ -19,7 +19,7 @@ import (
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/x/evm/statedb"
 	"github.com/silcprotocol/silc/x/evm/types"
 )
@@ -113,7 +113,7 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 
 // WithChainID sets the chain id to the local variable in the keeper
 func (k *Keeper) WithChainID(ctx sdk.Context) {
-	chainID, err := evmostypes.ParseChainID(ctx.ChainID())
+	chainID, err := silctypes.ParseChainID(ctx.ChainID())
 	if err != nil {
 		panic(err)
 	}
@@ -248,7 +248,7 @@ func (k *Keeper) GetAccountWithoutBalance(ctx sdk.Context, addr common.Address) 
 	}
 
 	codeHash := types.EmptyCodeHash
-	ethAcct, ok := acct.(evmostypes.EthAccountI)
+	ethAcct, ok := acct.(silctypes.EthAccountI)
 	if ok {
 		codeHash = ethAcct.GetCodeHash().Bytes()
 	}

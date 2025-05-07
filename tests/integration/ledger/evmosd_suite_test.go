@@ -33,7 +33,7 @@ import (
 	cosmosledger "github.com/cosmos/cosmos-sdk/crypto/ledger"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	clientkeys "github.com/silcprotocol/silc/client/keys"
-	evmoskeyring "github.com/silcprotocol/silc/crypto/keyring"
+	silckeyring "github.com/silcprotocol/silc/crypto/keyring"
 	feemarkettypes "github.com/silcprotocol/silc/x/feemarket/types"
 
 	//nolint:revive // dot imports are fine for Ginkgo
@@ -147,7 +147,7 @@ func (suite *LedgerTestSuite) NewKeyringAndCtxs(krHome string, input io.Reader, 
 	return kr, initClientCtx, ctx
 }
 
-func (suite *LedgerTestSuite) evmosAddKeyCmd() *cobra.Command {
+func (suite *LedgerTestSuite) silcAddKeyCmd() *cobra.Command {
 	cmd := keys.AddKeyCommand()
 
 	algoFlag := cmd.Flag(flags.FlagKeyType)
@@ -172,12 +172,12 @@ func (suite *LedgerTestSuite) evmosAddKeyCmd() *cobra.Command {
 
 func (suite *LedgerTestSuite) MockKeyringOption() keyring.Option {
 	return func(options *keyring.Options) {
-		options.SupportedAlgos = evmoskeyring.SupportedAlgorithms
-		options.SupportedAlgosLedger = evmoskeyring.SupportedAlgorithmsLedger
+		options.SupportedAlgos = silckeyring.SupportedAlgorithms
+		options.SupportedAlgosLedger = silckeyring.SupportedAlgorithmsLedger
 		options.LedgerDerivation = func() (cosmosledger.SECP256K1, error) { return suite.ledger, nil }
-		options.LedgerCreateKey = evmoskeyring.CreatePubkey
-		options.LedgerAppName = evmoskeyring.AppName
-		options.LedgerSigSkipDERConv = evmoskeyring.SkipDERConversion
+		options.LedgerCreateKey = silckeyring.CreatePubkey
+		options.LedgerAppName = silckeyring.AppName
+		options.LedgerSigSkipDERConv = silckeyring.SkipDERConversion
 	}
 }
 

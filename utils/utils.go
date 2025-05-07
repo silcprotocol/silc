@@ -24,11 +24,11 @@ import (
 
 const (
 	// MainnetChainID defines the Silc EIP155 chain ID for mainnet
-	MainnetChainID = "evmos_9001"
+	MainnetChainID = "silc_2025"
 	// TestnetChainID defines the Silc EIP155 chain ID for testnet
-	TestnetChainID = "evmos_9000"
+	TestnetChainID = "silc_2024"
 	// TestingChainID defines the Silc EIP155 chain ID for integration test
-	TestingChainID = "test_9000"
+	TestingChainID = "test_2024"
 	// BaseDenom defines the Silc mainnet denomination
 	BaseDenom = "sillet"
 )
@@ -107,7 +107,7 @@ func IsSupportedKey(pubkey cryptotypes.PubKey) bool {
 
 // GetSilcAddressFromBech32 returns the sdk.Account address of given address,
 // while also changing bech32 human readable prefix (HRP) to the value set on
-// the global sdk.Config (eg: `evmos`).
+// the global sdk.Config (eg: `silc`).
 // The function fails if the provided bech32 address is invalid.
 func GetSilcAddressFromBech32(address string) (sdk.AccAddress, error) {
 	bech32Prefix := strings.SplitN(address, "1", 2)[0]

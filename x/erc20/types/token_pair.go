@@ -7,7 +7,7 @@ import (
 	"github.com/cometbft/cometbft/crypto/tmhash"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 )
 
@@ -56,7 +56,7 @@ func (tp TokenPair) Validate() error {
 		return err
 	}
 
-	return evmostypes.ValidateAddress(tp.Erc20Address)
+	return silctypes.ValidateAddress(tp.Erc20Address)
 }
 
 // IsNativeCoin returns true if the owner of the ERC20 contract is the

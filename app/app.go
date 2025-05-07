@@ -174,7 +174,7 @@ func init() {
 
 	DefaultNodeHome = filepath.Join(userHomeDir, ".silcd")
 
-	// manually update the power reduction by replacing micro (u) -> atto (a) evmos
+	// manually update the power reduction by replacing micro (u) -> atto (a) silc
 	sdk.DefaultPowerReduction = evmostypes.PowerReduction
 	// modify fee market parameter defaults through global
 	feemarkettypes.DefaultMinGasPrice = MainnetMinGasPrices
@@ -960,7 +960,7 @@ func (app *Silc) ModuleAccountAddrs() map[string]bool {
 // These include:
 //   - module accounts
 //   - Ethereum's native precompiles
-//   - the static precompiled contracts available through evmOS
+//   - the static precompiled contracts available through silc
 func (app *Silc) BlockedAddrs() map[string]bool {
 	blockedAddrs := make(map[string]bool)
 

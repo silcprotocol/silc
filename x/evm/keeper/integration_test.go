@@ -19,11 +19,11 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/silcprotocol/silc/contracts"
 	"github.com/silcprotocol/silc/precompiles/staking"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
-	integrationutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	integrationutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 

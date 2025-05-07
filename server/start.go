@@ -57,7 +57,7 @@ import (
 	ethdebug "github.com/silcprotocol/silc/rpc/namespaces/ethereum/debug"
 	"github.com/silcprotocol/silc/server/config"
 	srvflags "github.com/silcprotocol/silc/server/flags"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 )
 
 // DBOpener is a function to open `application.db`, potentially with customized options.
@@ -192,7 +192,7 @@ which accepts a path for the resulting pprof file.
 	cmd.Flags().String(srvflags.JSONWsAddress, config.DefaultJSONRPCWsAddress, "the JSON-RPC WS server address to listen on")
 	cmd.Flags().Uint64(srvflags.JSONRPCGasCap, config.DefaultGasCap, "Sets a cap on gas that can be used in eth_call/estimateGas unit is sillet (0=infinite)")                        //nolint:lll
 	cmd.Flags().Bool(srvflags.JSONRPCAllowInsecureUnlock, config.DefaultJSONRPCAllowInsecureUnlock, "Allow insecure account unlocking when account-related RPCs are exposed by http") //nolint:lll
-	cmd.Flags().Float64(srvflags.JSONRPCTxFeeCap, config.DefaultTxFeeCap, "Sets a cap on transaction fee that can be sent via the RPC APIs (1 = default 1 evmos)")                    //nolint:lll
+	cmd.Flags().Float64(srvflags.JSONRPCTxFeeCap, config.DefaultTxFeeCap, "Sets a cap on transaction fee that can be sent via the RPC APIs (1 = default 1 silc)")                    //nolint:lll
 	cmd.Flags().Int32(srvflags.JSONRPCFilterCap, config.DefaultFilterCap, "Sets the global cap for total number of filters that can be created")
 	cmd.Flags().Duration(srvflags.JSONRPCEVMTimeout, config.DefaultEVMTimeout, "Sets a timeout used for eth_call (0=infinite)")
 	cmd.Flags().Duration(srvflags.JSONRPCHTTPTimeout, config.DefaultHTTPTimeout, "Sets a read/write timeout for json-rpc http server (0=infinite)")
@@ -418,7 +418,7 @@ func startInProcess(svrCtx *server.Context, clientCtx client.Context, opts Start
 		ethmetricsexp.Setup(config.JSONRPC.MetricsAddress)
 	}
 
-	var idxer evmostypes.EVMTxIndexer
+	var idxer silctypes.EVMTxIndexer
 	if config.JSONRPC.EnableIndexer {
 		idxDB, err := OpenIndexerDB(home, server.GetAppDBBackend(svrCtx.Viper))
 		if err != nil {
@@ -619,7 +619,7 @@ func startJSONRPCServer(
 	config config.Config,
 	genDocProvider node.GenesisDocProvider,
 	cmtRPCAddr string,
-	idxer evmostypes.EVMTxIndexer,
+	idxer silctypes.EVMTxIndexer,
 ) (ctx client.Context, httpSrv *http.Server, httpSrvDone chan struct{}, err error) {
 	ctx = clientCtx
 	if !config.JSONRPC.Enable {

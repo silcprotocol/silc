@@ -105,7 +105,7 @@ func (s *PrecompileTestSuite) TestRun() {
 			"invalid bech32 human readable prefix (HRP)",
 		},
 		{
-			"pass - hex to bech32 account (evmos)",
+			"pass - hex to bech32 account (silc)",
 			func() *vm.Contract {
 				input, err := s.precompile.Pack(
 					bech32.HexToBech32Method,
@@ -128,7 +128,7 @@ func (s *PrecompileTestSuite) TestRun() {
 			"",
 		},
 		{
-			"pass - hex to bech32 validator operator (evmosvaloper)",
+			"pass - hex to bech32 validator operator (silcvaloper)",
 			func() *vm.Contract {
 				valAddrCodec := s.network.App.StakingKeeper.ValidatorAddressCodec()
 				valAddrBz, err := valAddrCodec.StringToBytes(s.network.GetValidators()[0].GetOperator())
@@ -154,7 +154,7 @@ func (s *PrecompileTestSuite) TestRun() {
 			"",
 		},
 		{
-			"pass - hex to bech32 consensus address (evmosvalcons)",
+			"pass - hex to bech32 consensus address (silcvalcons)",
 			func() *vm.Contract {
 				input, err := s.precompile.Pack(
 					bech32.HexToBech32Method,

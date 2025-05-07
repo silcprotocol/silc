@@ -14,7 +14,7 @@ import (
 	"github.com/silcprotocol/silc/server/config"
 	"github.com/silcprotocol/silc/testutil/network"
 
-	evmosnetwork "github.com/silcprotocol/silc/testutil/network"
+	silcnetwork "github.com/silcprotocol/silc/testutil/network"
 )
 
 type IntegrationTestSuite struct {
@@ -27,7 +27,7 @@ func (s *IntegrationTestSuite) SetupSuite() {
 	s.T().Log("setting up integration test suite")
 
 	var err error
-	cfg := evmosnetwork.DefaultConfig()
+	cfg := silcnetwork.DefaultConfig()
 	cfg.JSONRPCAddress = config.DefaultJSONRPCAddress
 	cfg.NumValidators = 1
 

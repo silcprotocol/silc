@@ -7,11 +7,11 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
 	commonfactory "github.com/silcprotocol/silc/testutil/integration/common/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
-	integrationutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	integrationutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 
@@ -70,7 +70,7 @@ var _ = Describe("when sending a Cosmos transaction", Label("AnteHandler"), Orde
 
 			msg = &banktypes.MsgSend{
 				FromAddress: addr.String(),
-				ToAddress:   "evmos1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
+				ToAddress:   "silc1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
 				Amount:      sdk.Coins{sdk.Coin{Amount: transferAmt, Denom: utils.BaseDenom}},
 			}
 
@@ -141,7 +141,7 @@ var _ = Describe("when sending a Cosmos transaction", Label("AnteHandler"), Orde
 
 			msg = &banktypes.MsgSend{
 				FromAddress: addr.String(),
-				ToAddress:   "evmos1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
+				ToAddress:   "silc1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
 				Amount:      sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(1e14), Denom: utils.BaseDenom}},
 			}
 		})
@@ -202,7 +202,7 @@ var _ = Describe("when sending a Cosmos transaction", Label("AnteHandler"), Orde
 
 			msg = &banktypes.MsgSend{
 				FromAddress: addr.String(),
-				ToAddress:   "evmos1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
+				ToAddress:   "silc1dx67l23hz9l0k9hcher8xz04uj7wf3yu26l2yn",
 				Amount:      sdk.Coins{sdk.Coin{Amount: sdkmath.NewInt(1), Denom: utils.BaseDenom}},
 			}
 		})

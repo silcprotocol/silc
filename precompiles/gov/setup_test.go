@@ -15,10 +15,10 @@ import (
 	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 
 	"github.com/silcprotocol/silc/precompiles/gov"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	"github.com/silcprotocol/silc/utils"
 
 	"github.com/stretchr/testify/suite"

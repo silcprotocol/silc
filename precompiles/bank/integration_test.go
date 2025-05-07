@@ -12,11 +12,11 @@ import (
 	"github.com/silcprotocol/silc/precompiles/bank"
 	"github.com/silcprotocol/silc/precompiles/bank/testdata"
 	"github.com/silcprotocol/silc/precompiles/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
-	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
@@ -34,7 +34,7 @@ var is *IntegrationTestSuite
 // unit testis.
 type IntegrationTestSuite struct {
 	bondDenom, tokenDenom string
-	evmosAddr, xmplAddr   common.Address
+	silcAddr, xmplAddr   common.Address
 
 	network     *network.UnitTestNetwork
 	factory     factory.TxFactory
@@ -76,7 +76,7 @@ func (is *IntegrationTestSuite) SetupTest() {
 	tokenPairID := is.network.App.Erc20Keeper.GetTokenPairID(is.network.GetContext(), is.bondDenom)
 	tokenPair, found := is.network.App.Erc20Keeper.GetTokenPair(is.network.GetContext(), tokenPairID)
 	Expect(found).To(BeTrue(), "failed to register token erc20 extension")
-	is.evmosAddr = common.HexToAddress(tokenPair.Erc20Address)
+	is.silcAddr = common.HexToAddress(tokenPair.Erc20Address)
 
 	// Mint and register a second coin for testing purposes
 	err = is.network.App.BankKeeper.MintCoins(is.network.GetContext(), inflationtypes.ModuleName, sdk.Coins{{Denom: is.tokenDenom, Amount: math.NewInt(1e18)}})
@@ -111,7 +111,7 @@ var _ = Describe("Bank Extension -", func() {
 		contractData ContractData
 		passCheck    testutil.LogCheckArgs
 
-		evmosTotalSupply, _ = new(big.Int).SetString("200003000000000000000000", 10)
+		silcTotalSupply, _ = new(big.Int).SetString("200003000000000000000000", 10)
 		xmplTotalSupply, _  = new(big.Int).SetString("200000000000000000000000", 10)
 	)
 
@@ -236,21 +236,21 @@ var _ = Describe("Bank Extension -", func() {
 				err = is.precompile.UnpackIntoInterface(&balances, bank.TotalSupplyMethod, ethRes.Ret)
 				Expect(err).ToNot(HaveOccurred(), "failed to unpack balances")
 
-				Expect(balances[0].Amount).To(Equal(evmosTotalSupply))
+				Expect(balances[0].Amount).To(Equal(silcTotalSupply))
 				Expect(balances[1].Amount).To(Equal(xmplTotalSupply))
 			})
 		})
 
 		Context("supplyOf query", func() {
 			It("should return the supply of Silc", func() {
-				queryArgs, supplyArgs := getTxAndCallArgs(directCall, contractData, bank.SupplyOfMethod, is.evmosAddr)
+				queryArgs, supplyArgs := getTxAndCallArgs(directCall, contractData, bank.SupplyOfMethod, is.silcAddr)
 				_, ethRes, err := is.factory.CallContractAndCheckLogs(sender.Priv, queryArgs, supplyArgs, passCheck)
 				Expect(err).ToNot(HaveOccurred(), "unexpected result calling contract")
 
 				out, err := is.precompile.Unpack(bank.SupplyOfMethod, ethRes.Ret)
 				Expect(err).ToNot(HaveOccurred(), "failed to unpack balances")
 
-				Expect(out[0].(*big.Int)).To(Equal(evmosTotalSupply))
+				Expect(out[0].(*big.Int)).To(Equal(silcTotalSupply))
 			})
 
 			It("should return the supply of XMPL", func() {
@@ -379,21 +379,21 @@ var _ = Describe("Bank Extension -", func() {
 				err = is.precompile.UnpackIntoInterface(&balances, bank.TotalSupplyMethod, ethRes.Ret)
 				Expect(err).ToNot(HaveOccurred(), "failed to unpack balances")
 
-				Expect(balances[0].Amount).To(Equal(evmosTotalSupply))
+				Expect(balances[0].Amount).To(Equal(silcTotalSupply))
 				Expect(balances[1].Amount).To(Equal(xmplTotalSupply))
 			})
 		})
 
 		Context("supplyOf query", func() {
 			It("should return the supply of Silc", func() {
-				queryArgs, supplyArgs := getTxAndCallArgs(contractCall, contractData, SupplyOfFunction, is.evmosAddr)
+				queryArgs, supplyArgs := getTxAndCallArgs(contractCall, contractData, SupplyOfFunction, is.silcAddr)
 				_, ethRes, err := is.factory.CallContractAndCheckLogs(sender.Priv, queryArgs, supplyArgs, passCheck)
 				Expect(err).ToNot(HaveOccurred(), "unexpected result calling contract")
 
 				out, err := is.precompile.Unpack(bank.SupplyOfMethod, ethRes.Ret)
 				Expect(err).ToNot(HaveOccurred(), "failed to unpack balances")
 
-				Expect(out[0].(*big.Int)).To(Equal(evmosTotalSupply))
+				Expect(out[0].(*big.Int)).To(Equal(silcTotalSupply))
 			})
 
 			It("should return the supply of XMPL", func() {

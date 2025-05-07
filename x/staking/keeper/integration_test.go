@@ -13,10 +13,10 @@ import (
 
 	"github.com/silcprotocol/silc/testutil"
 	"github.com/silcprotocol/silc/testutil/integration/common/factory"
-	evmosfactory "github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	silcfactory "github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	vestingtypes "github.com/silcprotocol/silc/x/vesting/types"
 
 	//nolint:revive // dot imports are fine for Ginkgo
@@ -36,7 +36,7 @@ var _ = Describe("Staking module tests", func() {
 		nw   *network.UnitTestNetwork
 		gh   grpc.Handler
 		keys keyring.Keyring
-		tf   evmosfactory.TxFactory
+		tf   silcfactory.TxFactory
 	)
 
 	Context("using a vesting account", func() {
@@ -63,7 +63,7 @@ var _ = Describe("Staking module tests", func() {
 				network.WithPreFundedAccounts(keys.GetAllAccAddrs()...),
 			)
 			gh = grpc.NewIntegrationHandler(nw)
-			tf = evmosfactory.New(nw, gh)
+			tf = silcfactory.New(nw, gh)
 
 			Expect(nw.NextBlock()).To(BeNil())
 

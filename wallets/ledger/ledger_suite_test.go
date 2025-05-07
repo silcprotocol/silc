@@ -21,7 +21,7 @@ import (
 	auxTx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	bankTypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	"github.com/silcprotocol/silc/wallets/ledger"
 	"github.com/silcprotocol/silc/wallets/ledger/mocks"
 	"github.com/silcprotocol/silc/wallets/usbwallet"
@@ -48,7 +48,7 @@ func TestLedgerTestSuite(t *testing.T) {
 }
 
 func (suite *LedgerTestSuite) SetupTest() {
-	suite.hrp = "evmos"
+	suite.hrp = "silc"
 
 	suite.txAmino = suite.getMockTxAmino()
 	suite.txProtobuf = suite.getMockTxProtobuf()
@@ -85,8 +85,8 @@ func (suite *LedgerTestSuite) getMockTxAmino() []byte {
 				"type":"cosmos-sdk/MsgSend",
 				"value":{
 					"amount":[{"amount":"150","denom":"atom"}],
-					"from_address":"evmos10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky",
-					"to_address":"evmos1fx944mzagwdhx0wz7k9tfztc8g3lkfk6rrgv6l"
+					"from_address":"silc10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky",
+					"to_address":"silc1fx944mzagwdhx0wz7k9tfztc8g3lkfk6rrgv6l"
 				}
 			}],
 			"sequence":"6"
@@ -102,8 +102,8 @@ func (suite *LedgerTestSuite) getMockTxProtobuf() []byte {
 
 	memo := "memo"
 	msg := bankTypes.NewMsgSend(
-		sdk.MustAccAddressFromBech32("evmos10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky"),
-		sdk.MustAccAddressFromBech32("evmos1fx944mzagwdhx0wz7k9tfztc8g3lkfk6rrgv6l"),
+		sdk.MustAccAddressFromBech32("silc10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky"),
+		sdk.MustAccAddressFromBech32("silc1fx944mzagwdhx0wz7k9tfztc8g3lkfk6rrgv6l"),
 		[]sdk.Coin{
 			{
 				Denom:  "atom",

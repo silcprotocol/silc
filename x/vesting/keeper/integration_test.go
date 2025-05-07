@@ -23,11 +23,11 @@ import (
 	"github.com/silcprotocol/silc/contracts"
 	"github.com/silcprotocol/silc/testutil"
 	"github.com/silcprotocol/silc/testutil/integration/common/factory"
-	evmosfactory "github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
-	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
+	silcfactory "github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
@@ -47,7 +47,7 @@ type KeeperTestSuite struct {
 	network *network.UnitTestNetwork
 	handler grpc.Handler
 	keyring keyring.Keyring
-	factory evmosfactory.TxFactory
+	factory silcfactory.TxFactory
 }
 
 // Initialize general error variable for easier handling in loops throughout this test suite.
@@ -103,7 +103,7 @@ var _ = Describe("Clawback Vesting Accounts", Ordered, func() {
 			network.WithPreFundedAccounts(keys.GetAllAccAddrs()...),
 		)
 		gh := grpc.NewIntegrationHandler(nw)
-		tf := evmosfactory.New(nw, gh)
+		tf := silcfactory.New(nw, gh)
 
 		s.network = nw
 		s.factory = tf
@@ -1081,7 +1081,7 @@ var _ = Describe("Clawback Vesting Accounts - claw back tokens", func() {
 			network.WithCustomGenesis(customGen),
 		)
 		gh := grpc.NewIntegrationHandler(nw)
-		tf := evmosfactory.New(nw, gh)
+		tf := silcfactory.New(nw, gh)
 
 		s.network = nw
 		s.factory = tf
@@ -1998,7 +1998,7 @@ var _ = Describe("Clawback Vesting Account - Smart contract", func() {
 			network.WithPreFundedAccounts(keys.GetAllAccAddrs()...),
 		)
 		gh := grpc.NewIntegrationHandler(nw)
-		tf := evmosfactory.New(nw, gh)
+		tf := silcfactory.New(nw, gh)
 
 		s.network = nw
 		s.factory = tf
@@ -2010,7 +2010,7 @@ var _ = Describe("Clawback Vesting Account - Smart contract", func() {
 		contractAddr, err = s.factory.DeployContract(
 			s.keyring.GetPrivKey(0),
 			evmtypes.EvmTxArgs{},
-			evmosfactory.ContractDeploymentData{
+			silcfactory.ContractDeploymentData{
 				Contract:        contract,
 				ConstructorArgs: []interface{}{"Test", "TTT", uint8(18)},
 			},
@@ -2099,7 +2099,7 @@ var _ = Describe("Clawback Vesting Account - Barberry bug", func() {
 			network.WithPreFundedAccounts(keys.GetAllAccAddrs()...),
 		)
 		gh := grpc.NewIntegrationHandler(nw)
-		tf := evmosfactory.New(nw, gh)
+		tf := silcfactory.New(nw, gh)
 
 		s.network = nw
 		s.factory = tf

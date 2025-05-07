@@ -11,7 +11,7 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/x/evm/statedb"
 	"github.com/silcprotocol/silc/x/evm/types"
 
@@ -19,7 +19,7 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
-	evmoscore "github.com/silcprotocol/silc/x/evm/core/core"
+	silccore "github.com/silcprotocol/silc/x/evm/core/core"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
 )
 
@@ -29,7 +29,7 @@ import (
 // beneficiary of the coinbase transaction (since we're not mining).
 //
 // NOTE: the RANDOM opcode is currently not supported since it requires
-// RANDAO implementation. See https://github.com/evmos/ethermint/pull/1520#pullrequestreview-1200504697
+// RANDAO implementation. See https://github.com/silc/ethermint/pull/1520#pullrequestreview-1200504697
 // for more information.
 
 func (k *Keeper) NewEVM(
@@ -40,11 +40,11 @@ func (k *Keeper) NewEVM(
 	stateDB vm.StateDB,
 ) *vm.EVM {
 	blockCtx := vm.BlockContext{
-		CanTransfer: evmoscore.CanTransfer,
-		Transfer:    evmoscore.Transfer,
+		CanTransfer: silccore.CanTransfer,
+		Transfer:    silccore.Transfer,
 		GetHash:     k.GetHashFn(ctx),
 		Coinbase:    cfg.CoinBase,
-		GasLimit:    evmostypes.BlockGasLimit(ctx),
+		GasLimit:    silctypes.BlockGasLimit(ctx),
 		BlockNumber: big.NewInt(ctx.BlockHeight()),
 		Time:        big.NewInt(ctx.BlockHeader().Time.Unix()),
 		Difficulty:  big.NewInt(0), // unused. Only required in PoW context
@@ -52,7 +52,7 @@ func (k *Keeper) NewEVM(
 		Random:      nil, // not supported
 	}
 
-	txCtx := evmoscore.NewEVMTxContext(msg)
+	txCtx := silccore.NewEVMTxContext(msg)
 	if tracer == nil {
 		tracer = k.Tracer(ctx, msg, cfg.ChainConfig)
 	}
@@ -79,7 +79,7 @@ func (k *Keeper) NewEVM(
 //  3. The requested height is from a height greater than the latest one
 func (k Keeper) GetHashFn(ctx sdk.Context) vm.GetHashFunc {
 	return func(height uint64) common.Hash {
-		h, err := evmostypes.SafeInt64(height)
+		h, err := silctypes.SafeInt64(height)
 		if err != nil {
 			k.Logger(ctx).Error("failed to cast height to int64", "error", err)
 			return common.Hash{}
@@ -355,7 +355,7 @@ func (k *Keeper) ApplyMessageWithConfig(
 
 	// calculate a minimum amount of gas to be charged to sender if GasLimit
 	// is considerably higher than GasUsed to stay more aligned with Tendermint gas mechanics
-	// for more info https://github.com/evmos/ethermint/issues/1085
+	// for more info https://github.com/silc/ethermint/issues/1085
 	gasLimit := math.LegacyNewDec(int64(msg.Gas())) //#nosec G115
 	minGasMultiplier := k.GetMinGasMultiplier(ctx)
 	minimumGasUsed := gasLimit.Mul(minGasMultiplier)

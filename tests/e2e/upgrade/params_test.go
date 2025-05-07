@@ -38,17 +38,17 @@ func TestLoadUpgradeParams(t *testing.T) {
 			vars: envVars{
 				initialVersion: "v0.1.0",
 				targetVersion:  "v0.2.0",
-				chainID:        "evmos_9123-1",
+				chainID:        "silc_9123-1",
 				skipCleanup:    "true",
-				mountPath:      "/tmp/evmos",
+				mountPath:      "/tmp/silc",
 			},
 			want: Params{
-				MountPath: "/tmp/evmos",
+				MountPath: "/tmp/silc",
 				Versions: []VersionConfig{
 					{"v0.1.0", "v0.1.0", tharsisRepo},
 					{"v0.2.0", "v0.2.0", tharsisRepo},
 				},
-				ChainID:     "evmos_9123-1",
+				ChainID:     "silc_9123-1",
 				WorkDirRoot: wd,
 			},
 			expPass: true,

@@ -5,7 +5,7 @@ package ante_test
 
 import (
 	storetypes "cosmossdk.io/store/types"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	evmante "github.com/silcprotocol/silc/x/evm/ante"
 )
 

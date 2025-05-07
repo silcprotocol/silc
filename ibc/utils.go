@@ -30,14 +30,14 @@ func GetTransferSenderRecipient(data transfertypes.FungibleTokenPacketData) (
 	err error,
 ) {
 	// validate the sender bech32 address from the counterparty chain
-	// and change the bech32 human readable prefix (HRP) of the sender to `evmos`
+	// and change the bech32 human readable prefix (HRP) of the sender to `silc`
 	sender, err = utils.GetSilcAddressFromBech32(data.Sender)
 	if err != nil {
 		return nil, nil, "", "", errorsmod.Wrap(err, "invalid sender")
 	}
 
 	// validate the recipient bech32 address from the counterparty chain
-	// and change the bech32 human readable prefix (HRP) of the recipient to `evmos`
+	// and change the bech32 human readable prefix (HRP) of the recipient to `silc`
 	recipient, err = utils.GetSilcAddressFromBech32(data.Receiver)
 	if err != nil {
 		return nil, nil, "", "", errorsmod.Wrap(err, "invalid recipient")

@@ -22,7 +22,7 @@ import (
 
 	ibcgotesting "github.com/cosmos/ibc-go/v8/testing"
 
-	evmosapp "github.com/silcprotocol/silc/app"
+	silcapp "github.com/silcprotocol/silc/app"
 	"github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 )
@@ -30,7 +30,7 @@ import (
 // DefaultTestingAppInit is a test helper function used to initialize an App
 // on the ibc testing pkg
 // need this design to make it compatible with the SetupTestinApp func on ibctesting pkg
-var DefaultTestingAppInit func(chainID string) func() (ibcgotesting.TestingApp, map[string]json.RawMessage) = evmosapp.SetupTestingApp
+var DefaultTestingAppInit func(chainID string) func() (ibcgotesting.TestingApp, map[string]json.RawMessage) = silcapp.SetupTestingApp
 
 // SetupWithGenesisValSet initializes a new SimApp with a validator set and genesis accounts
 // that also act as delegators. For simplicity, each validator is bonded with a delegation
@@ -100,7 +100,7 @@ func SetupWithGenesisValSet(t *testing.T, valSet *cmttypes.ValidatorSet, genAccs
 		&abci.RequestInitChain{
 			ChainId:         chainID,
 			Validators:      []abci.ValidatorUpdate{},
-			ConsensusParams: evmosapp.DefaultConsensusParams,
+			ConsensusParams: silcapp.DefaultConsensusParams,
 			AppStateBytes:   stateBytes,
 		},
 	)

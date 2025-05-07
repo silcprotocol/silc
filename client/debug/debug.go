@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/silcprotocol/silc/ethereum/eip712"
-	evmos "github.com/silcprotocol/silc/types"
+	silc "github.com/silcprotocol/silc/types"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -81,8 +81,8 @@ func AddrCmd() *cobra.Command {
 		Short: "Convert an address between hex and bech32",
 		Long:  "Convert an address between hex encoding and bech32.",
 		Example: fmt.Sprintf(
-			`$ %s debug addr evmos1qqqqhe5pnaq5qq39wqkn957aydnrm45sdn8583
-$ %s debug addr 0x00000Be6819f41400225702D32d3dd23663Dd690 --prefix evmos`, version.AppName, version.AppName),
+			`$ %s debug addr silc1qqqqhe5pnaq5qq39wqkn957aydnrm45sdn8583
+$ %s debug addr 0x00000Be6819f41400225702D32d3dd23663Dd690 --prefix silc`, version.AppName, version.AppName),
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			addrString := args[0]
@@ -126,7 +126,7 @@ $ %s debug addr 0x00000Be6819f41400225702D32d3dd23663Dd690 --prefix evmos`, vers
 		},
 	}
 
-	cmd.Flags().String(flagPrefix, "", "Bech32 encoded account prefix, for example evmos, evmosvaloper")
+	cmd.Flags().String(flagPrefix, "", "Bech32 encoded account prefix, for example silc, silcvaloper")
 	return cmd
 }
 
@@ -179,7 +179,7 @@ func LegacyEIP712Cmd() *cobra.Command {
 				return errors.Wrap(err, "encode tx")
 			}
 
-			chainID, err := evmos.ParseChainID(clientCtx.ChainID)
+			chainID, err := silc.ParseChainID(clientCtx.ChainID)
 			if err != nil {
 				return errors.Wrap(err, "invalid chain ID passed as argument")
 			}

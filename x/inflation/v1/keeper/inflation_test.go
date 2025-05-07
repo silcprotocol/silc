@@ -8,9 +8,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
-	evmostypes "github.com/silcprotocol/silc/types"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/inflation/v1/types"
 	"github.com/stretchr/testify/require"
@@ -99,7 +99,7 @@ func TestGetCirculatingSupplyAndInflationRate(t *testing.T) {
 	// the total bonded tokens for the 4 accounts initialized on the setup (3 validators, 1 EOA)
 	bondedAmount := network.DefaultBondedAmount.MulRaw(nVals)                             // Add the allocation for the validators
 	bondedAmount = bondedAmount.Add(network.PrefundedAccountInitialBalance.MulRaw(nAccs)) // Add the allocation for the EOA
-	bondedCoins := sdk.NewDecCoin(evmostypes.AttoSilc, bondedAmount)
+	bondedCoins := sdk.NewDecCoin(silctypes.AttoSilc, bondedAmount)
 
 	testCases := []struct {
 		name             string
@@ -109,7 +109,7 @@ func TestGetCirculatingSupplyAndInflationRate(t *testing.T) {
 	}{
 		{
 			"no epochs per period",
-			sdk.TokensFromConsensusPower(400_000_000, evmostypes.PowerReduction).Sub(bondedAmount),
+			sdk.TokensFromConsensusPower(400_000_000, silctypes.PowerReduction).Sub(bondedAmount),
 			func() {
 				nw.App.InflationKeeper.SetEpochsPerPeriod(ctx, 0)
 			},
@@ -117,19 +117,19 @@ func TestGetCirculatingSupplyAndInflationRate(t *testing.T) {
 		},
 		{
 			"high supply",
-			sdk.TokensFromConsensusPower(800_000_000, evmostypes.PowerReduction).Sub(bondedAmount),
+			sdk.TokensFromConsensusPower(800_000_000, silctypes.PowerReduction).Sub(bondedAmount),
 			func() {},
 			math.LegacyMustNewDecFromStr("5.729166666666666700"),
 		},
 		{
 			"low supply",
-			sdk.TokensFromConsensusPower(400_000_000, evmostypes.PowerReduction).Sub(bondedAmount),
+			sdk.TokensFromConsensusPower(400_000_000, silctypes.PowerReduction).Sub(bondedAmount),
 			func() {},
 			math.LegacyMustNewDecFromStr("17.187500000000000000"),
 		},
 		{
 			"zero circulating supply",
-			sdk.TokensFromConsensusPower(200_000_000, evmostypes.PowerReduction).Sub(bondedAmount),
+			sdk.TokensFromConsensusPower(200_000_000, silctypes.PowerReduction).Sub(bondedAmount),
 			func() {},
 			math.LegacyZeroDec(),
 		},
@@ -145,7 +145,7 @@ func TestGetCirculatingSupplyAndInflationRate(t *testing.T) {
 			ctx = nw.GetContext()
 
 			// Team allocation is only set on mainnet
-			ctx = ctx.WithChainID("evmos_9001-1")
+			ctx = ctx.WithChainID("silc_9001-1")
 			tc.malleate()
 
 			// Mint coins to increase supply
@@ -159,7 +159,7 @@ func TestGetCirculatingSupplyAndInflationRate(t *testing.T) {
 
 			teamAlloc := sdk.NewDecCoin(
 				types.DefaultInflationDenom,
-				sdk.TokensFromConsensusPower(int64(200_000_000), evmostypes.PowerReduction),
+				sdk.TokensFromConsensusPower(int64(200_000_000), silctypes.PowerReduction),
 			)
 
 			circulatingSupply := nw.App.InflationKeeper.GetCirculatingSupply(ctx, types.DefaultInflationDenom)

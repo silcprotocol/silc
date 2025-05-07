@@ -14,7 +14,7 @@ import (
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/silcprotocol/silc/app/ante/evm"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	"github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )

@@ -6,7 +6,7 @@ package types
 import (
 	"cosmossdk.io/math"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 )
 
 const (
@@ -62,9 +62,9 @@ func CalculateEpochMintProvision(
 	// epochProvision = periodProvision / epochsPerPeriod
 	epochProvision := reducedPeriodProvision.Quo(math.LegacyNewDec(epochsPerPeriod))
 
-	// Multiply epochMintProvision with power reduction (10^18 for evmos) as the
-	// calculation is based on `evmos` and the issued tokens need to be given in
+	// Multiply epochMintProvision with power reduction (10^18 for silc) as the
+	// calculation is based on `silc` and the issued tokens need to be given in
 	// `sillet`
-	epochProvision = epochProvision.Mul(math.LegacyNewDecFromInt(evmostypes.PowerReduction))
+	epochProvision = epochProvision.Mul(math.LegacyNewDecFromInt(silctypes.PowerReduction))
 	return epochProvision
 }

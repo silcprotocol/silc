@@ -17,7 +17,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/x/erc20/types"
 )
 
@@ -50,7 +50,7 @@ func NewConvertERC20Cmd() *cobra.Command {
 			}
 
 			contract := args[0]
-			if err := evmostypes.ValidateAddress(contract); err != nil {
+			if err := silctypes.ValidateAddress(contract); err != nil {
 				return fmt.Errorf("invalid ERC20 contract address %w", err)
 			}
 

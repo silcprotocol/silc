@@ -9,7 +9,7 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/utils"
+	"github.com/silcprotocol/silc/testutil/integration/silc/utils"
 	"github.com/silcprotocol/silc/x/evm/types"
 )
 

@@ -21,7 +21,7 @@ const (
 	AttoSilc string = "sillet"
 
 	// BaseDenomUnit defines the base denomination unit for Silc.
-	// 1 evmos = 1x10^{BaseDenomUnit} sillet
+	// 1 silc = 1x10^{BaseDenomUnit} sillet
 	BaseDenomUnit = 18
 
 	// DefaultGasPrice is default gas price for evm transactions

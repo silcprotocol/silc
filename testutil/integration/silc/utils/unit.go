@@ -14,7 +14,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	transfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	erc20types "github.com/silcprotocol/silc/x/erc20/types"
 	inflationtypes "github.com/silcprotocol/silc/x/inflation/v1/types"
 )
@@ -23,7 +23,7 @@ const (
 	TokenToMint = 1e18
 )
 
-// RegisterSilcERC20Coins uses the UnitNetwork to register the evmos token as an
+// RegisterSilcERC20Coins uses the UnitNetwork to register the silc token as an
 // ERC20 token. The function performs all the required steps for the registration
 // like registering the denom trace in the transfer keeper and minting the token
 // with the bank. Returns the TokenPair or an error.
@@ -54,20 +54,20 @@ func RegisterSilcERC20Coins(
 		return erc20types.TokenPair{}, err
 	}
 
-	evmosMetadata, found := network.App.BankKeeper.GetDenomMetaData(network.GetContext(), utils.BaseDenom)
+	silcMetadata, found := network.App.BankKeeper.GetDenomMetaData(network.GetContext(), utils.BaseDenom)
 	if !found {
-		return erc20types.TokenPair{}, fmt.Errorf("expected evmos denom metadata")
+		return erc20types.TokenPair{}, fmt.Errorf("expected silc denom metadata")
 	}
 
-	_, err = network.App.Erc20Keeper.RegisterERC20Extension(network.GetContext(), evmosMetadata.Base)
+	_, err = network.App.Erc20Keeper.RegisterERC20Extension(network.GetContext(), silcMetadata.Base)
 	if err != nil {
 		return erc20types.TokenPair{}, err
 	}
 
-	evmosDenomID := network.App.Erc20Keeper.GetDenomMap(network.GetContext(), bondDenom)
-	tokenPair, ok := network.App.Erc20Keeper.GetTokenPair(network.GetContext(), evmosDenomID)
+	silcDenomID := network.App.Erc20Keeper.GetDenomMap(network.GetContext(), bondDenom)
+	tokenPair, ok := network.App.Erc20Keeper.GetTokenPair(network.GetContext(), silcDenomID)
 	if !ok {
-		return erc20types.TokenPair{}, fmt.Errorf("expected evmos erc20 token pair")
+		return erc20types.TokenPair{}, fmt.Errorf("expected silc erc20 token pair")
 	}
 
 	return tokenPair, nil

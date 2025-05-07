@@ -16,7 +16,7 @@ import (
 	"github.com/silcprotocol/silc/rpc"
 
 	svrconfig "github.com/silcprotocol/silc/server/config"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 )
 
 // StartJSONRPC starts the JSON-RPC server
@@ -25,7 +25,7 @@ func StartJSONRPC(ctx *server.Context,
 	tmRPCAddr,
 	tmEndpoint string,
 	config *svrconfig.Config,
-	indexer evmostypes.EVMTxIndexer,
+	indexer silctypes.EVMTxIndexer,
 ) (*http.Server, chan struct{}, error) {
 	tmWsClient := ConnectTmWS(tmRPCAddr, tmEndpoint, ctx.Logger)
 

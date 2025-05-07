@@ -27,7 +27,7 @@ import (
 	ethparams "github.com/ethereum/go-ethereum/params"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	evmante "github.com/silcprotocol/silc/x/evm/ante"
 	"github.com/silcprotocol/silc/x/evm/statedb"
 	"github.com/silcprotocol/silc/x/evm/types"
@@ -45,7 +45,7 @@ func (k Keeper) Account(c context.Context, req *types.QueryAccountRequest) (*typ
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := evmostypes.ValidateAddress(req.Address); err != nil {
+	if err := silctypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument, err.Error(),
 		)
@@ -68,7 +68,7 @@ func (k Keeper) CosmosAccount(c context.Context, req *types.QueryCosmosAccountRe
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := evmostypes.ValidateAddress(req.Address); err != nil {
+	if err := silctypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument, err.Error(),
 		)
@@ -137,7 +137,7 @@ func (k Keeper) Balance(c context.Context, req *types.QueryBalanceRequest) (*typ
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := evmostypes.ValidateAddress(req.Address); err != nil {
+	if err := silctypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument,
 			types.ErrZeroAddress.Error(),
@@ -159,7 +159,7 @@ func (k Keeper) Storage(c context.Context, req *types.QueryStorageRequest) (*typ
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := evmostypes.ValidateAddress(req.Address); err != nil {
+	if err := silctypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument,
 			types.ErrZeroAddress.Error(),
@@ -185,7 +185,7 @@ func (k Keeper) Code(c context.Context, req *types.QueryCodeRequest) (*types.Que
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	if err := evmostypes.ValidateAddress(req.Address); err != nil {
+	if err := silctypes.ValidateAddress(req.Address); err != nil {
 		return nil, status.Error(
 			codes.InvalidArgument,
 			types.ErrZeroAddress.Error(),
@@ -375,7 +375,7 @@ func (k Keeper) EstimateGasInternal(c context.Context, req *types.EthCallRequest
 				return true, nil, err
 			}
 			// resetting the gasMeter after increasing the sequence to have an accurate gas estimation on EVM extensions transactions
-			gasMeter := evmostypes.NewInfiniteGasMeterWithLimit(msg.Gas())
+			gasMeter := silctypes.NewInfiniteGasMeterWithLimit(msg.Gas())
 			tmpCtx = evmante.BuildEvmExecutionCtx(tmpCtx).WithGasMeter(gasMeter)
 		}
 		// pass false to not commit StateDB
@@ -481,7 +481,7 @@ func (k Keeper) TraceTx(c context.Context, req *types.QueryTraceTxRequest) (*typ
 		txConfig.TxIndex = uint(i) // #nosec G115
 		// reset gas meter for each transaction
 		ctx = evmante.BuildEvmExecutionCtx(ctx).
-			WithGasMeter(evmostypes.NewInfiniteGasMeterWithLimit(msg.Gas()))
+			WithGasMeter(silctypes.NewInfiniteGasMeterWithLimit(msg.Gas()))
 		rsp, err := k.ApplyMessageWithConfig(ctx, msg, types.NewNoOpTracer(), true, cfg, txConfig)
 		if err != nil {
 			continue
@@ -668,7 +668,7 @@ func (k *Keeper) traceTx(
 
 	// Build EVM execution context
 	ctx = evmante.BuildEvmExecutionCtx(ctx).
-		WithGasMeter(evmostypes.NewInfiniteGasMeterWithLimit(msg.Gas()))
+		WithGasMeter(silctypes.NewInfiniteGasMeterWithLimit(msg.Gas()))
 	res, err := k.ApplyMessageWithConfig(ctx, msg, tracer, commitMessage, cfg, txConfig)
 	if err != nil {
 		return nil, 0, status.Error(codes.Internal, err.Error())
@@ -703,7 +703,7 @@ func (k Keeper) BaseFee(c context.Context, _ *types.QueryBaseFeeRequest) (*types
 // getChainID parse chainID from current context if not provided
 func getChainID(ctx sdk.Context, chainID int64) (*big.Int, error) {
 	if chainID == 0 {
-		return evmostypes.ParseChainID(ctx.ChainID())
+		return silctypes.ParseChainID(ctx.ChainID())
 	}
 	return big.NewInt(chainID), nil
 }

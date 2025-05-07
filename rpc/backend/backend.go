@@ -24,7 +24,7 @@ import (
 	"github.com/ethereum/go-ethereum/signer/core/apitypes"
 	rpctypes "github.com/silcprotocol/silc/rpc/types"
 	"github.com/silcprotocol/silc/server/config"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
@@ -94,8 +94,8 @@ type EVMBackend interface {
 
 	// Tx Info
 	GetTransactionByHash(txHash common.Hash) (*rpctypes.RPCTransaction, error)
-	GetTxByEthHash(txHash common.Hash) (*evmostypes.TxResult, error)
-	GetTxByTxIndex(height int64, txIndex uint) (*evmostypes.TxResult, error)
+	GetTxByEthHash(txHash common.Hash) (*silctypes.TxResult, error)
+	GetTxByTxIndex(height int64, txIndex uint) (*silctypes.TxResult, error)
 	GetTransactionByBlockAndIndex(block *tmrpctypes.ResultBlock, idx hexutil.Uint) (*rpctypes.RPCTransaction, error)
 	GetTransactionReceipt(hash common.Hash) (map[string]interface{}, error)
 	GetTransactionLogs(hash common.Hash) ([]*ethtypes.Log, error)
@@ -132,7 +132,7 @@ type Backend struct {
 	chainID             *big.Int
 	cfg                 config.Config
 	allowUnprotectedTxs bool
-	indexer             evmostypes.EVMTxIndexer
+	indexer             silctypes.EVMTxIndexer
 }
 
 // NewBackend creates a new Backend instance for cosmos and ethereum namespaces
@@ -141,9 +141,9 @@ func NewBackend(
 	logger log.Logger,
 	clientCtx client.Context,
 	allowUnprotectedTxs bool,
-	indexer evmostypes.EVMTxIndexer,
+	indexer silctypes.EVMTxIndexer,
 ) *Backend {
-	chainID, err := evmostypes.ParseChainID(clientCtx.ChainID)
+	chainID, err := silctypes.ParseChainID(clientCtx.ChainID)
 	if err != nil {
 		panic(err)
 	}

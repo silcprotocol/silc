@@ -11,7 +11,7 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
-	evmosutils "github.com/silcprotocol/silc/utils"
+	silcutils "github.com/silcprotocol/silc/utils"
 )
 
 var (
@@ -20,7 +20,7 @@ var (
 	// DefaultExpirationDuration is the default duration for an authorization to expire.
 	DefaultExpirationDuration = time.Hour * 24 * 365
 	// DefaultChainID is the standard chain id used for testing purposes
-	DefaultChainID = evmosutils.MainnetChainID + "-1"
+	DefaultChainID = silcutils.MainnetChainID + "-1"
 )
 
 // ICS20Allocation defines the spend limit for a particular port and channel.

@@ -23,7 +23,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 
-	evmoskr "github.com/silcprotocol/silc/crypto/keyring"
+	silckr "github.com/silcprotocol/silc/crypto/keyring"
 	"github.com/silcprotocol/silc/types"
 
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
@@ -68,7 +68,7 @@ contain valid denominations. Accounts may optionally be supplied with vesting pa
 						clientCtx.HomeDir,
 						inBuf,
 						clientCtx.Codec,
-						evmoskr.Option(),
+						silckr.Option(),
 					)
 					if err != nil {
 						return err

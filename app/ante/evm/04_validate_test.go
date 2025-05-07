@@ -9,7 +9,7 @@ import (
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/app/ante/evm"
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 

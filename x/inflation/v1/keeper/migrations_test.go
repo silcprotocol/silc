@@ -10,7 +10,7 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/silcprotocol/silc/encoding"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	inflationkeeper "github.com/silcprotocol/silc/x/inflation/v1/keeper"
 	v2types "github.com/silcprotocol/silc/x/inflation/v1/migrations/v2/types"
 	"github.com/silcprotocol/silc/x/inflation/v1/types"

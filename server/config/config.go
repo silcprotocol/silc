@@ -110,10 +110,10 @@ const (
 	DefaultGasAdjustment = 1.2
 
 	// DefaultRosettaBlockchain defines the default blockchain name for the rosetta server
-	DefaultRosettaBlockchain = "evmos"
+	DefaultRosettaBlockchain = "silc"
 
 	// DefaultRosettaNetwork defines the default network name for the rosetta server
-	DefaultRosettaNetwork = "evmos"
+	DefaultRosettaNetwork = "silc"
 
 	// DefaultRosettaGasToSuggest defines the default gas to suggest for the rosetta server
 	DefaultRosettaGasToSuggest = 300_000
@@ -266,7 +266,7 @@ func AppConfig(denom string) (string, interface{}) {
 	// - if you set srvCfg.MinGasPrices non-empty, validators CAN tweak their
 	//   own app.toml to override, or use this default value.
 	//
-	// In evmos, we set the min gas prices to 0.
+	// In silc, we set the min gas prices to 0.
 	if denom != "" {
 		customAppConfig.Config.MinGasPrices = "0" + denom
 	}

@@ -13,7 +13,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	testtx "github.com/silcprotocol/silc/testutil/tx"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 )
 
@@ -86,7 +86,7 @@ type ConfigOption func(*Config)
 
 // WithChainID sets a custom chainID for the network. It panics if the chainID is invalid.
 func WithChainID(chainID string) ConfigOption {
-	chainIDNum, err := evmostypes.ParseChainID(chainID)
+	chainIDNum, err := silctypes.ParseChainID(chainID)
 	if err != nil {
 		panic(err)
 	}

@@ -45,7 +45,7 @@ import (
 	"github.com/silcprotocol/silc/crypto/hd"
 	"github.com/silcprotocol/silc/server/config"
 	srvflags "github.com/silcprotocol/silc/server/flags"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 
 	"github.com/silcprotocol/silc/testutil/network"
@@ -95,7 +95,7 @@ func addTestnetFlagsToCmd(cmd *cobra.Command) {
 	cmd.Flags().String(flags.FlagChainID, "", "genesis file chain-id, if left blank will be randomly created")
 	cmd.Flags().String(sdkserver.FlagMinGasPrices,
 		fmt.Sprintf("0.000006%s",
-			evmostypes.AttoSilc),
+			silctypes.AttoSilc),
 		"Minimum gas prices to accept for transactions; All fees in a tx must meet this minimum (e.g. 0.01photino,0.001stake)")
 	cmd.Flags().String(flags.FlagKeyType, string(hd.EthSecp256k1Type), "Key signing algorithm to generate keys for")
 }
@@ -301,22 +301,22 @@ func initTestnetFiles(
 			return err
 		}
 
-		accStakingTokens := sdk.TokensFromConsensusPower(5000, evmostypes.PowerReduction)
+		accStakingTokens := sdk.TokensFromConsensusPower(5000, silctypes.PowerReduction)
 		coins := sdk.Coins{
-			sdk.NewCoin(evmostypes.AttoSilc, accStakingTokens),
+			sdk.NewCoin(silctypes.AttoSilc, accStakingTokens),
 		}
 
 		genBalances = append(genBalances, banktypes.Balance{Address: addr.String(), Coins: coins.Sort()})
-		genAccounts = append(genAccounts, &evmostypes.EthAccount{
+		genAccounts = append(genAccounts, &silctypes.EthAccount{
 			BaseAccount: authtypes.NewBaseAccount(addr, nil, 0, 0),
 			CodeHash:    common.BytesToHash(evmtypes.EmptyCodeHash).Hex(),
 		})
 
-		valTokens := sdk.TokensFromConsensusPower(100, evmostypes.PowerReduction)
+		valTokens := sdk.TokensFromConsensusPower(100, silctypes.PowerReduction)
 		createValMsg, err := stakingtypes.NewMsgCreateValidator(
 			addr.String(),
 			valPubKeys[i],
-			sdk.NewCoin(evmostypes.AttoSilc, valTokens),
+			sdk.NewCoin(silctypes.AttoSilc, valTokens),
 			stakingtypes.NewDescription(nodeDirName, "", "", "", ""),
 			stakingtypes.NewCommissionRates(math.LegacyOneDec(), math.LegacyOneDec(), math.LegacyOneDec()),
 			math.OneInt(),
@@ -352,7 +352,7 @@ func initTestnetFiles(
 			return err
 		}
 
-		customAppTemplate, customAppConfig := config.AppConfig(evmostypes.AttoSilc)
+		customAppTemplate, customAppConfig := config.AppConfig(silctypes.AttoSilc)
 		srvconfig.SetConfigTemplate(customAppTemplate)
 		if err := sdkserver.InterceptConfigsPreRunHandler(cmd, customAppTemplate, customAppConfig, cmtconfig.DefaultConfig()); err != nil {
 			return err
@@ -361,7 +361,7 @@ func initTestnetFiles(
 		srvconfig.WriteConfigFile(filepath.Join(nodeDir, "config/app.toml"), appConfig)
 	}
 
-	if err := initGenFiles(clientCtx, mbm, args.chainID, evmostypes.AttoSilc, genAccounts, genBalances, genFiles, args.numValidators); err != nil {
+	if err := initGenFiles(clientCtx, mbm, args.chainID, silctypes.AttoSilc, genAccounts, genBalances, genFiles, args.numValidators); err != nil {
 		return err
 	}
 

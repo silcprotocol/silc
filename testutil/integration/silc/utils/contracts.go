@@ -8,8 +8,8 @@ import (
 
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	evmostypes "github.com/silcprotocol/silc/types"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	silctypes "github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
@@ -37,12 +37,12 @@ func CheckTxTopics(res abcitypes.ExecTxResult, expectedTopics []string) error {
 
 // IsContractAccount checks if the given account is a contract account
 func IsContractAccount(acc sdktypes.AccountI) error {
-	contractETHAccount, ok := acc.(evmostypes.EthAccountI)
+	contractETHAccount, ok := acc.(silctypes.EthAccountI)
 	if !ok {
 		return fmt.Errorf("account is not an eth account")
 	}
 
-	if contractETHAccount.Type() != evmostypes.AccountTypeContract {
+	if contractETHAccount.Type() != silctypes.AccountTypeContract {
 		return fmt.Errorf("account is not a contract account")
 	}
 	return nil

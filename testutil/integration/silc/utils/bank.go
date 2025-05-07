@@ -12,7 +12,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	cmnfactory "github.com/silcprotocol/silc/testutil/integration/common/factory"
 	cmnnet "github.com/silcprotocol/silc/testutil/integration/common/network"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
 )
 
 // FundAccountWithBaseDenom funds the given account with the given amount of the network's

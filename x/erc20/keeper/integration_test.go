@@ -16,7 +16,7 @@ import (
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/silcprotocol/silc/testutil/integration/common/factory"
-	testutils "github.com/silcprotocol/silc/testutil/integration/evmos/utils"
+	testutils "github.com/silcprotocol/silc/testutil/integration/silc/utils"
 	"github.com/silcprotocol/silc/x/erc20/types"
 )
 

@@ -126,7 +126,7 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 	delegations := createDelegations(validators, genAccounts[0].GetAddress())
 
 	// Create a new SilcApp with the following params
-	evmosApp := createSilcApp(n.cfg.chainID, n.cfg.customBaseAppOpts...)
+	silcApp := createSilcApp(n.cfg.chainID, n.cfg.customBaseAppOpts...)
 
 	stakingParams := StakingCustomGenesisState{
 		denom:       n.cfg.denom,
@@ -145,14 +145,14 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 
 	// Get the corresponding slashing info and missed block info
 	// for the created validators
-	slashingParams, err := getValidatorsSlashingGen(validators, evmosApp.StakingKeeper)
+	slashingParams, err := getValidatorsSlashingGen(validators, silcApp.StakingKeeper)
 	if err != nil {
 		return err
 	}
 
 	// Configure Genesis state
 	genesisState := newDefaultGenesisState(
-		evmosApp,
+		silcApp,
 		defaultGenesisParams{
 			genAccounts: genAccounts,
 			staking:     stakingParams,
@@ -164,7 +164,7 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 
 	// modify genesis state if there're any custom genesis state
 	// for specific modules
-	genesisState, err = customizeGenesis(evmosApp, n.cfg.customGenesisState, genesisState)
+	genesisState, err = customizeGenesis(silcApp, n.cfg.customGenesisState, genesisState)
 	if err != nil {
 		return err
 	}
@@ -186,7 +186,7 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 	}
 
 	now := time.Now().UTC()
-	if _, err := evmosApp.InitChain(
+	if _, err := silcApp.InitChain(
 		&abcitypes.RequestInitChain{
 			Time:            now,
 			ChainId:         n.cfg.chainID,
@@ -200,8 +200,8 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 
 	header := cmtproto.Header{
 		ChainID:            n.cfg.chainID,
-		Height:             evmosApp.LastBlockHeight() + 1,
-		AppHash:            evmosApp.LastCommitID().Hash,
+		Height:             silcApp.LastBlockHeight() + 1,
+		AppHash:            silcApp.LastCommitID().Hash,
 		Time:               now,
 		ValidatorsHash:     valSet.Hash(),
 		NextValidatorsHash: valSet.Hash(),
@@ -212,15 +212,15 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 	}
 
 	req := buildFinalizeBlockReq(header, valSet.Validators)
-	if _, err := evmosApp.FinalizeBlock(req); err != nil {
+	if _, err := silcApp.FinalizeBlock(req); err != nil {
 		return err
 	}
 
 	// TODO - this might not be the best way to initilize the context
-	n.ctx = evmosApp.BaseApp.NewContextLegacy(false, header)
+	n.ctx = silcApp.BaseApp.NewContextLegacy(false, header)
 
 	// Commit genesis changes
-	if _, err := evmosApp.Commit(); err != nil {
+	if _, err := silcApp.Commit(); err != nil {
 		return err
 	}
 
@@ -230,7 +230,7 @@ func (n *IntegrationNetwork) configureAndInitChain() error {
 		blockMaxGas = uint64(consensusParams.Block.MaxGas) //nolint:gosec // G115
 	}
 
-	n.app = evmosApp
+	n.app = silcApp
 	n.ctx = n.ctx.WithConsensusParams(*consensusParams)
 	n.ctx = n.ctx.WithBlockGasMeter(types.NewInfiniteGasMeterWithLimit(blockMaxGas))
 

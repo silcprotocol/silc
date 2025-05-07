@@ -10,9 +10,9 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/silcprotocol/silc/precompiles/vesting"
-	evmosutil "github.com/silcprotocol/silc/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	silcutil "github.com/silcprotocol/silc/testutil"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/keyring"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	vestingtypes "github.com/silcprotocol/silc/x/vesting/types"
@@ -77,7 +77,7 @@ func (s *PrecompileTestSuite) CreateTestClawbackVestingAccount(ctx sdk.Context, 
 	msgArgs := []interface{}{funder, vestingAddr, false}
 	msg, _, _, err := vesting.NewMsgCreateClawbackVestingAccount(msgArgs)
 	s.Require().NoError(err)
-	err = evmosutil.FundAccount(ctx, s.network.App.BankKeeper, vestingAddr.Bytes(), sdk.NewCoins(sdk.NewCoin(utils.BaseDenom, math.NewInt(100))))
+	err = silcutil.FundAccount(ctx, s.network.App.BankKeeper, vestingAddr.Bytes(), sdk.NewCoins(sdk.NewCoin(utils.BaseDenom, math.NewInt(100))))
 	s.Require().NoError(err)
 	_, err = s.network.App.VestingKeeper.CreateClawbackVestingAccount(ctx, msg)
 	s.Require().NoError(err)

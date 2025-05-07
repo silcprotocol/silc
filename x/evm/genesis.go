@@ -11,7 +11,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/x/evm/keeper"
 	"github.com/silcprotocol/silc/x/evm/types"
 )
@@ -44,7 +44,7 @@ func InitGenesis(
 			panic(fmt.Errorf("account not found for address %s", account.Address))
 		}
 
-		ethAcct, ok := acc.(evmostypes.EthAccountI)
+		ethAcct, ok := acc.(silctypes.EthAccountI)
 		if !ok {
 			panic(
 				fmt.Errorf("account %s must be an EthAccount interface, got %T",
@@ -76,7 +76,7 @@ func InitGenesis(
 func ExportGenesis(ctx sdk.Context, k *keeper.Keeper, ak types.AccountKeeper) *types.GenesisState {
 	var ethGenAccounts []types.GenesisAccount
 	ak.IterateAccounts(ctx, func(account sdk.AccountI) bool {
-		ethAccount, ok := account.(evmostypes.EthAccountI)
+		ethAccount, ok := account.(silctypes.EthAccountI)
 		if !ok {
 			// ignore non EthAccounts
 			return false

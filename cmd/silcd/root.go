@@ -48,16 +48,16 @@ import (
 
 	rosettaCmd "github.com/cosmos/rosetta/cmd"
 
-	evmosclient "github.com/silcprotocol/silc/client"
+	silcclient "github.com/silcprotocol/silc/client"
 	"github.com/silcprotocol/silc/client/block"
 	"github.com/silcprotocol/silc/client/debug"
-	evmosserver "github.com/silcprotocol/silc/server"
+	silcserver "github.com/silcprotocol/silc/server"
 	servercfg "github.com/silcprotocol/silc/server/config"
 	srvflags "github.com/silcprotocol/silc/server/flags"
 
 	"github.com/silcprotocol/silc/app"
 	cmdcfg "github.com/silcprotocol/silc/cmd/config"
-	evmoskr "github.com/silcprotocol/silc/crypto/keyring"
+	silckr "github.com/silcprotocol/silc/crypto/keyring"
 )
 
 const EnvPrefix = "SILC"
@@ -95,7 +95,7 @@ func NewRootCmd() (*cobra.Command, sdktestutil.TestEncodingConfig) {
 		WithAccountRetriever(types.AccountRetriever{}).
 		WithBroadcastMode(flags.FlagBroadcastMode).
 		WithHomeDir(app.DefaultNodeHome).
-		WithKeyringOptions(evmoskr.Option()).
+		WithKeyringOptions(silckr.Option()).
 		WithViper(EnvPrefix).
 		WithLedgerHasProtobuf(true)
 
@@ -154,7 +154,7 @@ func NewRootCmd() (*cobra.Command, sdktestutil.TestEncodingConfig) {
 
 	a := appCreator{encodingConfig}
 	rootCmd.AddCommand(
-		evmosclient.ValidateChainID(
+		silcclient.ValidateChainID(
 			InitCmd(tempApp.BasicModuleManager, app.DefaultNodeHome),
 		),
 		genutilcli.CollectGenTxsCmd(banktypes.GenesisBalancesIterator{},
@@ -185,9 +185,9 @@ func NewRootCmd() (*cobra.Command, sdktestutil.TestEncodingConfig) {
 		rootCmd.AddCommand(changeSetCmd)
 	}
 
-	evmosserver.AddCommands(
+	silcserver.AddCommands(
 		rootCmd,
-		evmosserver.NewDefaultStartOptions(a.newApp, app.DefaultNodeHome),
+		silcserver.NewDefaultStartOptions(a.newApp, app.DefaultNodeHome),
 		a.appExport,
 		addModuleInitFlags,
 	)
@@ -197,7 +197,7 @@ func NewRootCmd() (*cobra.Command, sdktestutil.TestEncodingConfig) {
 		sdkserver.StatusCommand(),
 		queryCommand(),
 		txCommand(),
-		evmosclient.KeyCommands(app.DefaultNodeHome),
+		silcclient.KeyCommands(app.DefaultNodeHome),
 	)
 	rootCmd, err := srvflags.AddTxFlags(rootCmd)
 	if err != nil {
@@ -348,7 +348,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		chainID = conf.ChainID
 	}
 
-	evmosApp := app.NewSilc(
+	silcApp := app.NewSilc(
 		logger, db, traceStore, true, skipUpgradeHeights,
 		cast.ToString(appOpts.Get(flags.FlagHome)),
 		cast.ToUint(appOpts.Get(sdkserver.FlagInvCheckPeriod)),
@@ -367,7 +367,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		baseapp.SetChainID(chainID),
 	)
 
-	return evmosApp
+	return silcApp
 }
 
 // appExport creates a new simapp (optionally at a given height)
@@ -382,23 +382,23 @@ func (a appCreator) appExport(
 	appOpts servertypes.AppOptions,
 	modulesToExport []string,
 ) (servertypes.ExportedApp, error) {
-	var evmosApp *app.Silc
+	var silcApp *app.Silc
 	homePath, ok := appOpts.Get(flags.FlagHome).(string)
 	if !ok || homePath == "" {
 		return servertypes.ExportedApp{}, errors.New("application home not set")
 	}
 
 	if height != -1 {
-		evmosApp = app.NewSilc(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), appOpts)
+		silcApp = app.NewSilc(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), appOpts)
 
-		if err := evmosApp.LoadHeight(height); err != nil {
+		if err := silcApp.LoadHeight(height); err != nil {
 			return servertypes.ExportedApp{}, err
 		}
 	} else {
-		evmosApp = app.NewSilc(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), appOpts)
+		silcApp = app.NewSilc(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), appOpts)
 	}
 
-	return evmosApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
+	return silcApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
 }
 
 // initTendermintConfig helps to override default Tendermint Config values.
@@ -415,7 +415,7 @@ func initTendermintConfig() *cmtcfg.Config {
 }
 
 func tempDir(defaultHome string) string {
-	dir, err := os.MkdirTemp("", "evmos")
+	dir, err := os.MkdirTemp("", "silc")
 	if err != nil {
 		dir = defaultHome
 	}

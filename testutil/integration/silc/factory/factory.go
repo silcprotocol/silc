@@ -18,8 +18,8 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/silcprotocol/silc/precompiles/testutil"
 	commonfactory "github.com/silcprotocol/silc/testutil/integration/common/factory"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/grpc"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 

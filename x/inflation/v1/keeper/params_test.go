@@ -3,7 +3,7 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	"github.com/silcprotocol/silc/x/inflation/v1/types"
 	"github.com/stretchr/testify/require"
 )

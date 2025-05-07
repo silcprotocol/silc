@@ -3,7 +3,7 @@ package staking_test
 import (
 	"math/big"
 
-	testkeyring "github.com/silcprotocol/silc/testutil/integration/evmos/keyring"
+	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
 
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"

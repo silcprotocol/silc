@@ -14,9 +14,9 @@ import (
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/silcprotocol/silc/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/vesting/types"
 )
@@ -853,7 +853,7 @@ func TestConvertVestingAccount(t *testing.T) {
 				_, ok := account.(vestingexported.VestingAccount)
 				require.False(t, ok)
 
-				_, ok = account.(evmostypes.EthAccountI)
+				_, ok = account.(silctypes.EthAccountI)
 				require.True(t, ok)
 
 			} else {

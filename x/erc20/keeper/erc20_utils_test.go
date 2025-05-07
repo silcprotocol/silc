@@ -9,7 +9,7 @@ import (
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 
 	"github.com/silcprotocol/silc/contracts"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
 	evm "github.com/silcprotocol/silc/x/evm/types"
 )
 

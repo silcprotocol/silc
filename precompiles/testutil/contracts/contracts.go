@@ -11,15 +11,15 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	evmosapp "github.com/silcprotocol/silc/app"
+	silcapp "github.com/silcprotocol/silc/app"
 	"github.com/silcprotocol/silc/crypto/ethsecp256k1"
 	"github.com/silcprotocol/silc/precompiles/testutil"
-	evmosutil "github.com/silcprotocol/silc/testutil"
+	silcutil "github.com/silcprotocol/silc/testutil"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
 // Call is a helper function to call any arbitrary smart contract.
-func Call(ctx sdk.Context, app *evmosapp.Silc, args CallArgs) (res abci.ExecTxResult, ethRes *evmtypes.MsgEthereumTxResponse, err error) {
+func Call(ctx sdk.Context, app *silcapp.Silc, args CallArgs) (res abci.ExecTxResult, ethRes *evmtypes.MsgEthereumTxResponse, err error) {
 	var (
 		nonce    uint64
 		gasLimit = args.GasLimit
@@ -82,7 +82,7 @@ func Call(ctx sdk.Context, app *evmosapp.Silc, args CallArgs) (res abci.ExecTxRe
 	})
 	msg.From = addr.Hex()
 
-	res, err = evmosutil.DeliverEthTx(app, args.PrivKey, msg)
+	res, err = silcutil.DeliverEthTx(app, args.PrivKey, msg)
 	if err != nil {
 		return res, nil, fmt.Errorf("error during deliver tx: %s", err)
 	}
@@ -100,7 +100,7 @@ func Call(ctx sdk.Context, app *evmosapp.Silc, args CallArgs) (res abci.ExecTxRe
 
 // CallContractAndCheckLogs is a helper function to call any arbitrary smart contract and check that the logs
 // contain the expected events.
-func CallContractAndCheckLogs(ctx sdk.Context, app *evmosapp.Silc, cArgs CallArgs, logCheckArgs testutil.LogCheckArgs) (abci.ExecTxResult, *evmtypes.MsgEthereumTxResponse, error) {
+func CallContractAndCheckLogs(ctx sdk.Context, app *silcapp.Silc, cArgs CallArgs, logCheckArgs testutil.LogCheckArgs) (abci.ExecTxResult, *evmtypes.MsgEthereumTxResponse, error) {
 	res, ethRes, err := Call(ctx, app, cArgs)
 	if err != nil {
 		return res, nil, err

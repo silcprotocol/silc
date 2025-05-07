@@ -15,7 +15,7 @@ import (
 	"github.com/silcprotocol/silc/indexer"
 	"github.com/silcprotocol/silc/rpc/backend/mocks"
 	rpctypes "github.com/silcprotocol/silc/rpc/types"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	"google.golang.org/grpc/metadata"
 )
@@ -467,7 +467,7 @@ func (suite *BackendTestSuite) TestGetTransactionByTxIndex() {
 		registerMock func()
 		height       int64
 		index        uint
-		expTxResult  *evmostypes.TxResult
+		expTxResult  *silctypes.TxResult
 		expPass      bool
 	}{
 		{
@@ -479,7 +479,7 @@ func (suite *BackendTestSuite) TestGetTransactionByTxIndex() {
 			},
 			0,
 			0,
-			&evmostypes.TxResult{},
+			&silctypes.TxResult{},
 			false,
 		},
 	}
@@ -507,7 +507,7 @@ func (suite *BackendTestSuite) TestQueryTendermintTxIndexer() {
 		registerMock func()
 		txGetter     func(*rpctypes.ParsedTxs) *rpctypes.ParsedTx
 		query        string
-		expTxResult  *evmostypes.TxResult
+		expTxResult  *silctypes.TxResult
 		expPass      bool
 	}{
 		{
@@ -520,7 +520,7 @@ func (suite *BackendTestSuite) TestQueryTendermintTxIndexer() {
 				return &rpctypes.ParsedTx{}
 			},
 			"",
-			&evmostypes.TxResult{},
+			&silctypes.TxResult{},
 			false,
 		},
 	}
@@ -618,7 +618,7 @@ func (suite *BackendTestSuite) TestGetGasUsed() {
 	testCases := []struct {
 		name                     string
 		fixRevertGasRefundHeight int64
-		txResult                 *evmostypes.TxResult
+		txResult                 *silctypes.TxResult
 		price                    *big.Int
 		gas                      uint64
 		exp                      uint64
@@ -626,7 +626,7 @@ func (suite *BackendTestSuite) TestGetGasUsed() {
 		{
 			"success txResult",
 			1,
-			&evmostypes.TxResult{
+			&silctypes.TxResult{
 				Height:  1,
 				Failed:  false,
 				GasUsed: 53026,
@@ -638,7 +638,7 @@ func (suite *BackendTestSuite) TestGetGasUsed() {
 		{
 			"fail txResult before cap",
 			2,
-			&evmostypes.TxResult{
+			&silctypes.TxResult{
 				Height:  1,
 				Failed:  true,
 				GasUsed: 53026,
@@ -650,7 +650,7 @@ func (suite *BackendTestSuite) TestGetGasUsed() {
 		{
 			"fail txResult after cap",
 			2,
-			&evmostypes.TxResult{
+			&silctypes.TxResult{
 				Height:  3,
 				Failed:  true,
 				GasUsed: 53026,

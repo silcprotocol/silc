@@ -15,7 +15,7 @@ import (
 
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	utiltx "github.com/silcprotocol/silc/testutil/tx"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/x/evm/types"
 )
 
@@ -23,7 +23,7 @@ func SetupContract(b *testing.B) (*KeeperTestSuite, common.Address) {
 	suite := KeeperTestSuite{}
 	suite.SetupTest()
 
-	amt := sdk.Coins{evmostypes.NewSilcCoinInt64(1000000000000000000)}
+	amt := sdk.Coins{silctypes.NewSilcCoinInt64(1000000000000000000)}
 	err := suite.network.App.BankKeeper.MintCoins(suite.network.GetContext(), types.ModuleName, amt)
 	require.NoError(b, err)
 	err = suite.network.App.BankKeeper.SendCoinsFromModuleToAccount(suite.network.GetContext(), types.ModuleName, suite.keyring.GetAddr(0).Bytes(), amt)
@@ -40,7 +40,7 @@ func SetupTestMessageCall(b *testing.B) (*KeeperTestSuite, common.Address) {
 	suite := KeeperTestSuite{}
 	suite.SetupTest()
 
-	amt := sdk.Coins{evmostypes.NewSilcCoinInt64(1000000000000000000)}
+	amt := sdk.Coins{silctypes.NewSilcCoinInt64(1000000000000000000)}
 	err := suite.network.App.BankKeeper.MintCoins(suite.network.GetContext(), types.ModuleName, amt)
 	require.NoError(b, err)
 	err = suite.network.App.BankKeeper.SendCoinsFromModuleToAccount(suite.network.GetContext(), types.ModuleName, suite.keyring.GetAddr(0).Bytes(), amt)

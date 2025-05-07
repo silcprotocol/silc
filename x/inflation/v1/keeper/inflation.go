@@ -7,14 +7,14 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 
 	utils "github.com/silcprotocol/silc/utils"
 	"github.com/silcprotocol/silc/x/inflation/v1/types"
 )
 
 // 200M token at year 4 allocated to the team
-var teamAlloc = math.NewInt(200_000_000).Mul(evmostypes.PowerReduction)
+var teamAlloc = math.NewInt(200_000_000).Mul(silctypes.PowerReduction)
 
 // MintAndAllocateInflation performs inflation minting and allocation
 func (k Keeper) MintAndAllocateInflation(

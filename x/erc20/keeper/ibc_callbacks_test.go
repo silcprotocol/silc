@@ -48,8 +48,8 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 
 	// Setup Cosmos <=> Silc IBC relayer
 	sourceChannel := "channel-292"
-	evmosChannel := "channel-3"
-	path := fmt.Sprintf("%s/%s", transfertypes.PortID, evmosChannel)
+	silcChannel := "channel-3"
+	path := fmt.Sprintf("%s/%s", transfertypes.PortID, silcChannel)
 
 	timeoutHeight := clienttypes.NewHeight(0, 100)
 	disabledTimeoutTimestamp := uint64(0)
@@ -91,7 +91,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 			malleate: func() {
 				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", ethsecpAddrSilc, ethsecpAddrCosmos, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
-				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
+				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, silcChannel, timeoutHeight, 0)
 			},
 			receiver:      secpAddr,
 			disableERC20:  true,
@@ -103,9 +103,9 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 		{
 			name: "error - invalid sender (no '1')",
 			malleate: func() {
-				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", "evmos", ethsecpAddrCosmos, "")
+				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", "silc", ethsecpAddrCosmos, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
-				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
+				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, silcChannel, timeoutHeight, 0)
 			},
 			receiver:      secpAddr,
 			ackSuccess:    false,
@@ -118,7 +118,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 			malleate: func() {
 				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", "badba1sv9m0g7ycejwr3s369km58h5qe7xj77hvcxrms", ethsecpAddrCosmos, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
-				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
+				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, silcChannel, timeoutHeight, 0)
 			},
 			receiver:      secpAddr,
 			ackSuccess:    false,
@@ -131,7 +131,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 			malleate: func() {
 				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", ethsecpAddrSilc, "badbadhf0468jjpe6m6vx38s97z2qqe8ldu0njdyf625", "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
-				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
+				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, silcChannel, timeoutHeight, 0)
 			},
 			receiver:      secpAddr,
 			ackSuccess:    false,
@@ -158,7 +158,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 				secpAddr = suite.network.App.AccountKeeper.GetModuleAccount(ctx, "erc20").GetAddress()
 				transfer := transfertypes.NewFungibleTokenPacketData(registeredDenom, "100", secpAddrCosmos, secpAddr.String(), "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
-				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
+				packet = channeltypes.NewPacket(bz, 100, transfertypes.PortID, sourceChannel, transfertypes.PortID, silcChannel, timeoutHeight, 0)
 			},
 			ackSuccess:    true,
 			receiver:      secpAddr,
@@ -176,7 +176,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 				prefixedDenom := sourcePrefix + bondDenom
 				transfer := transfertypes.NewFungibleTokenPacketData(prefixedDenom, "100", secpAddrCosmos, ethsecpAddrSilc, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
-				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
+				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, silcChannel, timeoutHeight, 0)
 			},
 			ackSuccess:    true,
 			receiver:      ethsecpAddr,
@@ -189,7 +189,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 			malleate: func() {
 				transfer := transfertypes.NewFungibleTokenPacketData(erc20Denom, "100", secpAddrCosmos, ethsecpAddrSilc, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
-				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
+				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, silcChannel, timeoutHeight, 0)
 			},
 			ackSuccess:    true,
 			receiver:      ethsecpAddr,
@@ -206,7 +206,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 				otherSecpAddrSilc := sdk.AccAddress(pk1.PubKey().Address()).String()
 				transfer := transfertypes.NewFungibleTokenPacketData(prefixedDenom, "500", otherSecpAddrSilc, ethsecpAddrSilc, "")
 				bz := transfertypes.ModuleCdc.MustMarshalJSON(&transfer)
-				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, evmosChannel, timeoutHeight, 0)
+				packet = channeltypes.NewPacket(bz, 1, transfertypes.PortID, sourceChannel, transfertypes.PortID, silcChannel, timeoutHeight, 0)
 			},
 			ackSuccess: true,
 			receiver:   ethsecpAddr,
@@ -248,10 +248,10 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 				Counterparty:   channeltypes.NewCounterparty(transfertypes.PortID, sourceChannel),
 				ConnectionHops: []string{sourceChannel},
 			}
-			suite.network.App.IBCKeeper.ChannelKeeper.SetChannel(ctx, transfertypes.PortID, evmosChannel, channel)
+			suite.network.App.IBCKeeper.ChannelKeeper.SetChannel(ctx, transfertypes.PortID, silcChannel, channel)
 
 			// Set Next Sequence Send
-			suite.network.App.IBCKeeper.ChannelKeeper.SetNextSequenceSend(ctx, transfertypes.PortID, evmosChannel, 1)
+			suite.network.App.IBCKeeper.ChannelKeeper.SetNextSequenceSend(ctx, transfertypes.PortID, silcChannel, 1)
 
 			suite.network.App.Erc20Keeper = keeper.NewKeeper(
 				suite.network.App.GetKey(types.StoreKey),
@@ -313,7 +313,7 @@ func (suite *KeeperTestSuite) TestOnRecvPacket() {
 
 func (suite *KeeperTestSuite) TestConvertCoinToERC20FromPacket() {
 	var ctx sdk.Context
-	senderAddr := "evmos1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v"
+	senderAddr := "silc1x2w87cvt5mqjncav4lxy8yfreynn273xn5335v"
 
 	testCases := []struct {
 		name     string

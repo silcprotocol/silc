@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/silcprotocol/silc/precompiles/gov"
 	"github.com/silcprotocol/silc/precompiles/testutil"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/factory"
+	"github.com/silcprotocol/silc/testutil/integration/silc/factory"
 	testutiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"

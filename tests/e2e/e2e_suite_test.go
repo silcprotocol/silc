@@ -11,14 +11,14 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	"github.com/silcprotocol/silc/tests/e2e/upgrade"
-	"github.com/silcprotocol/silc/testutil/integration/evmos/network"
+	"github.com/silcprotocol/silc/testutil/integration/silc/network"
 	"github.com/silcprotocol/silc/utils"
 	"github.com/stretchr/testify/suite"
 )
 
 const (
 	// defaultManagerNetwork defines the network used by the upgrade manager
-	defaultManagerNetwork = "evmos-local"
+	defaultManagerNetwork = "silc-local"
 
 	// blocksAfterUpgrade defines how many blocks must be produced after an upgrade is
 	// considered successful
