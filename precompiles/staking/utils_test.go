@@ -32,7 +32,7 @@ import (
 	cmn "github.com/silcprotocol/silc/precompiles/common"
 	"github.com/silcprotocol/silc/precompiles/staking"
 	"github.com/silcprotocol/silc/precompiles/testutil"
-	evmosutil "github.com/silcprotocol/silc/testutil"
+	silcutil "github.com/silcprotocol/silc/testutil"
 	"github.com/silcprotocol/silc/utils"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 	stakingkeeper "github.com/silcprotocol/silc/x/staking/keeper"
@@ -410,7 +410,7 @@ func (s *PrecompileTestSuite) CheckValidatorOutput(valOut staking.ValidatorInfo)
 // setupVestingAccount is a helper function used in integraiton tests to setup a vesting account
 // using the TestVestingSchedule. Also, funds the account with extra funds to pay for transaction fees
 func (s *PrecompileTestSuite) setupVestingAccount(funder, vestAcc testkeyring.Key) *vestingtypes.ClawbackVestingAccount {
-	vestingAmtTotal := evmosutil.TestVestingSchedule.TotalVestingCoins
+	vestingAmtTotal := silcutil.TestVestingSchedule.TotalVestingCoins
 	ctx := s.network.GetContext()
 
 	// send some funds to the vesting acccount to pay for fees
@@ -435,8 +435,8 @@ func (s *PrecompileTestSuite) setupVestingAccount(funder, vestAcc testkeyring.Ke
 		funder.AccAddr,
 		vestAcc.AccAddr,
 		vestingStart,
-		evmosutil.TestVestingSchedule.LockupPeriods,
-		evmosutil.TestVestingSchedule.VestingPeriods,
+		silcutil.TestVestingSchedule.LockupPeriods,
+		silcutil.TestVestingSchedule.VestingPeriods,
 	)
 	_, err = s.factory.ExecuteCosmosTx(funder.Priv, cmnfactory.CosmosTxArgs{Msgs: []sdk.Msg{fundMsg}})
 	Expect(err).To(BeNil())

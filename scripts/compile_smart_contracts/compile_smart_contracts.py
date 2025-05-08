@@ -166,7 +166,7 @@ def copy_to_contracts_directory(target_dir: Path, contracts: List[Contract]) -> 
     return True
 
 
-def is_evmos_repo(path: Path) -> bool:
+def is_silc_repo(path: Path) -> bool:
     """
     This function checks if the given path is the root of the Silc repository,
     where this script is designed to be executed.
@@ -183,7 +183,7 @@ def is_evmos_repo(path: Path) -> bool:
             if not line:
                 break
 
-            if "module github.com/evmos/evmos" in line:
+            if "module github.com/silc/silc" in line:
                 return True
 
     return False
@@ -297,10 +297,10 @@ def compile_files(repo_path: Path, added_contract: Union[str, None] = None):
 
 
 if __name__ == "__main__":
-    if not is_evmos_repo(REPO_PATH):
+    if not is_silc_repo(REPO_PATH):
         raise ValueError(
             "This script should only be executed "
-            + "in the evmos repository."
+            + "in the silc repository."
             + f"Current path: {REPO_PATH}"
         )
 

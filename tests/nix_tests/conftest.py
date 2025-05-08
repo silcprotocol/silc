@@ -1,18 +1,18 @@
 import pytest
 
-from .network import setup_evmos, setup_evmos_rocksdb, setup_geth
+from .network import setup_silc, setup_silc_rocksdb, setup_geth
 
 
 @pytest.fixture(scope="session")
-def evmos(tmp_path_factory):
-    path = tmp_path_factory.mktemp("evmos")
-    yield from setup_evmos(path, 26650)
+def silc(tmp_path_factory):
+    path = tmp_path_factory.mktemp("silc")
+    yield from setup_silc(path, 26650)
 
 
 @pytest.fixture(scope="session")
-def evmos_rocksdb(tmp_path_factory):
-    path = tmp_path_factory.mktemp("evmos-rocksdb")
-    yield from setup_evmos_rocksdb(path, 20650)
+def silc_rocksdb(tmp_path_factory):
+    path = tmp_path_factory.mktemp("silc-rocksdb")
+    yield from setup_silc_rocksdb(path, 20650)
 
 
 @pytest.fixture(scope="session")
@@ -21,54 +21,54 @@ def geth(tmp_path_factory):
     yield from setup_geth(path, 8545)
 
 
-@pytest.fixture(scope="session", params=["evmos", "evmos-ws"])
-def evmos_rpc_ws(request, evmos):
+@pytest.fixture(scope="session", params=["silc", "silc-ws"])
+def silc_rpc_ws(request, silc):
     """
-    run on both evmos and evmos websocket
+    run on both silc and silc websocket
     """
     provider = request.param
-    if provider == "evmos":
-        yield evmos
-    elif provider == "evmos-ws":
-        evmos_ws = evmos.copy()
-        evmos_ws.use_websocket()
-        yield evmos_ws
+    if provider == "silc":
+        yield silc
+    elif provider == "silc-ws":
+        silc_ws = silc.copy()
+        silc_ws.use_websocket()
+        yield silc_ws
     else:
         raise NotImplementedError
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-ws", "evmos-rocksdb", "geth"])
-def cluster(request, evmos, evmos_rocksdb, geth):
+@pytest.fixture(scope="module", params=["silc", "silc-ws", "silc-rocksdb", "geth"])
+def cluster(request, silc, silc_rocksdb, geth):
     """
-    run on evmos, evmos websocket,
-    evmos built with rocksdb (memIAVL + versionDB)
+    run on silc, silc websocket,
+    silc built with rocksdb (memIAVL + versionDB)
     and geth
     """
     provider = request.param
-    if provider == "evmos":
-        yield evmos
-    elif provider == "evmos-ws":
-        evmos_ws = evmos.copy()
-        evmos_ws.use_websocket()
-        yield evmos_ws
+    if provider == "silc":
+        yield silc
+    elif provider == "silc-ws":
+        silc_ws = silc.copy()
+        silc_ws.use_websocket()
+        yield silc_ws
     elif provider == "geth":
         yield geth
-    elif provider == "evmos-rocksdb":
-        yield evmos_rocksdb
+    elif provider == "silc-rocksdb":
+        yield silc_rocksdb
     else:
         raise NotImplementedError
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
-def evmos_cluster(request, evmos, evmos_rocksdb):
+@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
+def silc_cluster(request, silc, silc_rocksdb):
     """
-    run on evmos default build &
-    evmos with rocksdb build and memIAVL + versionDB
+    run on silc default build &
+    silc with rocksdb build and memIAVL + versionDB
     """
     provider = request.param
-    if provider == "evmos":
-        yield evmos
-    elif provider == "evmos-rocksdb":
-        yield evmos_rocksdb
+    if provider == "silc":
+        yield silc
+    elif provider == "silc-rocksdb":
+        yield silc_rocksdb
     else:
         raise NotImplementedError

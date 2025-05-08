@@ -111,7 +111,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowanceEvent() {
 		postCheck   func(granter, grantee common.Address)
 	}{
 		{
-			"success - increased allowance for all 3 methods by 1 evmos",
+			"success - increased allowance for all 3 methods by 1 silc",
 			func(grantee common.Address) []interface{} {
 				return []interface{}{
 					grantee,
@@ -154,7 +154,7 @@ func (s *PrecompileTestSuite) TestIncreaseAllowanceEvent() {
 			err := s.CreateAuthorization(ctx, granter.AccAddr, grantee.AccAddr, staking.DelegateAuthz, nil)
 			s.Require().NoError(err)
 
-			// Approve first with 1 evmos
+			// Approve first with 1 silc
 			approveArgs := tc.malleate(grantee.Addr)
 			_, err = s.precompile.Approve(ctx, granter.Addr, stDB, &approvalMethod, approveArgs)
 			s.Require().NoError(err)
@@ -188,7 +188,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowanceEvent() {
 		postCheck   func(granter, grantee common.Address)
 	}{
 		{
-			"success - decreased allowance for all 3 methods by 1 evmos",
+			"success - decreased allowance for all 3 methods by 1 silc",
 			func(grantee common.Address) []interface{} {
 				return []interface{}{
 					grantee,
@@ -231,7 +231,7 @@ func (s *PrecompileTestSuite) TestDecreaseAllowanceEvent() {
 			err := s.CreateAuthorization(ctx, granter.AccAddr, grantee.AccAddr, staking.DelegateAuthz, nil)
 			s.Require().NoError(err)
 
-			// Approve first with 2 evmos
+			// Approve first with 2 silc
 			args := []interface{}{
 				grantee.Addr,
 				big.NewInt(2000000000000000000),

@@ -42,7 +42,7 @@ cd tests/nix_tests
 pytest -s -vv
 ```
 
-If you're changing anything on the evmos rpc, rerun the first command.
+If you're changing anything on the silc rpc, rerun the first command.
 
 ## Caching
 
@@ -50,5 +50,5 @@ You can enable Binary Cache to speed up the tests:
 
 ```
 nix-env -iA cachix -f https://cachix.org/api/v1/install
-cachix use evmos
+cachix use silc
 ```

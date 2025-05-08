@@ -6,7 +6,7 @@ from eth_utils import abi, big_endian_to_int
 from hexbytes import HexBytes
 from web3.datastructures import AttributeDict
 
-from .network import create_snapshots_dir, setup_custom_evmos
+from .network import create_snapshots_dir, setup_custom_silc
 from .utils import (
     ADDRS,
     CONTRACTS,
@@ -20,9 +20,9 @@ from .utils import (
 @pytest.fixture(scope="module")
 def pruned(tmp_path_factory):
     """
-    setup evmos with 'pruning = everything'
+    setup silc with 'pruning = everything'
     """
-    yield from setup_custom_evmos(
+    yield from setup_custom_silc(
         tmp_path_factory.mktemp("pruned"),
         26900,
         Path(__file__).parent / "configs/pruned_node.jsonnet",
@@ -32,10 +32,10 @@ def pruned(tmp_path_factory):
 @pytest.fixture(scope="module")
 def pruned_rocksdb(tmp_path_factory):
     """
-    setup evmos with memIAVL + versionDB
+    setup silc with memIAVL + versionDB
     and 'pruning = everything'
     """
-    yield from setup_custom_evmos(
+    yield from setup_custom_silc(
         tmp_path_factory.mktemp("pruned-rocksdb"),
         26700,
         Path(__file__).parent / "configs/memiavl-pruned_node.jsonnet",
@@ -44,16 +44,16 @@ def pruned_rocksdb(tmp_path_factory):
     )
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
+@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
 def pruned_cluster(request, pruned, pruned_rocksdb):
     """
-    run on evmos and
-    evmos built with rocksdb (memIAVL + versionDB)
+    run on silc and
+    silc built with rocksdb (memIAVL + versionDB)
     """
     provider = request.param
-    if provider == "evmos":
+    if provider == "silc":
         yield pruned
-    elif provider == "evmos-rocksdb":
+    elif provider == "silc-rocksdb":
         yield pruned_rocksdb
     else:
         raise NotImplementedError

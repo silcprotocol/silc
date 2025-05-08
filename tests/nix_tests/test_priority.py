@@ -2,39 +2,39 @@ import sys
 
 import pytest
 
-from .network import setup_evmos, setup_evmos_rocksdb
+from .network import setup_silc, setup_silc_rocksdb
 from .utils import ADDRS, KEYS, eth_to_bech32, sign_transaction, wait_for_new_blocks
 
 PRIORITY_REDUCTION = 1000000
 
 
 @pytest.fixture(scope="module")
-def custom_evmos(tmp_path_factory):
+def custom_silc(tmp_path_factory):
     path = tmp_path_factory.mktemp("priority")
     # run with long timeout commit to ensure all
     # txs are included in the same block
-    yield from setup_evmos(path, 26800, long_timeout_commit=True)
+    yield from setup_silc(path, 26800, long_timeout_commit=True)
 
 
 @pytest.fixture(scope="module")
-def custom_evmos_rocksdb(tmp_path_factory):
+def custom_silc_rocksdb(tmp_path_factory):
     path = tmp_path_factory.mktemp("priority-rocksdb")
     # run with long timeout commit to ensure all
     # txs are included in the same block
-    yield from setup_evmos_rocksdb(path, 26810, long_timeout_commit=True)
+    yield from setup_silc_rocksdb(path, 26810, long_timeout_commit=True)
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
-def evmos_cluster(request, custom_evmos, custom_evmos_rocksdb):
+@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
+def silc_cluster(request, custom_silc, custom_silc_rocksdb):
     """
-    run on evmos and
-    evmos built with rocksdb (memIAVL + versionDB)
+    run on silc and
+    silc built with rocksdb (memIAVL + versionDB)
     """
     provider = request.param
-    if provider == "evmos":
-        yield custom_evmos
-    elif provider == "evmos-rocksdb":
-        yield custom_evmos_rocksdb
+    if provider == "silc":
+        yield custom_silc
+    elif provider == "silc-rocksdb":
+        yield custom_silc_rocksdb
     else:
         raise NotImplementedError
 
@@ -60,7 +60,7 @@ def tx_priority(tx, base_fee):
     return (tx["gasPrice"] - base_fee) // PRIORITY_REDUCTION
 
 
-def test_priority(evmos_cluster):
+def test_priority(silc_cluster):
     """
     test priorities of different tx types
 
@@ -70,7 +70,7 @@ def test_priority(evmos_cluster):
     UPDATE: in cometbft v0.37.2, the v1 (priority mempool)
     was deprecated. So txs should be FIFO
     """
-    w3 = evmos_cluster.w3
+    w3 = silc_cluster.w3
     amount = 10000
     base_fee = w3.eth.get_block("latest").baseFeePerGas
 
@@ -151,8 +151,8 @@ def test_priority(evmos_cluster):
     assert all(i1 < i2 for i1, i2 in zip(tx_indexes, tx_indexes[1:]))
 
 
-def test_native_tx_priority(evmos_cluster):
-    cli = evmos_cluster.cosmos_cli()
+def test_native_tx_priority(silc_cluster):
+    cli = silc_cluster.cosmos_cli()
     base_fee = cli.query_base_fee()
 
     test_cases = [

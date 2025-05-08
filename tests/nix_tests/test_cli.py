@@ -1,24 +1,24 @@
 from .utils import get_current_height, supervisorctl, wait_for_block
 
 
-def test_block_cmd(evmos_cluster):
+def test_block_cmd(silc_cluster):
     """
-    - start 2 evmos nodes
+    - start 2 silc nodes
     - wait for a certain height
     - stop the node1
     - use the 'block' cli cmd
-    - restart evmos node1
+    - restart silc node1
     """
 
     # wait for specific height
-    node1 = evmos_cluster.cosmos_cli(1)
+    node1 = silc_cluster.cosmos_cli(1)
     current_height = get_current_height(node1)
 
     last_block = current_height + 2
     wait_for_block(node1, last_block)
 
     # stop node1
-    supervisorctl(evmos_cluster.base_dir / "../tasks.ini", "stop", "silc_2024-1-node1")
+    supervisorctl(silc_cluster.base_dir / "../tasks.ini", "stop", "silc_2024-1-node1")
 
     # use 'block' CLI cmd in node1
     test_cases = [
@@ -59,18 +59,18 @@ def test_block_cmd(evmos_cluster):
 
     # start node1 again
     supervisorctl(
-        evmos_cluster.base_dir / "../tasks.ini", "start", "silc_2024-1-node1"
+        silc_cluster.base_dir / "../tasks.ini", "start", "silc_2024-1-node1"
     )
     # check if chain continues alright
     wait_for_block(node1, last_block + 3)
 
 
-def test_tx_flags(evmos_cluster):
+def test_tx_flags(silc_cluster):
     """
     Tests the expected responses for common fee and gas related CLI flags.
     """
 
-    node = evmos_cluster.cosmos_cli(0)
+    node = silc_cluster.cosmos_cli(0)
     current_height = get_current_height(node)
     wait_for_block(node, current_height + 1)
 
@@ -131,7 +131,7 @@ def test_tx_flags(evmos_cluster):
         try:
             res = node.transfer(
                 "signer1",
-                "evmos10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky",
+                "silc10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky",
                 "100000000000000sillet",
                 False,
                 **tc["flags"],

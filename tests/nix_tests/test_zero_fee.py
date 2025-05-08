@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from web3 import Web3
 
-from .network import create_snapshots_dir, setup_custom_evmos
+from .network import create_snapshots_dir, setup_custom_silc
 from .utils import (
     ADDRS,
     KEYS,
@@ -15,8 +15,8 @@ from .utils import (
 
 
 @pytest.fixture(scope="module")
-def custom_evmos(tmp_path_factory):
-    yield from setup_custom_evmos(
+def custom_silc(tmp_path_factory):
+    yield from setup_custom_silc(
         tmp_path_factory.mktemp("zero-fee"),
         26900,
         Path(__file__).parent / "configs/zero-fee.jsonnet",
@@ -24,9 +24,9 @@ def custom_evmos(tmp_path_factory):
 
 
 @pytest.fixture(scope="module")
-def custom_evmos_rocksdb(tmp_path_factory):
+def custom_silc_rocksdb(tmp_path_factory):
     path = tmp_path_factory.mktemp("zero-fee-rocksdb")
-    yield from setup_custom_evmos(
+    yield from setup_custom_silc(
         path,
         26810,
         memiavl_config(path, "zero-fee"),
@@ -35,27 +35,27 @@ def custom_evmos_rocksdb(tmp_path_factory):
     )
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
-def evmos_cluster(request, custom_evmos, custom_evmos_rocksdb):
+@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
+def silc_cluster(request, custom_silc, custom_silc_rocksdb):
     """
-    run on evmos and
-    evmos built with rocksdb (memIAVL + versionDB)
+    run on silc and
+    silc built with rocksdb (memIAVL + versionDB)
     """
     provider = request.param
-    if provider == "evmos":
-        yield custom_evmos
-    elif provider == "evmos-rocksdb":
-        yield custom_evmos_rocksdb
+    if provider == "silc":
+        yield custom_silc
+    elif provider == "silc-rocksdb":
+        yield custom_silc_rocksdb
     else:
         raise NotImplementedError
 
 
-def test_cosmos_tx(evmos_cluster):
+def test_cosmos_tx(silc_cluster):
     """
     test basic cosmos transaction works with zero fees
     """
     denom = "sillet"
-    cli = evmos_cluster.cosmos_cli()
+    cli = silc_cluster.cosmos_cli()
     sender = eth_to_bech32(ADDRS["signer1"])
     receiver = eth_to_bech32(ADDRS["signer2"])
     amt = 1000
@@ -91,11 +91,11 @@ def test_cosmos_tx(evmos_cluster):
     assert old_src_balance - amt == new_src_balance
 
 
-def test_eth_tx(evmos_cluster):
+def test_eth_tx(silc_cluster):
     """
     test basic Ethereum transaction works with zero fees
     """
-    w3: Web3 = evmos_cluster.w3
+    w3: Web3 = silc_cluster.w3
 
     sender = ADDRS["signer1"]
     receiver = ADDRS["signer2"]

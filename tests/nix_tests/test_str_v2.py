@@ -35,8 +35,8 @@ ATOM_1_ERC20_ADDRESS = Web3.toChecksumAddress(
 UPDATE_PARAMS_PROP = {
     "messages": [
         {
-            "@type": "/evmos.erc20.v1.MsgUpdateParams",
-            "authority": "evmos10d07y265gmmuvt4z0w9aw880jnsr700jcrztvm",
+            "@type": "/silc.erc20.v1.MsgUpdateParams",
+            "authority": "silc10d07y265gmmuvt4z0w9aw880jnsr700jcrztvm",
             "params": {
                 "enable_erc20": True,
                 "native_precompiles": [],
@@ -51,14 +51,14 @@ UPDATE_PARAMS_PROP = {
 }
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
+@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
 def ibc(request, tmp_path_factory):
     """Prepare the network"""
     name = "str-v2"
-    evmos_build = request.param
+    silc_build = request.param
     path = tmp_path_factory.mktemp(name)
     # specify the custom_scenario
-    network = prepare_network(path, name, [evmos_build, "cosmoshub-1", "cosmoshub-2"])
+    network = prepare_network(path, name, [silc_build, "cosmoshub-1", "cosmoshub-2"])
     yield from network
 
 
@@ -70,42 +70,42 @@ def test_str_v2_single_hop(ibc):
     """
     assert_ready(ibc)
 
-    evmos: Silc = ibc.chains["evmos"]
+    silc: Silc = ibc.chains["silc"]
     gaia: CosmosChain = ibc.chains["cosmoshub-1"]
 
-    w3 = evmos.w3
-    evmos_cli = evmos.cosmos_cli()
-    evmos_addr = ADDRS["signer2"]
-    bech_dst = eth_to_bech32(evmos_addr)
+    w3 = silc.w3
+    silc_cli = silc.cosmos_cli()
+    silc_addr = ADDRS["signer2"]
+    bech_dst = eth_to_bech32(silc_addr)
 
     gaia_cli = gaia.cosmos_cli()
     gaia_addr = gaia_cli.address("signer2")
 
     # Before IBC transfer, check no dynamic precompiles available
-    active_dynamic_precompiles = evmos_cli.erc20_params()["params"][
+    active_dynamic_precompiles = silc_cli.erc20_params()["params"][
         "dynamic_precompiles"
     ]
     assert len(active_dynamic_precompiles) == 0
 
     # Check token pairs before IBC transfer,
     # should only exist the WSILC pair
-    pairs = evmos_cli.get_token_pairs()
+    pairs = silc_cli.get_token_pairs()
     assert len(pairs) == 1
 
-    old_dst_balance = get_balance(evmos, bech_dst, ATOM_IBC_DENOM)
+    old_dst_balance = get_balance(silc, bech_dst, ATOM_IBC_DENOM)
     rsp = gaia_cli.ibc_transfer(
         gaia_addr, bech_dst, "5000uatom", "channel-0", 1, fees="10000uatom"
     )
     assert rsp["code"] == 0
 
-    wait_for_ack(evmos_cli, "Silc")
+    wait_for_ack(silc_cli, "Silc")
 
-    pairs = evmos_cli.get_token_pairs()
-    active_dynamic_precompiles = evmos_cli.erc20_params()["params"][
+    pairs = silc_cli.get_token_pairs()
+    active_dynamic_precompiles = silc_cli.erc20_params()["params"][
         "dynamic_precompiles"
     ]
-    new_dest_balance = get_balance(evmos, bech_dst, ATOM_IBC_DENOM)
-    erc_dest_balance = erc20_balance(w3, ATOM_1_ERC20_ADDRESS, evmos_addr)
+    new_dest_balance = get_balance(silc, bech_dst, ATOM_IBC_DENOM)
+    erc_dest_balance = erc20_balance(w3, ATOM_1_ERC20_ADDRESS, silc_addr)
 
     assert len(active_dynamic_precompiles) == 1
     assert active_dynamic_precompiles[0] == ATOM_1_ERC20_ADDRESS
@@ -121,16 +121,16 @@ def test_str_v2_multi_hop(ibc):
     """
     assert_ready(ibc)
 
-    evmos: Silc = ibc.chains["evmos"]
+    silc: Silc = ibc.chains["silc"]
     gaia: CosmosChain = ibc.chains["cosmoshub-1"]
     gaia2: CosmosChain = ibc.chains["cosmoshub-2"]
 
-    evmos_cli = evmos.cosmos_cli()
-    evmos_addr = ADDRS["signer2"]
-    bech_dst = eth_to_bech32(evmos_addr)
+    silc_cli = silc.cosmos_cli()
+    silc_addr = ADDRS["signer2"]
+    bech_dst = eth_to_bech32(silc_addr)
 
     # The starting balance of the destination address
-    evmos_old_balance = get_balance(evmos, bech_dst, ATOM_2_IBC_DENOM_MULTI_HOP)
+    silc_old_balance = get_balance(silc, bech_dst, ATOM_2_IBC_DENOM_MULTI_HOP)
 
     # Cosmos hub 1
     gaia_cli = gaia.cosmos_cli()
@@ -167,37 +167,37 @@ def test_str_v2_multi_hop(ibc):
     )
     assert rsp["code"] == 0
 
-    wait_for_ack(evmos_cli, "Silc")
+    wait_for_ack(silc_cli, "Silc")
 
-    evmos_balance = get_balance(evmos, bech_dst, ATOM_2_IBC_DENOM_MULTI_HOP)
-    dynamic_precompiles = evmos_cli.erc20_params()["params"]["dynamic_precompiles"]
-    token_pairs = evmos_cli.get_token_pairs()
+    silc_balance = get_balance(silc, bech_dst, ATOM_2_IBC_DENOM_MULTI_HOP)
+    dynamic_precompiles = silc_cli.erc20_params()["params"]["dynamic_precompiles"]
+    token_pairs = silc_cli.get_token_pairs()
 
     # Here it's only one from the previous one we've registered in the first test
-    assert evmos_old_balance + 50000 == evmos_balance
+    assert silc_old_balance + 50000 == silc_balance
     assert len(dynamic_precompiles) == 1
     assert dynamic_precompiles[0] == ATOM_1_ERC20_ADDRESS
     assert len(token_pairs) == 2
 
 
-def test_wevmos_precompile_transfer(ibc):
+def test_wsilc_precompile_transfer(ibc):
     """
     Test the ERC20 transfer from one signer to another using the now
     registered ERC20 precompiled contract for WSILC.
     """
     assert_ready(ibc)
 
-    evmos: Silc = ibc.chains["evmos"]
+    silc: Silc = ibc.chains["silc"]
     signer1 = ADDRS["signer1"]
     signer2 = ADDRS["signer2"]
     bech_dst = eth_to_bech32(signer2)
     src_denom = "sillet"
 
-    w3 = evmos.w3
-    evmos_balance = get_balance(evmos, bech_dst, src_denom)
+    w3 = silc.w3
+    silc_balance = get_balance(silc, bech_dst, src_denom)
     signer2_balance = erc20_balance(w3, WSILC_ADDRESS, signer2)
 
-    assert evmos_balance == signer2_balance
+    assert silc_balance == signer2_balance
 
     receipt = erc20_transfer(
         w3, WSILC_ADDRESS, signer1, signer2, 1000000, KEYS["signer1"]
@@ -207,8 +207,8 @@ def test_wevmos_precompile_transfer(ibc):
     signer_2_balance_after = erc20_balance(w3, WSILC_ADDRESS, signer2)
     assert signer_2_balance_after == signer2_balance + 1000000
 
-    evmos_balance_after = get_balance(evmos, bech_dst, src_denom)
-    assert evmos_balance_after == evmos_balance + 1000000
+    silc_balance_after = get_balance(silc, bech_dst, src_denom)
+    assert silc_balance_after == silc_balance + 1000000
 
 
 def test_toggle_erc20_precompile(ibc):
@@ -221,7 +221,7 @@ def test_toggle_erc20_precompile(ibc):
     """
     assert_ready(ibc)
 
-    evmos: Silc = ibc.chains["evmos"]
+    silc: Silc = ibc.chains["silc"]
 
     # this is the code hash of the ERC20 contract deployed previous to the STRv2 upgrade
     erc20_code_hash = (
@@ -231,26 +231,26 @@ def test_toggle_erc20_precompile(ibc):
     empty_code_hash = (
         "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
     )
-    evmos_cli = evmos.cosmos_cli()
-    w3 = evmos.w3
+    silc_cli = silc.cosmos_cli()
+    w3 = silc.w3
 
     # assert that there's code and code hash
     # on the erc20 contract address
     contract_bech32_addr = eth_to_bech32(ATOM_1_ERC20_ADDRESS)
-    acc = evmos_cli.evm_account(contract_bech32_addr)
+    acc = silc_cli.evm_account(contract_bech32_addr)
     assert acc["code_hash"] == erc20_code_hash
 
     code = w3.eth.get_code(ATOM_1_ERC20_ADDRESS)
     assert len(code) > 0
 
     # get the initial params to use them later
-    initial_params = evmos_cli.erc20_params()
+    initial_params = silc_cli.erc20_params()
 
     # update params via gov proposal to disable all the erc20 precompile
-    update_erc20_params(evmos)
+    update_erc20_params(silc)
 
     # check that code and code hash were updated
-    acc = evmos_cli.evm_account(contract_bech32_addr)
+    acc = silc_cli.evm_account(contract_bech32_addr)
     assert acc["code_hash"] == empty_code_hash
 
     code = w3.eth.get_code(ATOM_1_ERC20_ADDRESS)
@@ -258,21 +258,21 @@ def test_toggle_erc20_precompile(ibc):
 
     # enable back the erc20 precompiles
     update_erc20_params(
-        evmos,
+        silc,
         initial_params["params"]["native_precompiles"],
         initial_params["params"]["dynamic_precompiles"],
     )
 
     # check that code and code hash were restored
-    acc = evmos_cli.evm_account(contract_bech32_addr)
+    acc = silc_cli.evm_account(contract_bech32_addr)
     assert acc["code_hash"] == erc20_code_hash
 
     code = w3.eth.get_code(ATOM_1_ERC20_ADDRESS)
     assert len(code) > 0
 
 
-def update_erc20_params(evmos: Silc, native_precomiles=[], dynamic_precompiles=[]):
-    cli = evmos.cosmos_cli()
+def update_erc20_params(silc: Silc, native_precomiles=[], dynamic_precompiles=[]):
+    cli = silc.cosmos_cli()
     with tempfile.NamedTemporaryFile("w") as fp:
         UPDATE_PARAMS_PROP["messages"][0]["params"][
             "native_precompiles"
@@ -295,5 +295,5 @@ def update_erc20_params(evmos: Silc, native_precomiles=[], dynamic_precompiles=[
     props_count = len(props)
     assert props_count >= 1
 
-    approve_proposal(evmos, props[props_count - 1]["id"])
+    approve_proposal(silc, props[props_count - 1]["id"])
     wait_for_new_blocks(cli, 2)

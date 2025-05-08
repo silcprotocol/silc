@@ -3,32 +3,32 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import pytest
 from web3 import Web3
 
-from .network import setup_evmos, setup_evmos_rocksdb
+from .network import setup_silc, setup_silc_rocksdb
 from .utils import ADDRS, send_transaction
 
 
 @pytest.fixture(scope="module")
-def custom_evmos(tmp_path_factory):
+def custom_silc(tmp_path_factory):
     path = tmp_path_factory.mktemp("fee-history")
-    yield from setup_evmos(path, 26500)
+    yield from setup_silc(path, 26500)
 
 
 @pytest.fixture(scope="module")
-def custom_evmos_rocksdb(tmp_path_factory):
+def custom_silc_rocksdb(tmp_path_factory):
     path = tmp_path_factory.mktemp("fee-history-rocksdb")
-    yield from setup_evmos_rocksdb(path, 26510)
+    yield from setup_silc_rocksdb(path, 26510)
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb", "geth"])
-def cluster(request, custom_evmos, custom_evmos_rocksdb, geth):
+@pytest.fixture(scope="module", params=["silc", "silc-rocksdb", "geth"])
+def cluster(request, custom_silc, custom_silc_rocksdb, geth):
     """
-    run on evmos, evmos built with rocksdb and geth
+    run on silc, silc built with rocksdb and geth
     """
     provider = request.param
-    if provider == "evmos":
-        yield custom_evmos
-    elif provider == "evmos-rocksdb":
-        yield custom_evmos_rocksdb
+    if provider == "silc":
+        yield custom_silc
+    elif provider == "silc-rocksdb":
+        yield custom_silc_rocksdb
     elif provider == "geth":
         yield geth
     else:

@@ -34,7 +34,7 @@ ACCOUNTS = {
 }
 KEYS = {name: account.key for name, account in ACCOUNTS.items()}
 ADDRS = {name: account.address for name, account in ACCOUNTS.items()}
-SILC_ADDRESS_PREFIX = "evmos"
+SILC_ADDRESS_PREFIX = "silc"
 DEFAULT_DENOM = "sillet"
 WSILC_ADDRESS = Web3.toChecksumAddress("0xD4949664cD82660AaE99bEdc034a0deA8A0bd517")
 TEST_CONTRACTS = {
@@ -46,20 +46,20 @@ TEST_CONTRACTS = {
     "Mars": "Mars.sol",
     "StateContract": "StateContract.sol",
     "ICS20FromContract": "ICS20FromContract.sol",
-    "InterchainSender": "evmos/testutil/contracts/InterchainSender.sol",
-    "InterchainSenderCaller": "evmos/testutil/contracts/InterchainSenderCaller.sol",
-    "ICS20I": "evmos/ics20/ICS20I.sol",
-    "DistributionI": "evmos/distribution/DistributionI.sol",
-    "DistributionCaller": "evmos/testutil/contracts/DistributionCaller.sol",
-    "StakingI": "evmos/staking/StakingI.sol",
-    "StakingCaller": "evmos/staking/testdata/StakingCaller.sol",
-    "IStrideOutpost": "evmos/outposts/stride/IStrideOutpost.sol",
-    "IOsmosisOutpost": "evmos/outposts/osmosis/IOsmosisOutpost.sol",
-    "IERC20": "evmos/erc20/IERC20.sol",
+    "InterchainSender": "silc/testutil/contracts/InterchainSender.sol",
+    "InterchainSenderCaller": "silc/testutil/contracts/InterchainSenderCaller.sol",
+    "ICS20I": "silc/ics20/ICS20I.sol",
+    "DistributionI": "silc/distribution/DistributionI.sol",
+    "DistributionCaller": "silc/testutil/contracts/DistributionCaller.sol",
+    "StakingI": "silc/staking/StakingI.sol",
+    "StakingCaller": "silc/staking/testdata/StakingCaller.sol",
+    "IStrideOutpost": "silc/outposts/stride/IStrideOutpost.sol",
+    "IOsmosisOutpost": "silc/outposts/osmosis/IOsmosisOutpost.sol",
+    "IERC20": "silc/erc20/IERC20.sol",
 }
 
 OSMOSIS_POOLS = {
-    "Silc_Osmo": Path(__file__).parent / "osmosis/evmosOsmosisPool.json",
+    "Silc_Osmo": Path(__file__).parent / "osmosis/silcOsmosisPool.json",
 }
 
 # If need to update these binaries
@@ -73,8 +73,8 @@ WASM_BINARIES = {
 REGISTER_ERC20_PROP = {
     "messages": [
         {
-            "@type": "/evmos.erc20.v1.MsgRegisterERC20",
-            "authority": "evmos10d07y265gmmuvt4z0w9aw880jnsr700jcrztvm",
+            "@type": "/silc.erc20.v1.MsgRegisterERC20",
+            "authority": "silc10d07y265gmmuvt4z0w9aw880jnsr700jcrztvm",
             "erc20addresses": ["ADDRESS_HERE"],
         }
     ],
@@ -547,17 +547,17 @@ def update_node_cmd(path, cmd, i):
 
 def update_silcd_and_setup_stride(modified_bin):
     def inner(path, base_port, config):  # pylint: disable=unused-argument
-        update_evmos_bin(modified_bin)(path, base_port, config)
+        update_silc_bin(modified_bin)(path, base_port, config)
         setup_stride()(path, base_port, config)
 
     return inner
 
 
-def update_evmos_bin(
+def update_silc_bin(
     modified_bin, nodes=[0, 1]
 ):  # pylint: disable=dangerous-default-value
     """
-    updates the evmos binary with a patched binary.
+    updates the silc binary with a patched binary.
     Input parameters are the modified binary (modified_bin)
     and the nodes in which
     to apply the modified binary (nodes).
@@ -592,8 +592,8 @@ def erc20_balance(w3, erc20_contract_addr, addr):
     return contract.functions.balanceOf(addr).call()
 
 
-def debug_trace_tx(evmos, tx_hash: str):
-    url = f"http://127.0.0.1:{ports.evmrpc_port(evmos.base_port(0))}"
+def debug_trace_tx(silc, tx_hash: str):
+    url = f"http://127.0.0.1:{ports.evmrpc_port(silc.base_port(0))}"
     params = {
         "method": "debug_traceTransaction",
         "params": [tx_hash, {"tracer": "callTracer"}],

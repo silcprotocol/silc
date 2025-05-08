@@ -1,7 +1,7 @@
 import pytest
 from web3 import Web3
 
-from .network import setup_evmos, setup_evmos_rocksdb
+from .network import setup_silc, setup_silc_rocksdb
 from .utils import (
     ADDRS,
     KEYS,
@@ -13,40 +13,40 @@ from .utils import (
 
 # start a brand new chain for this test
 @pytest.fixture(scope="module")
-def custom_evmos(tmp_path_factory):
+def custom_silc(tmp_path_factory):
     path = tmp_path_factory.mktemp("account")
-    yield from setup_evmos(path, 26700, long_timeout_commit=True)
+    yield from setup_silc(path, 26700, long_timeout_commit=True)
 
 
 # ATM rocksdb build is not supported for sdkv0.50
 # This is due to cronos dependencies (versionDB, memIAVL)
 @pytest.fixture(scope="module")
-def custom_evmos_rocksdb(tmp_path_factory):
+def custom_silc_rocksdb(tmp_path_factory):
     path = tmp_path_factory.mktemp("account-rocksdb")
-    yield from setup_evmos_rocksdb(
+    yield from setup_silc_rocksdb(
         path,
         26777,
     )
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-ws", "evmos-rocksdb", "geth"])
-def cluster(request, custom_evmos, custom_evmos_rocksdb, geth):
+@pytest.fixture(scope="module", params=["silc", "silc-ws", "silc-rocksdb", "geth"])
+def cluster(request, custom_silc, custom_silc_rocksdb, geth):
     """
-    run on evmos, evmos websocket,
-    evmos built with rocksdb (memIAVL + versionDB)
+    run on silc, silc websocket,
+    silc built with rocksdb (memIAVL + versionDB)
     and geth
     """
     provider = request.param
-    if provider == "evmos":
-        yield custom_evmos
-    elif provider == "evmos-ws":
-        evmos_ws = custom_evmos.copy()
-        evmos_ws.use_websocket()
-        yield evmos_ws
+    if provider == "silc":
+        yield custom_silc
+    elif provider == "silc-ws":
+        silc_ws = custom_silc.copy()
+        silc_ws.use_websocket()
+        yield silc_ws
     # ATM rocksdb build is not supported for sdkv0.50
     # This is due to cronos dependencies (versionDB, memIAVL)
-    elif provider == "evmos-rocksdb":
-        yield custom_evmos_rocksdb
+    elif provider == "silc-rocksdb":
+        yield custom_silc_rocksdb
     elif provider == "geth":
         yield geth
     else:

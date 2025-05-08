@@ -26,7 +26,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	feemarkettypes "github.com/silcprotocol/silc/x/feemarket/types"
 
 	"github.com/silcprotocol/silc/cmd/config"
@@ -126,10 +126,10 @@ func Setup(
 	return app
 }
 
-func GenesisStateWithValSet(app *Silc, genesisState evmostypes.GenesisState,
+func GenesisStateWithValSet(app *Silc, genesisState silctypes.GenesisState,
 	valSet *cmttypes.ValidatorSet, genAccs []authtypes.GenesisAccount,
 	balances ...banktypes.Balance,
-) evmostypes.GenesisState {
+) silctypes.GenesisState {
 	// set genesis accounts
 	authGenesis := authtypes.NewGenesisState(authtypes.DefaultParams(), genAccs)
 	genesisState[authtypes.ModuleName] = app.AppCodec().MustMarshalJSON(authGenesis)

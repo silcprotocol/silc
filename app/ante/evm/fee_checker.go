@@ -12,7 +12,7 @@ import (
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	authante "github.com/cosmos/cosmos-sdk/x/auth/ante"
 	"github.com/ethereum/go-ethereum/params"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/x/evm/types"
 )
 
@@ -63,7 +63,7 @@ func FeeChecker(
 	// get the priority tip cap from the extension option.
 	if hasExtOptsTx, ok := feeTx.(authante.HasExtensionOptionsTx); ok {
 		for _, opt := range hasExtOptsTx.GetExtensionOptions() {
-			if extOpt, ok := opt.GetCachedValue().(*evmostypes.ExtensionOptionDynamicFeeTx); ok {
+			if extOpt, ok := opt.GetCachedValue().(*silctypes.ExtensionOptionDynamicFeeTx); ok {
 				maxPriorityPrice = extOpt.MaxPriorityPrice
 				break
 			}

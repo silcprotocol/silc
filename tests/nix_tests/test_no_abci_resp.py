@@ -2,14 +2,14 @@ from pathlib import Path
 
 import pytest
 
-from .network import create_snapshots_dir, setup_custom_evmos
+from .network import create_snapshots_dir, setup_custom_silc
 from .utils import memiavl_config, wait_for_block
 
 
 @pytest.fixture(scope="module")
-def custom_evmos(tmp_path_factory):
+def custom_silc(tmp_path_factory):
     path = tmp_path_factory.mktemp("no-abci-resp")
-    yield from setup_custom_evmos(
+    yield from setup_custom_silc(
         path,
         26260,
         Path(__file__).parent / "configs/discard-abci-resp.jsonnet",
@@ -17,9 +17,9 @@ def custom_evmos(tmp_path_factory):
 
 
 @pytest.fixture(scope="module")
-def custom_evmos_rocksdb(tmp_path_factory):
+def custom_silc_rocksdb(tmp_path_factory):
     path = tmp_path_factory.mktemp("no-abci-resp-rocksdb")
-    yield from setup_custom_evmos(
+    yield from setup_custom_silc(
         path,
         26810,
         memiavl_config(path, "discard-abci-resp"),
@@ -28,31 +28,31 @@ def custom_evmos_rocksdb(tmp_path_factory):
     )
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
-def evmos_cluster(request, custom_evmos, custom_evmos_rocksdb):
+@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
+def silc_cluster(request, custom_silc, custom_silc_rocksdb):
     """
-    run on evmos and
-    evmos built with rocksdb (memIAVL + versionDB)
+    run on silc and
+    silc built with rocksdb (memIAVL + versionDB)
     """
     provider = request.param
-    if provider == "evmos":
-        yield custom_evmos
+    if provider == "silc":
+        yield custom_silc
 
-    elif provider == "evmos-rocksdb":
-        yield custom_evmos_rocksdb
+    elif provider == "silc-rocksdb":
+        yield custom_silc_rocksdb
 
     else:
         raise NotImplementedError
 
 
-def test_gas_eth_tx(evmos_cluster):
+def test_gas_eth_tx(silc_cluster):
     """
     When node does not persist ABCI responses
     eth_gasPrice should return an error instead of crashing
     """
-    wait_for_block(evmos_cluster.cosmos_cli(), 3)
+    wait_for_block(silc_cluster.cosmos_cli(), 3)
     try:
-        evmos_cluster.w3.eth.gas_price  # pylint: disable=pointless-statement
+        silc_cluster.w3.eth.gas_price  # pylint: disable=pointless-statement
         raise Exception(  # pylint: disable=broad-exception-raised
             "This query should have failed"
         )

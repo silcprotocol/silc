@@ -15,7 +15,7 @@ import (
 	cmn "github.com/silcprotocol/silc/precompiles/common"
 	"github.com/silcprotocol/silc/precompiles/staking"
 	"github.com/silcprotocol/silc/precompiles/testutil"
-	evmosutiltx "github.com/silcprotocol/silc/testutil/tx"
+	silcutiltx "github.com/silcprotocol/silc/testutil/tx"
 	"github.com/silcprotocol/silc/x/evm/core/vm"
 	"github.com/silcprotocol/silc/x/evm/statedb"
 )
@@ -40,7 +40,7 @@ func (s *PrecompileTestSuite) TestCreateValidator() {
 		pubkey            = "nfJ0axJC9dhta1MAE1EBFaVdxxkYzxYrBaHuJVjG//M="
 		validatorAddress  common.Address
 		value             = big.NewInt(1205000000000000000)
-		diffAddr, _       = evmosutiltx.NewAddrKey()
+		diffAddr, _       = silcutiltx.NewAddrKey()
 	)
 
 	testCases := []struct {
@@ -66,7 +66,7 @@ func (s *PrecompileTestSuite) TestCreateValidator() {
 		{
 			"fail - different origin than delegator",
 			func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					description,
 					commission,
@@ -381,7 +381,7 @@ func (s *PrecompileTestSuite) TestEditValidator() {
 		{
 			"fail - different origin than delegator",
 			func() []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					description,
 					differentAddr,
@@ -725,7 +725,7 @@ func (s *PrecompileTestSuite) TestDelegate() {
 		{
 			name: "fail - different origin than delegator",
 			malleate: func(_, _ testkeyring.Key, operatorAddress string) []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					operatorAddress,
@@ -955,7 +955,7 @@ func (s *PrecompileTestSuite) TestUndelegate() {
 		{
 			name: "fail - different origin than delegator",
 			malleate: func(_, _ testkeyring.Key, operatorAddress string) []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					operatorAddress,
@@ -1090,7 +1090,7 @@ func (s *PrecompileTestSuite) TestRedelegate() {
 		{
 			name: "fail - different origin than delegator",
 			malleate: func(_, _ testkeyring.Key, srcOperatorAddr, dstOperatorAddr string) []interface{} {
-				differentAddr := evmosutiltx.GenerateAddress()
+				differentAddr := silcutiltx.GenerateAddress()
 				return []interface{}{
 					differentAddr,
 					srcOperatorAddr,

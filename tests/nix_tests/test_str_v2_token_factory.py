@@ -10,14 +10,14 @@ TOKEN_FACTORY_IBC_DENOM = (
 )
 
 
-@pytest.fixture(scope="module", params=["evmos"])
+@pytest.fixture(scope="module", params=["silc"])
 def ibc(request, tmp_path_factory):
     """Prepare the network"""
     name = "str-v2-token-factory"
-    evmos_build = request.param
+    silc_build = request.param
     path = tmp_path_factory.mktemp(name)
     # specify the custom_scenario
-    network = prepare_network(path, name, [evmos_build, "osmosis"])
+    network = prepare_network(path, name, [silc_build, "osmosis"])
     yield from network
 
 
@@ -28,12 +28,12 @@ def test_str_v2_token_factory(ibc):
     """
     assert_ready(ibc)
 
-    evmos: Silc = ibc.chains["evmos"]
+    silc: Silc = ibc.chains["silc"]
     osmosis: CosmosChain = ibc.chains["osmosis"]
 
-    evmos_cli = evmos.cosmos_cli()
-    evmos_addr = ADDRS["signer2"]
-    bech_dst = eth_to_bech32(evmos_addr)
+    silc_cli = silc.cosmos_cli()
+    silc_addr = ADDRS["signer2"]
+    bech_dst = eth_to_bech32(silc_addr)
 
     osmosis_cli = osmosis.cosmos_cli()
     osmosis_addr = osmosis_cli.address("signer2")
@@ -50,17 +50,17 @@ def test_str_v2_token_factory(ibc):
     )
     assert rsp["code"] == 0
 
-    wait_for_ack(evmos_cli, "Silc")
+    wait_for_ack(silc_cli, "Silc")
 
-    token_pairs = evmos_cli.get_token_pairs()
+    token_pairs = silc_cli.get_token_pairs()
     assert len(token_pairs) == 1
 
-    active_dynamic_precompiles = evmos_cli.erc20_params()["params"][
+    active_dynamic_precompiles = silc_cli.erc20_params()["params"][
         "dynamic_precompiles"
     ]
     assert len(active_dynamic_precompiles) == 0
 
-    balance = get_balance(evmos, bech_dst, TOKEN_FACTORY_IBC_DENOM)
+    balance = get_balance(silc, bech_dst, TOKEN_FACTORY_IBC_DENOM)
     assert balance == 100
 
 

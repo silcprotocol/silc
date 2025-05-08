@@ -3,7 +3,7 @@ const hre = require('hardhat')
 
 describe('Staking', function () {
   it('should stake SILC to a validator', async function () {
-    const valAddr = 'evmosvaloper10jmp6sgh4cc6zt3e8gw05wavvejgr5pwlawghe'
+    const valAddr = 'silcvaloper10jmp6sgh4cc6zt3e8gw05wavvejgr5pwlawghe'
     const stakeAmount = hre.ethers.parseEther('0.001')
 
     const staking = await hre.ethers.getContractAt(

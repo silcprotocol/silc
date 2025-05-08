@@ -26,11 +26,11 @@ var (
 
 const (
 	// Amino names
-	clawback                     = "evmos/MsgClawback"
-	createClawbackVestingAccount = "evmos/MsgCreateClawbackVestingAccount"
-	updateVestingFunder          = "evmos/MsgUpdateVestingFunder"
-	convertVestingAccount        = "evmos/MsgConvertVestingAccount"
-	fundVestingAccount           = "evmos/MsgFundVestingAccount"
+	clawback                     = "silc/MsgClawback"
+	createClawbackVestingAccount = "silc/MsgCreateClawbackVestingAccount"
+	updateVestingFunder          = "silc/MsgUpdateVestingFunder"
+	convertVestingAccount        = "silc/MsgConvertVestingAccount"
+	fundVestingAccount           = "silc/MsgFundVestingAccount"
 )
 
 // NOTE: This is required for the GetSignBytes function

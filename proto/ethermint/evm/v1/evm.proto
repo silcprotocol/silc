@@ -10,7 +10,7 @@ option go_package = "github.com/silcprotocol/silc/x/evm/types";
 
 // Params defines the EVM module parameters
 message Params {
-  option (amino.name) = "evmos/x/evm/Params";
+  option (amino.name) = "silc/x/evm/Params";
   // evm_denom represents the token denomination used to run the EVM state
   // transitions.
   string evm_denom = 1 [(gogoproto.moretags) = "yaml:\"evm_denom\""];

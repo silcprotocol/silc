@@ -8,7 +8,7 @@ import pytest
 import requests
 from pystarport import ports
 
-from .network import Silc, create_snapshots_dir, setup_custom_evmos
+from .network import Silc, create_snapshots_dir, setup_custom_silc
 from .utils import (
     CONTRACTS,
     decode_bech32,
@@ -21,9 +21,9 @@ from .utils import (
 
 
 @pytest.fixture(scope="module")
-def custom_evmos(tmp_path_factory):
+def custom_silc(tmp_path_factory):
     # reuse rollback-test config because it has an extra fullnode
-    yield from setup_custom_evmos(
+    yield from setup_custom_silc(
         tmp_path_factory.mktemp("grpc-only"),
         26400,
         Path(__file__).parent / "configs/rollback-test.jsonnet",
@@ -31,9 +31,9 @@ def custom_evmos(tmp_path_factory):
 
 
 @pytest.fixture(scope="module")
-def custom_evmos_rocksdb(tmp_path_factory):
+def custom_silc_rocksdb(tmp_path_factory):
     path = tmp_path_factory.mktemp("grpc-only-rocksdb")
-    yield from setup_custom_evmos(
+    yield from setup_custom_silc(
         path,
         26810,
         memiavl_config(path, "rollback-test"),
@@ -42,17 +42,17 @@ def custom_evmos_rocksdb(tmp_path_factory):
     )
 
 
-@pytest.fixture(scope="module", params=["evmos", "evmos-rocksdb"])
-def evmos_cluster(request, custom_evmos, custom_evmos_rocksdb):
+@pytest.fixture(scope="module", params=["silc", "silc-rocksdb"])
+def silc_cluster(request, custom_silc, custom_silc_rocksdb):
     """
-    run on evmos and
-    evmos built with rocksdb (memIAVL + versionDB)
+    run on silc and
+    silc built with rocksdb (memIAVL + versionDB)
     """
     provider = request.param
-    if provider == "evmos":
-        yield custom_evmos
-    elif provider == "evmos-rocksdb":
-        yield custom_evmos_rocksdb
+    if provider == "silc":
+        yield custom_silc
+    elif provider == "silc-rocksdb":
+        yield custom_silc_rocksdb
     else:
         raise NotImplementedError
 
@@ -68,15 +68,15 @@ def grpc_eth_call(port: int, args: dict, chain_id=None, proposer_address=None):
         params["chain_id"] = str(chain_id)
     if proposer_address is not None:
         params["proposer_address"] = str(proposer_address)
-    return requests.get(f"http://localhost:{port}/evmos/evm/v1/eth_call", params).json()
+    return requests.get(f"http://localhost:{port}/silc/evm/v1/eth_call", params).json()
 
 
-def test_grpc_mode(evmos_cluster: Silc):
+def test_grpc_mode(silc_cluster: Silc):
     """
     - restart a fullnode in grpc-only mode
     - test the grpc queries all works
     """
-    w3 = evmos_cluster.w3
+    w3 = silc_cluster.w3
     contract, _ = deploy_contract(w3, CONTRACTS["TestChainID"])
     assert 9000 == contract.caller.currentChainID()
 
@@ -84,7 +84,7 @@ def test_grpc_mode(evmos_cluster: Silc):
         "to": contract.address,
         "data": contract.encodeABI(fn_name="currentChainID"),
     }
-    api_port = ports.api_port(evmos_cluster.base_port(1))
+    api_port = ports.api_port(silc_cluster.base_port(1))
     # in normal mode, grpc query works even if we don't pass chain_id explicitly
     success = False
     max_retry = 3
@@ -100,25 +100,25 @@ def test_grpc_mode(evmos_cluster: Silc):
     assert success
     # wait 1 more block for both nodes to avoid node stopped before tnx get included
     for i in range(2):
-        wait_for_block(evmos_cluster.cosmos_cli(i), 1)
-    supervisorctl(evmos_cluster.base_dir / "../tasks.ini", "stop", "silc_2024-1-node1")
+        wait_for_block(silc_cluster.cosmos_cli(i), 1)
+    supervisorctl(silc_cluster.base_dir / "../tasks.ini", "stop", "silc_2024-1-node1")
 
     # run grpc-only mode directly with existing chain state
-    with open(evmos_cluster.base_dir / "node1.log", "a", encoding="utf-8") as logfile:
+    with open(silc_cluster.base_dir / "node1.log", "a", encoding="utf-8") as logfile:
         proc = subprocess.Popen(  # pylint: disable=consider-using-with
             [
-                evmos_cluster.chain_binary,
+                silc_cluster.chain_binary,
                 "start",
                 "--grpc-only",
                 "--home",
-                evmos_cluster.base_dir / "node1",
+                silc_cluster.base_dir / "node1",
             ],
             stdout=logfile,
             stderr=subprocess.STDOUT,
         )
         try:
             # wait for grpc and rest api ports
-            grpc_port = ports.grpc_port(evmos_cluster.base_port(1))
+            grpc_port = ports.grpc_port(silc_cluster.base_port(1))
             wait_for_port(grpc_port)
             wait_for_port(api_port)
 
@@ -137,7 +137,7 @@ def test_grpc_mode(evmos_cluster: Silc):
             assert "validator does not exist" in rsp["message"]
 
             # pass the first validator's consensus address to grpc query
-            addr = evmos_cluster.cosmos_cli(0).consensus_address()
+            addr = silc_cluster.cosmos_cli(0).consensus_address()
             cons_addr = decode_bech32(addr)
             proposer_addr = base64.b64encode(cons_addr).decode()
 
@@ -145,7 +145,7 @@ def test_grpc_mode(evmos_cluster: Silc):
             rsp = grpc_eth_call(
                 api_port,
                 msg,
-                chain_id="evmos_9000",
+                chain_id="silc_9000",
                 proposer_address=proposer_addr,
             )
             assert rsp["code"] != 0, str(rsp)

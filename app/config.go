@@ -10,10 +10,10 @@ import (
 )
 
 // The init function of the config file allows to setup the global
-// configuration for the EVM, modifying the custom ones defined in evmOS.
+// configuration for the EVM, modifying the custom ones defined in silc.
 func init() {
 	err := evmconfig.NewEVMConfigurator().
-		WithExtendedEips(evmosActivators).
+		WithExtendedEips(silcActivators).
 		Configure()
 	if err != nil {
 		panic(err)
@@ -22,8 +22,8 @@ func init() {
 
 // SilcActivators defines a map of opcode modifiers associated
 // with a key defining the corresponding EIP.
-var evmosActivators = map[string]func(*vm.JumpTable){
-	"evmos_0": eips.Enable0000,
-	"evmos_1": eips.Enable0001,
-	"evmos_2": eips.Enable0002,
+var silcActivators = map[string]func(*vm.JumpTable){
+	"silc_0": eips.Enable0000,
+	"silc_1": eips.Enable0001,
+	"silc_2": eips.Enable0002,
 }

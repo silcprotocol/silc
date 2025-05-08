@@ -127,7 +127,7 @@ import (
 	_ "github.com/silcprotocol/silc/client/docs/statik"
 	"github.com/silcprotocol/silc/utils"
 
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	"github.com/silcprotocol/silc/x/epochs"
 	epochskeeper "github.com/silcprotocol/silc/x/epochs/keeper"
 	epochstypes "github.com/silcprotocol/silc/x/epochs/types"
@@ -175,7 +175,7 @@ func init() {
 	DefaultNodeHome = filepath.Join(userHomeDir, ".silcd")
 
 	// manually update the power reduction by replacing micro (u) -> atto (a) silc
-	sdk.DefaultPowerReduction = evmostypes.PowerReduction
+	sdk.DefaultPowerReduction = silctypes.PowerReduction
 	// modify fee market parameter defaults through global
 	feemarkettypes.DefaultMinGasPrice = MainnetMinGasPrices
 	feemarkettypes.DefaultMinGasMultiplier = MainnetMinGasMultiplier
@@ -368,7 +368,7 @@ func NewSilc(
 	// use custom Ethermint account for contracts
 	app.AccountKeeper = authkeeper.NewAccountKeeper(
 		appCodec, runtime.NewKVStoreService(keys[authtypes.StoreKey]),
-		evmostypes.ProtoAccount, maccPerms,
+		silctypes.ProtoAccount, maccPerms,
 		authcodec.NewBech32Codec(sdk.GetConfig().GetBech32AccountAddrPrefix()),
 		sdk.GetConfig().GetBech32AccountAddrPrefix(),
 		authAddr,
@@ -852,7 +852,7 @@ func (app *Silc) setAnteHandler(txConfig client.TxConfig, maxGasWanted uint64) {
 		Cdc:                    app.appCodec,
 		AccountKeeper:          app.AccountKeeper,
 		BankKeeper:             app.BankKeeper,
-		ExtensionOptionChecker: evmostypes.HasDynamicFeeExtensionOption,
+		ExtensionOptionChecker: silctypes.HasDynamicFeeExtensionOption,
 		EvmKeeper:              app.EvmKeeper,
 		StakingKeeper:          app.StakingKeeper,
 		FeegrantKeeper:         app.FeeGrantKeeper,
@@ -916,7 +916,7 @@ func (app *Silc) FinalizeBlock(req *abci.RequestFinalizeBlock) (res *abci.Respon
 
 // InitChainer updates at chain initialization
 func (app *Silc) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.ResponseInitChain, error) {
-	var genesisState evmostypes.GenesisState
+	var genesisState silctypes.GenesisState
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
 	}
@@ -1003,7 +1003,7 @@ func (app *Silc) AppCodec() codec.Codec {
 }
 
 // DefaultGenesis returns a default genesis from the registered AppModuleBasic's.
-func (app *Silc) DefaultGenesis() evmostypes.GenesisState {
+func (app *Silc) DefaultGenesis() silctypes.GenesisState {
 	return app.BasicModuleManager.DefaultGenesis(app.appCodec)
 }
 
@@ -1180,7 +1180,7 @@ func initParamsKeeper(
 	// ethermint subspaces
 	paramsKeeper.Subspace(evmtypes.ModuleName).WithKeyTable(evmtypes.ParamKeyTable()) //nolint: staticcheck
 	paramsKeeper.Subspace(feemarkettypes.ModuleName).WithKeyTable(feemarkettypes.ParamKeyTable())
-	// evmos subspaces
+	// silc subspaces
 	paramsKeeper.Subspace(inflationtypes.ModuleName)
 	paramsKeeper.Subspace(erc20types.ModuleName)
 	return paramsKeeper

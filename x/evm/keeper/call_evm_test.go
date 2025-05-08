@@ -11,7 +11,7 @@ import (
 )
 
 func (suite *KeeperTestSuite) TestCallEVM() {
-	wevmosContract := common.HexToAddress(types.WSILCContractMainnet)
+	wsilcContract := common.HexToAddress(types.WSILCContractMainnet)
 	testCases := []struct {
 		name    string
 		method  string
@@ -33,7 +33,7 @@ func (suite *KeeperTestSuite) TestCallEVM() {
 
 		erc20 := contracts.ERC20MinterBurnerDecimalsContract.ABI
 		account := utiltx.GenerateAddress()
-		res, err := suite.network.App.EvmKeeper.CallEVM(suite.network.GetContext(), erc20, types.ModuleAddress, wevmosContract, false, tc.method, account)
+		res, err := suite.network.App.EvmKeeper.CallEVM(suite.network.GetContext(), erc20, types.ModuleAddress, wsilcContract, false, tc.method, account)
 		if tc.expPass {
 			suite.Require().IsTypef(&evmtypes.MsgEthereumTxResponse{}, res, tc.name)
 			suite.Require().NoError(err)
@@ -45,7 +45,7 @@ func (suite *KeeperTestSuite) TestCallEVM() {
 
 func (suite *KeeperTestSuite) TestCallEVMWithData() {
 	erc20 := contracts.ERC20MinterBurnerDecimalsContract.ABI
-	wevmosContract := common.HexToAddress(types.WSILCContractMainnet)
+	wsilcContract := common.HexToAddress(types.WSILCContractMainnet)
 	testCases := []struct {
 		name     string
 		from     common.Address
@@ -134,7 +134,7 @@ func (suite *KeeperTestSuite) TestCallEVMWithData() {
 			if tc.deploy {
 				res, err = suite.network.App.EvmKeeper.CallEVMWithData(suite.network.GetContext(), tc.from, nil, data, true)
 			} else {
-				res, err = suite.network.App.EvmKeeper.CallEVMWithData(suite.network.GetContext(), tc.from, &wevmosContract, data, false)
+				res, err = suite.network.App.EvmKeeper.CallEVMWithData(suite.network.GetContext(), tc.from, &wsilcContract, data, false)
 			}
 
 			if tc.expPass {

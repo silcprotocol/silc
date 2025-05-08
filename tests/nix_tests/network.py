@@ -119,12 +119,12 @@ class Geth:
         self.w3 = w3
 
 
-def setup_evmos(path, base_port, long_timeout_commit=False):
+def setup_silc(path, base_port, long_timeout_commit=False):
     config = "configs/default.jsonnet"
     if long_timeout_commit is True:
         config = "configs/long_timeout_commit.jsonnet"
     cfg = Path(__file__).parent / config
-    yield from setup_custom_evmos(path, base_port, cfg)
+    yield from setup_custom_silc(path, base_port, cfg)
 
 
 # for memiavl need to create the data/snapshots dir
@@ -137,16 +137,16 @@ def create_snapshots_dir(
         os.makedirs(data_snapshots_dir, exist_ok=True)
 
 
-def setup_evmos_rocksdb(path, base_port, long_timeout_commit=False):
+def setup_silc_rocksdb(path, base_port, long_timeout_commit=False):
     """
-    setup_evmos_rocksdb returns an Silc chain compiled with RocksDB
+    setup_silc_rocksdb returns an Silc chain compiled with RocksDB
     and configured to use memIAVL + versionDB.
     """
     config = memiavl_config(
         path, "default" if long_timeout_commit is False else "long_timeout_commit"
     )
     cfg = Path(__file__).parent / config
-    yield from setup_custom_evmos(
+    yield from setup_custom_silc(
         path,
         base_port,
         cfg,
@@ -185,7 +185,7 @@ def setup_geth(path, base_port):
             proc.wait()
 
 
-def setup_custom_evmos(
+def setup_custom_silc(
     path, base_port, config, post_init=None, chain_binary=None, wait_port=True
 ):
     cmd = [

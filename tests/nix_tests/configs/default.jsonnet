@@ -1,7 +1,7 @@
 {
   dotenv: '../../../scripts/.env',
   'silc_2024-1': {
-    'account-prefix': 'evmos',
+    'account-prefix': 'silc',
     'coin-type': 60,
     cmd: 'silcd',
     'start-flags': '--trace',

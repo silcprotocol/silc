@@ -3,7 +3,7 @@
 KEY="dev0"
 CHAINID="silc_2024-1"
 MONIKER="mymoniker"
-DATA_DIR=$(mktemp -d -t evmos-datadir.XXXXX)
+DATA_DIR=$(mktemp -d -t silc-datadir.XXXXX)
 
 echo "create and add new keys"
 ./silcd keys add $KEY --home "$DATA_DIR" --no-backup --chain-id $CHAINID --algo "eth_secp256k1" --keyring-backend test
@@ -20,11 +20,11 @@ echo "prepare genesis: Collect genesis tx"
 echo "prepare genesis: Run validate-genesis to ensure everything worked and that the genesis file is setup correctly"
 ./silcd validate-genesis --home "$DATA_DIR"
 
-echo "starting evmos node in background ..."
+echo "starting silc node in background ..."
 ./silcd start --pruning=nothing --rpc.unsafe \
 	--keyring-backend test --home "$DATA_DIR" \
 	>"$DATA_DIR"/node.log 2>&1 &
 disown
 
-echo "started evmos node"
+echo "started silc node"
 tail -f /dev/null

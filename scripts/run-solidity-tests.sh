@@ -5,7 +5,7 @@ export PATH="$PATH":"$GOPATH"/bin
 # remove existing data
 rm -rf "$HOME"/.silcd
 
-# build evmos binary
+# build silc binary
 make install
 
 cd tests/solidity || exit
@@ -19,4 +19,4 @@ else
 	yarn install
 fi
 
-yarn test --network evmos "$@"
+yarn test --network silc "$@"

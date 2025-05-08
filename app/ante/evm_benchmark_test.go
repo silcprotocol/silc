@@ -17,7 +17,7 @@ import (
 	"github.com/silcprotocol/silc/testutil/integration/silc/grpc"
 	testkeyring "github.com/silcprotocol/silc/testutil/integration/silc/keyring"
 	"github.com/silcprotocol/silc/testutil/integration/silc/network"
-	evmostypes "github.com/silcprotocol/silc/types"
+	silctypes "github.com/silcprotocol/silc/types"
 	evmtypes "github.com/silcprotocol/silc/x/evm/types"
 )
 
@@ -144,7 +144,7 @@ func (s *benchmarkSuite) generateHandlerOptions() ante.HandlerOptions {
 		Cdc:                    s.network.App.AppCodec(),
 		AccountKeeper:          s.network.App.AccountKeeper,
 		BankKeeper:             s.network.App.BankKeeper,
-		ExtensionOptionChecker: evmostypes.HasDynamicFeeExtensionOption,
+		ExtensionOptionChecker: silctypes.HasDynamicFeeExtensionOption,
 		EvmKeeper:              s.network.App.EvmKeeper,
 		StakingKeeper:          s.network.App.StakingKeeper,
 		FeegrantKeeper:         s.network.App.FeeGrantKeeper,

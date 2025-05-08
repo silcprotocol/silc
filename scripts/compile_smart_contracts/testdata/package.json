@@ -1,5 +1,5 @@
 {
-  "name": "evmos-contracts",
+  "name": "silc-contracts",
   "version": "2.0.0",
   "description": "A collection of smart contracts used in the development of the Silc blockchain.",
   "devDependencies": {
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evmos/evmos.git"
+    "url": "git+https://github.com/silc/silc.git"
   },
   "author": "Silc Core Team",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/evmos/evmos/issues"
+    "url": "https://github.com/silc/silc/issues"
   },
-  "homepage": "https://github.com/evmos/evmos#readme"
+  "homepage": "https://github.com/silc/silc#readme"
 }
