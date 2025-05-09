@@ -44,19 +44,18 @@ func CreateGenesisWithTokenPairs(keyring testkeyring.Keyring, denoms ...string) 
 
 	accGenesisState := authtypes.DefaultGenesisState()
 	for _, genesisAccount := range genesisAccounts {
-		// NOTE: This type requires to be packed into a *types.Any as seen on SDK tests,
-		// e.g. https://github.com/evmos/cosmos-sdk/blob/v0.47.5-evmos.2/x/auth/keeper/keeper_test.go#L193-L223
+
 		accGenesisState.Accounts = append(accGenesisState.Accounts, codectypes.UnsafePackAny(genesisAccount))
 	}
 
 	// get the common.Address to store the hex string addresses using EIP-55
-	wevmosAddr := common.HexToAddress(erc20types.WSILCContractTestnet).Hex()
+	wsilcAddr := common.HexToAddress(erc20types.WSILCContractTestnet).Hex()
 
 	// Add token pairs to genesis
 	tokenPairs := make([]erc20types.TokenPair, 0, len(denoms)+1)
-	// add token pair for fees token (wevmos)
+	// add token pair for fees token (wsilc)
 	tokenPairs = append(tokenPairs, erc20types.TokenPair{
-		Erc20Address:  wevmosAddr,
+		Erc20Address:  wsilcAddr,
 		Denom:         utils.BaseDenom,
 		Enabled:       true,
 		ContractOwner: erc20types.OWNER_MODULE, // NOTE: Owner is the module account since it's a native token and was registered through governance
@@ -80,7 +79,7 @@ func CreateGenesisWithTokenPairs(keyring testkeyring.Keyring, denoms ...string) 
 
 	// STR v2: update the NativePrecompiles and DynamicPrecompiles
 	// with the WSILC (default is mainnet) and 'xmpl' tokens in the erc20 params
-	erc20GenesisState.Params.NativePrecompiles = []string{wevmosAddr}
+	erc20GenesisState.Params.NativePrecompiles = []string{wsilcAddr}
 	erc20GenesisState.Params.DynamicPrecompiles = dynPrecAddr
 
 	// Add the smart contracts to the EVM genesis

@@ -7,9 +7,9 @@ COMMIT := $(shell git log -1 --format='%H')
 LEDGER_ENABLED ?= true
 BINDIR ?= $(GOPATH)/bin
 SILC_BINARY = silcd
-SILC_DIR = evmos
+SILC_DIR = silc
 BUILDDIR ?= $(CURDIR)/build
-HTTPS_GIT := https://github.com/evmos/evmos.git
+HTTPS_GIT := https://github.com/silcprotocol/silc.git
 DOCKER := $(shell which docker)
 DOCKER_BUILDKIT=1
 DOCKER_ARGS=
@@ -19,7 +19,7 @@ ifdef GITHUB_TOKEN
 	endif
 endif
 NAMESPACE := tharsishq
-PROJECT := evmos
+PROJECT := silc
 DOCKER_IMAGE := $(NAMESPACE)/$(PROJECT)
 COMMIT_HASH := $(shell git rev-parse --short=7 HEAD)
 DOCKER_TAG := $(COMMIT_HASH)
@@ -28,7 +28,7 @@ MOUNT_PATH := $(shell pwd)/build/:/root/
 E2E_SKIP_CLEANUP := false
 ROCKSDB_VERSION ?= "9.3.1"
 # Deps
-DEPS_COSMOS_SDK_VERSION := $(shell cat go.sum | grep -E 'github.com/evmos/cosmos-sdk\s' | grep -v -e 'go.mod' | tail -n 1 | awk '{ print $$2; }')
+DEPS_COSMOS_SDK_VERSION := $(shell cat go.sum | grep -E 'github.com/silcprotocol/cosmos-sdk\s' | grep -v -e 'go.mod' | tail -n 1 | awk '{ print $$2; }')
 DEPS_IBC_GO_VERSION := $(shell cat go.sum | grep 'github.com/cosmos/ibc-go' | grep -v -e 'go.mod' | tail -n 1 | awk '{ print $$2; }')
 DEPS_COSMOS_PROTO := $(shell cat go.sum | grep 'github.com/cosmos/cosmos-proto' | grep -v -e 'go.mod' | tail -n 1 | awk '{ print $$2; }')
 DEPS_COSMOS_GOGOPROTO := $(shell cat go.sum | grep 'github.com/cosmos/gogoproto' | grep -v -e 'go.mod' | tail -n 1 | awk '{ print $$2; }')
@@ -75,7 +75,7 @@ build_tags := $(strip $(build_tags))
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=evmos \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=silc \
           -X github.com/cosmos/cosmos-sdk/version.AppName=$(SILC_BINARY) \
           -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
           -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
@@ -173,7 +173,7 @@ build-docker-goleveldb:
 	echo '#!/usr/bin/env bash' > ./build/silcd
 	echo "IMAGE_NAME=${DOCKER_IMAGE}:${COMMIT_HASH}" >> ./build/silcd
 	echo 'SCRIPT_PATH=$$(cd $$(dirname $$0) && pwd -P)' >> ./build/silcd
-	echo 'docker run -it --rm -v $${SCRIPT_PATH}/.silcd:/home/evmos/.silcd $$IMAGE_NAME silcd "$$@"' >> ./build/silcd
+	echo 'docker run -it --rm -v $${SCRIPT_PATH}/.silcd:/home/silc/.silcd $$IMAGE_NAME silcd "$$@"' >> ./build/silcd
 	chmod +x ./build/silcd
 
 build-docker-pebbledb:
@@ -183,7 +183,7 @@ build-docker-pebbledb:
 	echo '#!/usr/bin/env bash' > ./build/silcd
 	echo "IMAGE_NAME=${DOCKER_IMAGE}:${COMMIT_HASH}" >> ./build/silcd
 	echo 'SCRIPT_PATH=$$(cd $$(dirname $$0) && pwd -P)' >> ./build/silcd
-	echo 'docker run -it --rm -v $${SCRIPT_PATH}/.silcd:/home/evmos/.silcd $$IMAGE_NAME silcd "$$@"' >> ./build/silcd
+	echo 'docker run -it --rm -v $${SCRIPT_PATH}/.silcd:/home/silc/.silcd $$IMAGE_NAME silcd "$$@"' >> ./build/silcd
 	chmod +x ./build/silcd
 
 build-rocksdb:
@@ -319,7 +319,7 @@ swagger-update-docs: statik
 .PHONY: swagger-update-docs
 
 godocs:
-	@echo "--> Wait a few seconds and visit http://localhost:6060/pkg/github.com/evmos/evmos"
+	@echo "--> Wait a few seconds and visit http://localhost:6060/pkg/github.com/silcprotocol/silc"
 	godoc -http=:6060
 
 ###############################################################################
@@ -486,7 +486,7 @@ proto-download-deps:
 	mkdir -p "$(THIRD_PARTY_DIR)/cosmos_tmp" && \
 	cd "$(THIRD_PARTY_DIR)/cosmos_tmp" && \
 	git init && \
-	git remote add origin "https://github.com/evmos/cosmos-sdk.git" && \
+	git remote add origin "https://github.com/silcprotocol/cosmos-sdk.git" && \
 	git config core.sparseCheckout true && \
 	printf "proto\nthird_party\n" > .git/info/sparse-checkout && \
 	git pull origin "$(DEPS_COSMOS_SDK_VERSION)" && \
@@ -533,7 +533,7 @@ proto-download-deps:
 ###                                Releasing                                ###
 ###############################################################################
 
-PACKAGE_NAME:=github.com/evmos/evmos
+PACKAGE_NAME:=github.com/silcprotocol/silc
 GOLANG_CROSS_VERSION  = v1.22
 GOPATH ?= '$(HOME)/go'
 release-dry-run:

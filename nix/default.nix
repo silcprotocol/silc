@@ -48,7 +48,7 @@ import sources.nixpkgs {
         buildGoModule = pkgs.buildGo118Module;
       };
       rocksdb = pkgs.callPackage ./rocksdb.nix {};
-      # evmos with rocksdb build
+      # silc with rocksdb build
       silcd-rocksdb = pkgs.callPackage ../default.nix { dbBackend = "rocksdb"; };
       # other chains to use in IBC tests
       chain-maind = pkgs.callPackage sources.chain-main { rocksdb = null; };
@@ -91,7 +91,7 @@ import sources.nixpkgs {
       import ./scripts.nix {
         inherit pkgs;
         config = {
-          evmos-config = ../scripts/evmos-devnet.yaml;
+          silc-config = ../scripts/silc-devnet.yaml;
           geth-genesis = ../scripts/geth-genesis.json;
           dotenv = builtins.path { name = "dotenv"; path = ../scripts/.env; };
         };

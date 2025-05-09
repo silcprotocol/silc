@@ -87,23 +87,23 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 	silcd config set client chain-id "$CHAINID" --home "$HOMEDIR"
 	silcd config set client keyring-backend "$KEYRING" --home "$HOMEDIR"
 
-	# myKey address 0x7cb61d4117ae31a12e393a1cfa3bac666481d02e | evmos10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky
+	# myKey address 0x7cb61d4117ae31a12e393a1cfa3bac666481d02e | silc10jmp6sgh4cc6zt3e8gw05wavvejgr5pwjnpcky
 	VAL_KEY="mykey"
 	VAL_MNEMONIC="gesture inject test cycle original hollow east ridge hen combine junk child bacon zero hope comfort vacuum milk pitch cage oppose unhappy lunar seat"
 
-	# dev0 address 0xc6fe5d33615a1c52c08018c47e8bc53646a0e101 | evmos1cml96vmptgw99syqrrz8az79xer2pcgp84pdun
+	# dev0 address 0xc6fe5d33615a1c52c08018c47e8bc53646a0e101 | silc1cml96vmptgw99syqrrz8az79xer2pcgp84pdun
 	USER1_KEY="dev0"
 	USER1_MNEMONIC="copper push brief egg scan entry inform record adjust fossil boss egg comic alien upon aspect dry avoid interest fury window hint race symptom"
 
-	# dev1 address 0x963ebdf2e1f8db8707d05fc75bfeffba1b5bac17 | evmos1jcltmuhplrdcwp7stlr4hlhlhgd4htqh3a79sq
+	# dev1 address 0x963ebdf2e1f8db8707d05fc75bfeffba1b5bac17 | silc1jcltmuhplrdcwp7stlr4hlhlhgd4htqh3a79sq
 	USER2_KEY="dev1"
 	USER2_MNEMONIC="maximum display century economy unlock van census kite error heart snow filter midnight usage egg venture cash kick motor survey drastic edge muffin visual"
 
-	# dev2 address 0x40a0cb1C63e026A81B55EE1308586E21eec1eFa9 | evmos1gzsvk8rruqn2sx64acfsskrwy8hvrmafqkaze8
+	# dev2 address 0x40a0cb1C63e026A81B55EE1308586E21eec1eFa9 | silc1gzsvk8rruqn2sx64acfsskrwy8hvrmafqkaze8
 	USER3_KEY="dev2"
 	USER3_MNEMONIC="will wear settle write dance topic tape sea glory hotel oppose rebel client problem era video gossip glide during yard balance cancel file rose"
 
-	# dev3 address 0x498B5AeC5D439b733dC2F58AB489783A23FB26dA | evmos1fx944mzagwdhx0wz7k9tfztc8g3lkfk6rrgv6l
+	# dev3 address 0x498B5AeC5D439b733dC2F58AB489783A23FB26dA | silc1fx944mzagwdhx0wz7k9tfztc8g3lkfk6rrgv6l
 	USER4_KEY="dev3"
 	USER4_MNEMONIC="doll midnight silk carpet brush boring pluck office gown inquiry duck chief aim exit gain never tennis crime fragile ship cloud surface exotic patch"
 
