@@ -13,7 +13,7 @@ let
   pname = "silcd";
   tags = [ "ledger" "netgo" ] ++ lib.optionals (dbBackend == "rocksdb") [ "rocksdb" "grocksdb_clean_link" ];
   ldflags = lib.concatStringsSep "\n" ([
-    "-X github.com/cosmos/cosmos-sdk/version.Name=evmos"
+    "-X github.com/cosmos/cosmos-sdk/version.Name=silc"
     "-X github.com/cosmos/cosmos-sdk/version.AppName=${pname}"
     "-X github.com/cosmos/cosmos-sdk/version.Version=${version}"
     "-X github.com/cosmos/cosmos-sdk/version.BuildTags=${lib.concatStringsSep "," tags}"
@@ -59,8 +59,7 @@ buildGoApplication rec {
 
   meta = with lib; {
     description = "Silc is a scalable and interoperable blockchain, built on Proof-of-Stake with fast-finality using the Cosmos SDK which runs on top of CometBFT Core consensus engine.";
-    homepage = "https://github.com/evmos/evmos";
-    license = licenses.asl20;
+    homepage = "https://github.com/silcprotocol/silc";
     mainProgram = "silcd";
   };
 }

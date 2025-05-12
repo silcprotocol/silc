@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/silc/silc.git"
+    "url": "git+https://github.com/silcprotocol/silc.git"
   },
   "author": "Silc Core Team",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/silc/silc/issues"
+    "url": "https://github.com/silcprotocol/silc/issues"
   },
-  "homepage": "https://github.com/silc/silc#readme"
+  "homepage": "https://github.com/silcprotocol/silc#readme"
 }

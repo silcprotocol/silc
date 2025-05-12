@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	//go:embed compiled_contracts/WEVMOS.json
+	//go:embed compiled_contracts/WSILC.json
 	WSILCJSON []byte
 
 	// WSILCContract is the compiled contract of WSILC

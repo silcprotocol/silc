@@ -70,7 +70,7 @@ In the same folder should also be defined tests and contracts used to verify the
 
 The activation of custom EIPs should be done inside the `config.go` file defined in the `./app/` folder. This file has
 the role of the single source for modify the EVM implementation which is defined in the
-[`x/evm/`](https://github.com/silc/silc/tree/main/x/evm) folder
+[`x/evm/`](https://github.com/silcprotocol/silc/tree/main/x/evm) folder
 of **silc**.
 
 In this file, 3 main components should be defined:

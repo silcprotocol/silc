@@ -91,7 +91,7 @@ def check_link(link: str, version: str) -> Tuple[str, List[str]]:
     which is empty if there are none.
     """
 
-    base_url: str = "https://github.com/evmos/evmos/releases/tag/"
+    base_url: str = "https://github.com/silcprotocol/silc/releases/tag/"
     problems: List[str] = []
     # NOTE: the fixed link is the same for all problems
     fixed: str = f"({base_url}{version})"
